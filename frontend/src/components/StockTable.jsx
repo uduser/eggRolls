@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 
 const SIGNAL_MAP = { strong: '多重交叉', buy: '低估買入', watch: '觀察', hold: '待觀察' }
 const SELL_SIGNAL_MAP = { sell: '賣出', caution: '注意' }
@@ -84,8 +84,30 @@ export default function StockTable({ stocks, sortConfig, onSort }) {
     )
   }
 
+  const wrapperRef = useRef(null)
+  const [canScroll, setCanScroll] = useState(false)
+
+  useEffect(() => {
+    const el = wrapperRef.current
+    if (!el) return
+    const check = () => {
+      setCanScroll(el.scrollWidth > el.clientWidth && el.scrollLeft + el.clientWidth < el.scrollWidth - 4)
+    }
+    check()
+    el.addEventListener('scroll', check, { passive: true })
+    window.addEventListener('resize', check)
+    return () => {
+      el.removeEventListener('scroll', check)
+      window.removeEventListener('resize', check)
+    }
+  }, [stocks])
+
   return (
-    <div className="table-wrapper animate-in" style={{ animationDelay: '0.2s' }}>
+    <div
+      ref={wrapperRef}
+      className={`table-wrapper animate-in ${canScroll ? 'can-scroll' : ''}`}
+      style={{ animationDelay: '0.2s' }}
+    >
       <table className="stock-table">
         <thead>
           <tr>

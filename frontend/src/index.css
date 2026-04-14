@@ -166,9 +166,7 @@ body {
   margin-bottom: 24px;
 }
 
-@media (max-width: 640px) {
-  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+/* responsive → moved to bottom */
 
 .metric-card {
   background: var(--bg-card);
@@ -523,4 +521,233 @@ a.ticker-link:hover .ticker-sym {
 .sort-arrow.active {
   opacity: 1;
   color: var(--blue);
+}
+
+/* ─── Scroll hint (table swipe indicator) ──── */
+.table-wrapper {
+  position: relative;
+}
+
+.table-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 32px;
+  background: linear-gradient(to left, var(--bg-card), transparent);
+  pointer-events: none;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.table-wrapper.can-scroll::after {
+  opacity: 1;
+}
+
+/* ─── Responsive: Tablet (≤ 768px) ─────────── */
+@media (max-width: 768px) {
+  #root {
+    padding: 16px 12px;
+  }
+
+  .header {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .tab-bar {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+  }
+
+  .criteria {
+    padding: 12px 14px;
+  }
+
+  .criteria-tag {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .metric-card {
+    padding: 12px 14px;
+  }
+
+  .metric-card .value {
+    font-size: 22px;
+  }
+
+  .stock-table th {
+    padding: 10px 10px;
+  }
+
+  .stock-table td {
+    padding: 10px;
+  }
+
+  .legend {
+    gap: 12px;
+  }
+}
+
+/* ─── Responsive: Mobile (≤ 480px) ─────────── */
+@media (max-width: 480px) {
+  #root {
+    padding: 12px 8px;
+  }
+
+  .header {
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 {
+    font-size: 18px;
+    width: 100%;
+  }
+
+  .header .badge {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  .header .timestamp {
+    font-size: 10px;
+    margin-left: 0;
+  }
+
+  .tab-bar {
+    margin-bottom: 12px;
+  }
+
+  .tab-btn {
+    font-size: 12px;
+    padding: 7px 8px;
+  }
+
+  .criteria {
+    padding: 10px 12px;
+    margin-bottom: 12px;
+  }
+
+  .criteria-label {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+
+  .criteria-tags {
+    gap: 6px;
+  }
+
+  .criteria-tag {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .metrics {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .metric-card {
+    padding: 10px 12px;
+  }
+
+  .metric-card .value {
+    font-size: 20px;
+  }
+
+  .metric-card .label,
+  .metric-card .sub {
+    font-size: 10px;
+  }
+
+  .filters {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .filter-btn {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
+  .table-wrapper {
+    border-radius: var(--radius);
+  }
+
+  .stock-table {
+    font-size: 12px;
+  }
+
+  .stock-table th {
+    padding: 8px 8px;
+    font-size: 9px;
+  }
+
+  .stock-table td {
+    padding: 8px;
+  }
+
+  .ticker-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 9px;
+    border-radius: 6px;
+  }
+
+  .ticker-cell {
+    gap: 8px;
+  }
+
+  .ticker-sym {
+    font-size: 12px;
+  }
+
+  .ticker-name {
+    font-size: 10px;
+  }
+
+  .signal-pill {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+
+  .rsi-track {
+    width: 32px;
+  }
+
+  .legend {
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  .legend-item {
+    font-size: 10px;
+  }
+
+  .loading,
+  .empty-state {
+    padding: 40px 16px;
+    font-size: 13px;
+  }
 }
