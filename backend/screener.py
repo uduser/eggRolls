@@ -95,7 +95,7 @@ def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
 
 # ─── 單檔股票分析 ─────────────────────────────────────────
 def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
-                  min_conditions: int = 3) -> dict | None:
+                  min_conditions: int = 3, name_map: dict | None = None) -> dict | None:
     """
     分析單檔股票，回傳篩選結果。
     如果不符合任何條件，回傳 None。
@@ -189,7 +189,7 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         else:
             signal = "hold"
 
-        name = info.get("shortName", info.get("longName", ticker.replace(".TW", "")))
+        name = (name_map or {}).get(ticker) or info.get("shortName", info.get("longName", ticker.replace(".TW", "").replace(".TWO", "")))
 
         # --- 賣出訊號 ---
         sell_conditions = None
@@ -253,6 +253,7 @@ def main():
     tickers = cfg["screener_tickers"]
     config = cfg["screener_params"]
     sell_params = cfg.get("sell_params")
+    name_map = cfg.get("name_map", {})
 
     print(f"🔍 開始掃描 {len(tickers)} 檔股票...")
     print(f"   篩選條件：MA{config['ma_period']} 突破 / RSI {config['rsi_low']}-{config['rsi_high']} / "
@@ -264,7 +265,7 @@ def main():
     results = []
     for i, ticker in enumerate(tickers, 1):
         print(f"  [{i}/{len(tickers)}] 分析 {ticker}...", end=" ")
-        result = analyze_stock(ticker, config, sell_params=sell_params)
+        result = analyze_stock(ticker, config, sell_params=sell_params, name_map=name_map)
         if result:
             print(f"✓ 通過 {result['passedCount']}/5 條件 → {result['signal']}")
             results.append(result)
@@ -305,7 +306,7 @@ def main():
     portfolio_results = []
     for i, ticker in enumerate(portfolio_tickers, 1):
         print(f"  [{i}/{len(portfolio_tickers)}] 分析 {ticker}...", end=" ")
-        result = analyze_stock(ticker, config, sell_params=sell_params, min_conditions=0)
+        result = analyze_stock(ticker, config, sell_params=sell_params, min_conditions=0, name_map=name_map)
         if result:
             print(f"✓ {result['passedCount']}/5 條件 → {result['signal']}")
             portfolio_results.append(result)
