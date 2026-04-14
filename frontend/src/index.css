@@ -311,29 +311,35 @@ a.ticker-link:hover .ticker-sym {
 }
 
 .ticker-icon {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   font-family: var(--font-mono);
   flex-shrink: 0;
 }
 
+img.ticker-logo {
+  object-fit: contain;
+  background: var(--bg-surface);
+  padding: 4px;
+}
+
 .ticker-sym {
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 16px;
   font-family: var(--font-mono);
   color: var(--text-primary);
 }
 
 .ticker-name {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-secondary);
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .mono { font-family: var(--font-mono); }
@@ -708,9 +714,9 @@ a.ticker-link:hover .ticker-sym {
   }
 
   .ticker-icon {
-    width: 28px;
-    height: 28px;
-    font-size: 9px;
+    width: 34px;
+    height: 34px;
+    font-size: 11px;
     border-radius: 6px;
   }
 
@@ -719,11 +725,11 @@ a.ticker-link:hover .ticker-sym {
   }
 
   .ticker-sym {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .ticker-name {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .signal-pill {

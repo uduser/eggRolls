@@ -172,8 +172,33 @@ export default function App() {
                 </div>
               </div>
 
+              {/* 篩選按鈕 */}
+              <div className="filters animate-in" style={{ animationDelay: '0.08s' }}>
+                {FILTER_OPTIONS.map(opt => (
+                  <button
+                    key={opt.key}
+                    className={`filter-btn ${filter === opt.key ? 'active' : ''}`}
+                    onClick={() => setFilter(opt.key)}
+                  >
+                    {opt.label}
+                    {opt.key !== 'all' && (
+                      <span style={{ marginLeft: 4, opacity: 0.6 }}>
+                        {portfolioData.stocks.filter(s => s.signal === opt.key).length}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              <StockTable
+                stocks={filteredStocks}
+                sortConfig={sortConfig}
+                onSort={handleSort}
+              />
+
+              {/* 統計卡 */}
               {portfolioStats && (
-                <div className="metrics animate-in" style={{ animationDelay: '0.06s' }}>
+                <div className="metrics animate-in" style={{ animationDelay: '0.2s', marginTop: 20 }}>
                   <div className="metric-card">
                     <div className="label">持有標的</div>
                     <div className="value">{portfolioStats.holdings}</div>
@@ -196,30 +221,6 @@ export default function App() {
                   </div>
                 </div>
               )}
-
-              {/* 篩選按鈕 */}
-              <div className="filters animate-in" style={{ animationDelay: '0.15s' }}>
-                {FILTER_OPTIONS.map(opt => (
-                  <button
-                    key={opt.key}
-                    className={`filter-btn ${filter === opt.key ? 'active' : ''}`}
-                    onClick={() => setFilter(opt.key)}
-                  >
-                    {opt.label}
-                    {opt.key !== 'all' && (
-                      <span style={{ marginLeft: 4, opacity: 0.6 }}>
-                        {portfolioData.stocks.filter(s => s.signal === opt.key).length}
-                      </span>
-                    )}
-                  </button>
-                ))}
-              </div>
-
-              <StockTable
-                stocks={filteredStocks}
-                sortConfig={sortConfig}
-                onSort={handleSort}
-              />
 
               {/* Legend */}
               <div className="legend animate-in" style={{ animationDelay: '0.25s' }}>
@@ -266,13 +267,8 @@ export default function App() {
                 </div>
               </div>
 
-              {/* 統計卡 */}
-              {screenerStats && (
-                <MetricCards stats={screenerStats} delay={0.1} />
-              )}
-
               {/* 篩選按鈕 */}
-              <div className="filters animate-in" style={{ animationDelay: '0.15s' }}>
+              <div className="filters animate-in" style={{ animationDelay: '0.08s' }}>
                 {FILTER_OPTIONS.map(opt => (
                   <button
                     key={opt.key}
@@ -295,6 +291,13 @@ export default function App() {
                 sortConfig={sortConfig}
                 onSort={handleSort}
               />
+
+              {/* 統計卡 */}
+              {screenerStats && (
+                <div style={{ marginTop: 20 }}>
+                  <MetricCards stats={screenerStats} delay={0.2} />
+                </div>
+              )}
 
               {/* Legend */}
               <div className="legend animate-in" style={{ animationDelay: '0.25s' }}>

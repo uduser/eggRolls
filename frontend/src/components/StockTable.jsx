@@ -3,6 +3,30 @@ import React, { useRef, useEffect, useState } from 'react'
 const SIGNAL_MAP = { strong: '多重交叉', buy: '低估買入', watch: '觀察', hold: '待觀察' }
 const SELL_SIGNAL_MAP = { sell: '賣出', caution: '注意' }
 
+function TickerIcon({ symbol, fallbackStyle }) {
+  const [useFallback, setUseFallback] = useState(false)
+
+  if (useFallback) {
+    return (
+      <div
+        className="ticker-icon"
+        style={{ background: fallbackStyle.bg, color: fallbackStyle.color }}
+      >
+        {symbol.slice(-2)}
+      </div>
+    )
+  }
+
+  return (
+    <img
+      className="ticker-icon ticker-logo"
+      src={`/logos/${symbol}.svg`}
+      alt={symbol}
+      onError={() => setUseFallback(true)}
+    />
+  )
+}
+
 const ICON_COLORS = [
   { bg: 'var(--blue-dim)', color: 'var(--blue)' },
   { bg: 'var(--green-dim)', color: 'var(--green)' },
@@ -139,12 +163,7 @@ export default function StockTable({ stocks, sortConfig, onSort }) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div
-                      className="ticker-icon"
-                      style={{ background: iconStyle.bg, color: iconStyle.color }}
-                    >
-                      {stock.symbol.slice(-2)}
-                    </div>
+                    <TickerIcon symbol={stock.symbol} fallbackStyle={iconStyle} />
                     <div>
                       <div className="ticker-sym">{stock.symbol}</div>
                       <div className="ticker-name">{stock.name}</div>
