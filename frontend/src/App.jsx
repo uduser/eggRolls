@@ -43,7 +43,7 @@ export default function App() {
   const filteredStocks = useMemo(() => {
     if (!activeData?.stocks) return []
     let stocks = activeData.stocks
-    if (activeTab === 'screener' && filter !== 'all') {
+    if (filter !== 'all') {
       stocks = stocks.filter(s => s.signal === filter)
     }
     const { key, dir } = sortConfig
@@ -160,6 +160,18 @@ export default function App() {
         <>
           {portfolioData ? (
             <>
+              {/* 篩選條件顯示 */}
+              <div className="criteria animate-in" style={{ animationDelay: '0.05s' }}>
+                <div className="criteria-label">買進條件</div>
+                <div className="criteria-tags">
+                  <span className="criteria-tag">收盤價 {'>'} <em>MA{portfolioData.config.ma_period}</em></span>
+                  <span className="criteria-tag">RSI({portfolioData.config.rsi_period}) <em>{portfolioData.config.rsi_low}–{portfolioData.config.rsi_high}</em></span>
+                  <span className="criteria-tag">現價 {'<'} 預估EPS × {portfolioData.config.pe_multiple} → <em>低估</em></span>
+                  <span className="criteria-tag">營收 YoY <em>≥ {portfolioData.config.yoy_min}%</em></span>
+                  <span className="criteria-tag">成交量 {'>'} <em>{portfolioData.config.vol_avg_days}日均量 × {portfolioData.config.vol_ratio_min}</em></span>
+                </div>
+              </div>
+
               {portfolioStats && (
                 <div className="metrics animate-in" style={{ animationDelay: '0.06s' }}>
                   <div className="metric-card">
@@ -185,11 +197,49 @@ export default function App() {
                 </div>
               )}
 
+              {/* 篩選按鈕 */}
+              <div className="filters animate-in" style={{ animationDelay: '0.15s' }}>
+                {FILTER_OPTIONS.map(opt => (
+                  <button
+                    key={opt.key}
+                    className={`filter-btn ${filter === opt.key ? 'active' : ''}`}
+                    onClick={() => setFilter(opt.key)}
+                  >
+                    {opt.label}
+                    {opt.key !== 'all' && (
+                      <span style={{ marginLeft: 4, opacity: 0.6 }}>
+                        {portfolioData.stocks.filter(s => s.signal === opt.key).length}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+
               <StockTable
                 stocks={filteredStocks}
                 sortConfig={sortConfig}
                 onSort={handleSort}
               />
+
+              {/* Legend */}
+              <div className="legend animate-in" style={{ animationDelay: '0.25s' }}>
+                <span className="legend-item">
+                  <span className="legend-dot" style={{ background: 'var(--green)' }} />
+                  突破均線
+                </span>
+                <span className="legend-item">
+                  <span className="legend-dot" style={{ background: 'var(--blue)' }} />
+                  低估 {'>'} 20%
+                </span>
+                <span className="legend-item">
+                  <span className="legend-dot" style={{ background: 'var(--amber)' }} />
+                  量能放大
+                </span>
+                <span className="legend-item">
+                  <span className="legend-dot" style={{ background: 'var(--purple)' }} />
+                  多條件交叉
+                </span>
+              </div>
             </>
           ) : (
             <div className="empty-state">

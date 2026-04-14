@@ -17,7 +17,7 @@
     {
       "symbol": "2408",
       "exchange": "TWSE",
-      "name": "NANYA TECHNOLOGY CORPORATION",
+      "name": "南亞科",
       "close": 228.0,
       "ma5": 219.3,
       "maDiffPct": 3.97,
@@ -59,7 +59,7 @@
     {
       "symbol": "2327",
       "exchange": "TWSE",
-      "name": "YAGEO CORP",
+      "name": "國巨",
       "close": 311.0,
       "ma5": 290.5,
       "maDiffPct": 7.06,
@@ -101,7 +101,7 @@
     {
       "symbol": "2330",
       "exchange": "TWSE",
-      "name": "TAIWAN SEMICONDUCTOR MANUFACTUR",
+      "name": "台積電",
       "close": 2035.0,
       "ma5": 1986.0,
       "maDiffPct": 2.47,
@@ -143,7 +143,7 @@
     {
       "symbol": "0050",
       "exchange": "TWSE",
-      "name": "YUANTA SECURITIES INV TRUST CO ",
+      "name": "元大台灣50",
       "close": 82.7,
       "ma5": 80.5,
       "maDiffPct": 2.76,
@@ -185,7 +185,7 @@
     {
       "symbol": "1727",
       "exchange": "TWSE",
-      "name": "CHUNG HWA CHEMICAL INDUSTRIAL W",
+      "name": "中華化",
       "close": 57.5,
       "ma5": 54.5,
       "maDiffPct": 5.43,

@@ -17,7 +17,7 @@
     {
       "symbol": "3231",
       "exchange": "TWSE",
-      "name": "WISTRON CORPORATION",
+      "name": "緯創",
       "close": 136.5,
       "ma5": 133.9,
       "maDiffPct": 1.94,
@@ -59,7 +59,7 @@
     {
       "symbol": "6669",
       "exchange": "TWSE",
-      "name": "WIWYNN CORPORATION",
+      "name": "緯穎",
       "close": 3710.0,
       "ma5": 3627.0,
       "maDiffPct": 2.29,
@@ -101,7 +101,7 @@
     {
       "symbol": "2882",
       "exchange": "TWSE",
-      "name": "CATHAY FINANCIAL HLDG CO",
+      "name": "國泰金",
       "close": 72.5,
       "ma5": 73.0,
       "maDiffPct": -0.63,
@@ -143,7 +143,7 @@
     {
       "symbol": "2317",
       "exchange": "TWSE",
-      "name": "HON HAI PRECISION INDUSTRY",
+      "name": "鴻海",
       "close": 206.0,
       "ma5": 201.6,
       "maDiffPct": 2.18,
@@ -185,7 +185,7 @@
     {
       "symbol": "2881",
       "exchange": "TWSE",
-      "name": "FUBON FINANCIAL HLDG CO LTD",
+      "name": "富邦金",
       "close": 87.8,
       "ma5": 88.0,
       "maDiffPct": -0.18,
@@ -227,7 +227,7 @@
     {
       "symbol": "2382",
       "exchange": "TWSE",
-      "name": "QUANTA COMPUTER",
+      "name": "廣達",
       "close": 325.0,
       "ma5": 317.2,
       "maDiffPct": 2.46,
@@ -269,7 +269,7 @@
     {
       "symbol": "2884",
       "exchange": "TWSE",
-      "name": "E SUN FINANCIAL HOLDINGS",
+      "name": "玉山金",
       "close": 32.7,
       "ma5": 32.4,
       "maDiffPct": 0.89,
@@ -311,7 +311,7 @@
     {
       "symbol": "2327",
       "exchange": "TWSE",
-      "name": "YAGEO CORP",
+      "name": "國巨",
       "close": 311.0,
       "ma5": 290.5,
       "maDiffPct": 7.06,
@@ -353,7 +353,7 @@
     {
       "symbol": "2330",
       "exchange": "TWSE",
-      "name": "TAIWAN SEMICONDUCTOR MANUFACTUR",
+      "name": "台積電",
       "close": 2040.0,
       "ma5": 1987.0,
       "maDiffPct": 2.67,
@@ -395,7 +395,7 @@
     {
       "symbol": "3708",
       "exchange": "TWSE",
-      "name": "SWANCOR HOLDING CO LTD",
+      "name": "上緯投控",
       "close": 115.5,
       "ma5": 115.1,
       "maDiffPct": 0.35,
@@ -437,7 +437,7 @@
     {
       "symbol": "6446",
       "exchange": "TWSE",
-      "name": "PHARMAESSENTIA CORP",
+      "name": "百華生醫",
       "close": 642.0,
       "ma5": 642.8,
       "maDiffPct": -0.12,
@@ -479,7 +479,7 @@
     {
       "symbol": "3443",
       "exchange": "TWSE",
-      "name": "GLOBAL UNICHIP CORP.",
+      "name": "創意電子",
       "close": 3050.0,
       "ma5": 2731.0,
       "maDiffPct": 11.68,
