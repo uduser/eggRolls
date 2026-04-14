@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-14T09:52:17.738688",
+  "generatedAt": "2026-04-14T03:12:43.373829",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -12,88 +12,24 @@
     "lookback_days": 120
   },
   "totalScanned": 39,
-  "totalPassed": 11,
+  "totalPassed": 12,
   "stocks": [
     {
-      "symbol": "2881",
-      "name": "FUBON FINANCIAL HLDG CO LTD",
-      "close": 88.2,
-      "ma5": 88.0,
-      "maDiffPct": 0.18,
-      "rsi": 47.9,
-      "forwardEps": 8.07,
-      "fairValue": 161.5,
-      "undervalPct": -45.4,
-      "yoyPct": 24.0,
-      "volume": 4886150,
-      "avgVolume": 17182553,
-      "volRatio": 0.28,
-      "volSpark": [
-        47,
-        65,
-        82,
-        100,
-        96,
-        81,
-        23
-      ],
-      "signal": "buy",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": true,
-        "undervalued": true,
-        "yoy_pass": true,
-        "vol_surge": false
-      },
-      "passedCount": 4
-    },
-    {
-      "symbol": "2884",
-      "name": "E SUN FINANCIAL HOLDINGS",
-      "close": 32.4,
-      "ma5": 32.4,
-      "maDiffPct": 0.15,
-      "rsi": 48.4,
-      "forwardEps": 2.46,
-      "fairValue": 49.2,
-      "undervalPct": -34.1,
-      "yoyPct": 30.6,
-      "volume": 5037951,
-      "avgVolume": 29943848,
-      "volRatio": 0.17,
-      "volSpark": [
-        72,
-        58,
-        85,
-        87,
-        90,
-        100,
-        18
-      ],
-      "signal": "buy",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": true,
-        "undervalued": true,
-        "yoy_pass": true,
-        "vol_surge": false
-      },
-      "passedCount": 4
-    },
-    {
       "symbol": "3231",
+      "exchange": "TWSE",
       "name": "WISTRON CORPORATION",
-      "close": 137.5,
-      "ma5": 134.1,
-      "maDiffPct": 2.54,
-      "rsi": 60.8,
+      "close": 136.5,
+      "ma5": 133.9,
+      "maDiffPct": 1.94,
+      "rsi": 59.7,
       "forwardEps": 16.26,
       "fairValue": 325.1,
-      "undervalPct": -57.7,
+      "undervalPct": -58.0,
       "yoyPct": 142.6,
-      "volume": 21557433,
-      "avgVolume": 32158586,
-      "volRatio": 0.67,
+      "yoyTrend": null,
+      "volume": 26701550,
+      "avgVolume": 32415791,
+      "volRatio": 0.82,
       "volSpark": [
         37,
         47,
@@ -101,7 +37,7 @@
         90,
         100,
         64,
-        52
+        65
       ],
       "signal": "watch",
       "conditions": {
@@ -111,22 +47,31 @@
         "yoy_pass": true,
         "vol_surge": false
       },
-      "passedCount": 3
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
     },
     {
       "symbol": "6669",
+      "exchange": "TWSE",
       "name": "WIWYNN CORPORATION",
-      "close": 3770.0,
-      "ma5": 3639.0,
-      "maDiffPct": 3.6,
-      "rsi": 54.3,
+      "close": 3710.0,
+      "ma5": 3627.0,
+      "maDiffPct": 2.29,
+      "rsi": 51.8,
       "forwardEps": 408.29,
       "fairValue": 8165.9,
-      "undervalPct": -53.8,
+      "undervalPct": -54.6,
       "yoyPct": 152.9,
-      "volume": 760520,
-      "avgVolume": 1495234,
-      "volRatio": 0.51,
+      "yoyTrend": null,
+      "volume": 1250894,
+      "avgVolume": 1519752,
+      "volRatio": 0.82,
       "volSpark": [
         79,
         56,
@@ -134,7 +79,7 @@
         86,
         76,
         81,
-        48
+        79
       ],
       "signal": "watch",
       "conditions": {
@@ -144,10 +89,18 @@
         "yoy_pass": true,
         "vol_surge": false
       },
-      "passedCount": 3
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
     },
     {
       "symbol": "2882",
+      "exchange": "TWSE",
       "name": "CATHAY FINANCIAL HLDG CO",
       "close": 72.5,
       "ma5": 73.0,
@@ -157,9 +110,10 @@
       "fairValue": 148.7,
       "undervalPct": -51.2,
       "yoyPct": 112.9,
-      "volume": 5061973,
-      "avgVolume": 21480342,
-      "volRatio": 0.24,
+      "yoyTrend": null,
+      "volume": 7991457,
+      "avgVolume": 21626816,
+      "volRatio": 0.37,
       "volSpark": [
         39,
         59,
@@ -167,7 +121,7 @@
         94,
         64,
         74,
-        18
+        29
       ],
       "signal": "watch",
       "conditions": {
@@ -177,10 +131,18 @@
         "yoy_pass": true,
         "vol_surge": false
       },
-      "passedCount": 3
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
     },
     {
       "symbol": "2317",
+      "exchange": "TWSE",
       "name": "HON HAI PRECISION INDUSTRY",
       "close": 206.0,
       "ma5": 201.6,
@@ -190,9 +152,10 @@
       "fairValue": 402.5,
       "undervalPct": -48.8,
       "yoyPct": 22.3,
-      "volume": 18859794,
-      "avgVolume": 54482372,
-      "volRatio": 0.35,
+      "yoyTrend": null,
+      "volume": 28278109,
+      "avgVolume": 54953288,
+      "volRatio": 0.51,
       "volSpark": [
         55,
         54,
@@ -200,7 +163,7 @@
         62,
         85,
         56,
-        29
+        43
       ],
       "signal": "watch",
       "conditions": {
@@ -210,22 +173,73 @@
         "yoy_pass": true,
         "vol_surge": false
       },
-      "passedCount": 3
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2881",
+      "exchange": "TWSE",
+      "name": "FUBON FINANCIAL HLDG CO LTD",
+      "close": 87.8,
+      "ma5": 88.0,
+      "maDiffPct": -0.18,
+      "rsi": 46.3,
+      "forwardEps": 8.07,
+      "fairValue": 161.5,
+      "undervalPct": -45.6,
+      "yoyPct": 24.0,
+      "yoyTrend": null,
+      "volume": 8102838,
+      "avgVolume": 17343387,
+      "volRatio": 0.47,
+      "volSpark": [
+        47,
+        65,
+        82,
+        100,
+        96,
+        81,
+        38
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
     },
     {
       "symbol": "2382",
+      "exchange": "TWSE",
       "name": "QUANTA COMPUTER",
-      "close": 327.0,
-      "ma5": 317.6,
-      "maDiffPct": 2.96,
-      "rsi": 71.3,
+      "close": 325.0,
+      "ma5": 317.2,
+      "maDiffPct": 2.46,
+      "rsi": 70.6,
       "forwardEps": 26.69,
       "fairValue": 533.8,
-      "undervalPct": -38.7,
+      "undervalPct": -39.1,
       "yoyPct": 53.0,
-      "volume": 8353740,
-      "avgVolume": 18081602,
-      "volRatio": 0.46,
+      "yoyTrend": null,
+      "volume": 12563520,
+      "avgVolume": 18292091,
+      "volRatio": 0.69,
       "volSpark": [
         21,
         17,
@@ -233,7 +247,7 @@
         88,
         72,
         31,
-        16
+        24
       ],
       "signal": "watch",
       "conditions": {
@@ -243,22 +257,73 @@
         "yoy_pass": true,
         "vol_surge": false
       },
-      "passedCount": 3
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2884",
+      "exchange": "TWSE",
+      "name": "E SUN FINANCIAL HOLDINGS",
+      "close": 32.7,
+      "ma5": 32.4,
+      "maDiffPct": 0.89,
+      "rsi": 52.1,
+      "forwardEps": 2.46,
+      "fairValue": 49.2,
+      "undervalPct": -33.5,
+      "yoyPct": 30.6,
+      "yoyTrend": null,
+      "volume": 15579425,
+      "avgVolume": 30470922,
+      "volRatio": 0.51,
+      "volSpark": [
+        72,
+        58,
+        85,
+        87,
+        90,
+        100,
+        55
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
     },
     {
       "symbol": "2327",
+      "exchange": "TWSE",
       "name": "YAGEO CORP",
-      "close": 304.0,
-      "ma5": 289.1,
-      "maDiffPct": 5.15,
-      "rsi": 65.5,
+      "close": 311.0,
+      "ma5": 290.5,
+      "maDiffPct": 7.06,
+      "rsi": 67.4,
       "forwardEps": 18.95,
       "fairValue": 378.9,
-      "undervalPct": -19.8,
+      "undervalPct": -17.9,
       "yoyPct": 19.9,
-      "volume": 19313160,
-      "avgVolume": 27238369,
-      "volRatio": 0.71,
+      "yoyTrend": null,
+      "volume": 40539992,
+      "avgVolume": 28299711,
+      "volRatio": 1.43,
       "volSpark": [
         14,
         13,
@@ -266,7 +331,7 @@
         35,
         33,
         100,
-        20
+        42
       ],
       "signal": "watch",
       "conditions": {
@@ -276,22 +341,31 @@
         "yoy_pass": true,
         "vol_surge": false
       },
-      "passedCount": 3
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
     },
     {
       "symbol": "2330",
+      "exchange": "TWSE",
       "name": "TAIWAN SEMICONDUCTOR MANUFACTUR",
-      "close": 2015.0,
-      "ma5": 1982.0,
-      "maDiffPct": 1.66,
-      "rsi": 64.6,
-      "forwardEps": 113.23,
-      "fairValue": 2264.6,
-      "undervalPct": -11.0,
+      "close": 2040.0,
+      "ma5": 1987.0,
+      "maDiffPct": 2.67,
+      "rsi": 66.3,
+      "forwardEps": 113.32,
+      "fairValue": 2266.3,
+      "undervalPct": -10.0,
       "yoyPct": 20.5,
-      "volume": 10241848,
-      "avgVolume": 31110817,
-      "volRatio": 0.33,
+      "yoyTrend": null,
+      "volume": 25698755,
+      "avgVolume": 31883662,
+      "volRatio": 0.81,
       "volSpark": [
         54,
         39,
@@ -299,7 +373,7 @@
         68,
         62,
         62,
-        22
+        55
       ],
       "signal": "watch",
       "conditions": {
@@ -309,10 +383,18 @@
         "yoy_pass": true,
         "vol_surge": false
       },
-      "passedCount": 3
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
     },
     {
       "symbol": "3708",
+      "exchange": "TWSE",
       "name": "SWANCOR HOLDING CO LTD",
       "close": 115.5,
       "ma5": 115.1,
@@ -322,9 +404,10 @@
       "fairValue": 118.8,
       "undervalPct": -2.8,
       "yoyPct": -39.3,
-      "volume": 62568,
-      "avgVolume": 1210349,
-      "volRatio": 0.05,
+      "yoyTrend": null,
+      "volume": 173679,
+      "avgVolume": 1215905,
+      "volRatio": 0.14,
       "volSpark": [
         100,
         53,
@@ -332,7 +415,7 @@
         40,
         35,
         55,
-        4
+        10
       ],
       "signal": "watch",
       "conditions": {
@@ -342,22 +425,31 @@
         "yoy_pass": false,
         "vol_surge": false
       },
-      "passedCount": 3
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
     },
     {
       "symbol": "6446",
+      "exchange": "TWSE",
       "name": "PHARMAESSENTIA CORP",
-      "close": 647.0,
-      "ma5": 643.8,
-      "maDiffPct": 0.5,
-      "rsi": 50.3,
+      "close": 642.0,
+      "ma5": 642.8,
+      "maDiffPct": -0.12,
+      "rsi": 48.8,
       "forwardEps": 32.64,
       "fairValue": 652.9,
-      "undervalPct": -0.9,
+      "undervalPct": -1.7,
       "yoyPct": 59.4,
-      "volume": 292606,
-      "avgVolume": 1523203,
-      "volRatio": 0.19,
+      "yoyTrend": null,
+      "volume": 630296,
+      "avgVolume": 1540087,
+      "volRatio": 0.41,
       "volSpark": [
         35,
         100,
@@ -365,17 +457,66 @@
         85,
         60,
         44,
-        13
+        27
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3443",
+      "exchange": "TWSE",
+      "name": "GLOBAL UNICHIP CORP.",
+      "close": 3050.0,
+      "ma5": 2731.0,
+      "maDiffPct": 11.68,
+      "rsi": 69.4,
+      "forwardEps": 73.72,
+      "fairValue": 1474.5,
+      "undervalPct": 106.8,
+      "yoyPct": 105.9,
+      "yoyTrend": null,
+      "volume": 3888690,
+      "avgVolume": 2426490,
+      "volRatio": 1.6,
+      "volSpark": [
+        43,
+        24,
+        82,
+        82,
+        61,
+        73,
+        100
       ],
       "signal": "watch",
       "conditions": {
         "ma_breakout": true,
         "rsi_in_range": false,
-        "undervalued": true,
+        "undervalued": false,
         "yoy_pass": true,
-        "vol_surge": false
+        "vol_surge": true
       },
-      "passedCount": 3
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
     }
   ]
 }
