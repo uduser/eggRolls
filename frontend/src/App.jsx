@@ -129,7 +129,7 @@ export default function App() {
     <>
       {/* Header */}
       <div className="header animate-in">
-        <h1>選股雷達</h1>
+        <h1>Egg Rolls 雞蛋滾</h1>
         {activeData && (
           <span className="badge">
             {activeTab === 'portfolio'
