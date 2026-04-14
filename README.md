@@ -112,7 +112,26 @@ vercel --prod
 
 ## 自動化排程
 
-每天收盤後自動跑 Python 腳本，更新資料：
+每天收盤後自動跑 Python 腳本，更新資料。
+
+### GitHub Actions（推薦，搭配 Vercel 部署）
+
+專案已內建 `.github/workflows/update-data.yml`，推到 GitHub 後即自動生效：
+
+- **自動執行**：每週一到五 14:35（台灣時間），收盤後 5 分鐘
+- **手動觸發**：GitHub repo → Actions → `Update Stock Data` → `Run workflow`
+- JSON 有變動才會 commit，commit 後 Vercel 自動重新部署
+- commit message 帶 `[skip ci]` 避免其他 CI 重複觸發
+
+流程：
+
+```
+GitHub Actions 排程觸發
+  → 安裝 Python + 依賴
+  → 執行 screener.py（產出 stocks.json + portfolio.json）
+  → git commit + push（僅在資料有變動時）
+  → Vercel 偵測 push → 自動部署
+```
 
 ### macOS / Linux (crontab)
 
@@ -142,28 +161,47 @@ git push
 
 ## 自訂設定
 
+所有標的清單與篩選參數統一放在 `backend/config.json`，修改後重跑 `python screener.py` 即可生效。
+
 ### 修改掃描股票清單
 
-編輯 `backend/screener.py` 裡的 `DEFAULT_TICKERS`：
+編輯 `backend/config.json`：
 
-```python
-DEFAULT_TICKERS = [
-    "2330.TW",   # 台積電
-    "2454.TW",   # 聯發科
-    # 加入你想掃描的股票...
-]
+```jsonc
+{
+  "portfolio_tickers": [     // 手上持有的標的
+    "0050.TW",
+    "2330.TW",
+    // 加入你持有的股票...
+  ],
+  "screener_tickers": [      // 大盤分析掃描清單
+    "2330.TW",
+    "2454.TW",
+    // 加入你想掃描的股票...
+  ]
+}
 ```
+
+格式：代號`.TW`（上市）或 代號`.TWO`（上櫃）
 
 ### 修改篩選參數
 
-```python
-CONFIG = {
-    "ma_period": 5,        # 改成 10 就是用 MA10
-    "rsi_low": 30,         # RSI 下限
-    "rsi_high": 50,        # RSI 上限
-    "pe_multiple": 20,     # 本益比倍數
-    "yoy_min": 10,         # YoY 最低成長率
-    "vol_ratio_min": 1.5,  # 量能倍數門檻
+同樣在 `backend/config.json`：
+
+```jsonc
+{
+  "screener_params": {       // 買進條件
+    "ma_period": 5,          // 均線天數
+    "rsi_low": 30,           // RSI 買進區間下限
+    "rsi_high": 50,          // RSI 買進區間上限
+    "pe_multiple": 20,       // 合理本益比倍數
+    "yoy_min": 10,           // 最低 YoY 成長率 (%)
+    "vol_ratio_min": 1.5     // 量能倍數門檻
+  },
+  "sell_params": {           // 賣出條件
+    "rsi_sell_low": 60,      // RSI 過熱區間下限
+    "rsi_sell_high": 90      // RSI 過熱區間上限
+  }
 }
 ```
 
