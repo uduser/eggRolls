@@ -1,4 +1,7 @@
 {
+  "_desc": "選股雷達設定檔 — 修改後重跑 python screener.py 即可生效",
+
+  "_portfolio_desc": "手上持有的標的，格式：代號.TW（上市）或 代號.TWO（上櫃）",
   "portfolio_tickers": [
     "0050.TW",
     "00948B.TW",
@@ -8,6 +11,8 @@
     "2330.TW",
     "2408.TW"
   ],
+
+  "_screener_desc": "大盤分析掃描清單，通過 ≥3 個買進條件才會列入結果",
   "screener_tickers": [
     "2330.TW", "2454.TW", "3661.TW", "2303.TW", "3443.TW",
     "2379.TW", "3034.TW", "6415.TW", "5274.TW", "3529.TW",
@@ -19,6 +24,18 @@
     "2308.TW", "2327.TW", "3037.TW", "2345.TW",
     "6244.TW", "3576.TW"
   ],
+
+  "_screener_params_desc": {
+    "ma_period": "均線天數，收盤 > MA 視為突破",
+    "rsi_period": "RSI 計算天數",
+    "rsi_low": "RSI 買進區間下限（超賣回升）",
+    "rsi_high": "RSI 買進區間上限",
+    "pe_multiple": "合理本益比倍數，現價 < EPS × 此值 → 低估",
+    "yoy_min": "最低營收 YoY 成長率 (%)",
+    "vol_ratio_min": "最低量能倍數（當日量 / N日均量）",
+    "vol_avg_days": "均量計算天數",
+    "lookback_days": "抓取歷史資料天數"
+  },
   "screener_params": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -29,6 +46,12 @@
     "vol_ratio_min": 1.5,
     "vol_avg_days": 20,
     "lookback_days": 120
+  },
+
+  "_sell_params_desc": {
+    "_summary": "賣出訊號條件：跌破MA / RSI過熱 / YoY趨勢向下，符合 ≥2 注意、3/3 賣出",
+    "rsi_sell_low": "RSI 賣出區間下限（過熱區）",
+    "rsi_sell_high": "RSI 賣出區間上限"
   },
   "sell_params": {
     "rsi_sell_low": 60,
