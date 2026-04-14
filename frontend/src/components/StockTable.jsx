@@ -1,6 +1,7 @@
 import React from 'react'
 
-const SIGNAL_MAP = { strong: '多重交叉', buy: '低估買入', watch: '觀察' }
+const SIGNAL_MAP = { strong: '多重交叉', buy: '低估買入', watch: '觀察', hold: '待觀察' }
+const SELL_SIGNAL_MAP = { sell: '賣出', caution: '注意' }
 
 const ICON_COLORS = [
   { bg: 'var(--blue-dim)', color: 'var(--blue)' },
@@ -20,8 +21,8 @@ const COLUMNS = [
   { key: 'undervalPct', label: '低估%', right: true },
   { key: 'yoyPct', label: '營收YoY', right: true },
   { key: 'volRatio', label: '量能', right: true },
-  { key: 'passedCount', label: '條件', right: true },
-  { key: 'signal', label: '訊號', right: true, sortable: false },
+  { key: 'passedCount', label: '買進', right: true },
+  { key: 'sellPassedCount', label: '賣出', right: true },
 ]
 
 function SortArrow({ column, sortConfig }) {
@@ -62,10 +63,16 @@ function ConditionDots({ conditions }) {
   )
 }
 
-function formatNum(n) {
-  if (n == null) return '—'
-  if (n >= 10000) return (n / 10000).toFixed(1) + '萬'
-  return n.toLocaleString()
+function SellConditionDots({ conditions }) {
+  if (!conditions) return <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>—</span>
+  const keys = ['ma_below', 'rsi_overbought', 'yoy_trend_down']
+  return (
+    <span className="cond-dots">
+      {keys.map(k => (
+        <span key={k} className={`cond-dot ${conditions[k] ? 'sell-pass' : ''}`} />
+      ))}
+    </span>
+  )
 }
 
 export default function StockTable({ stocks, sortConfig, onSort }) {
@@ -104,7 +111,12 @@ export default function StockTable({ stocks, sortConfig, onSort }) {
               <tr key={stock.symbol}>
                 {/* 標的 */}
                 <td>
-                  <div className="ticker-cell">
+                  <a
+                    className="ticker-cell ticker-link"
+                    href={`https://www.tradingview.com/chart/?symbol=${stock.exchange || 'TWSE'}:${stock.symbol}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div
                       className="ticker-icon"
                       style={{ background: iconStyle.bg, color: iconStyle.color }}
@@ -115,7 +127,7 @@ export default function StockTable({ stocks, sortConfig, onSort }) {
                       <div className="ticker-sym">{stock.symbol}</div>
                       <div className="ticker-name">{stock.name}</div>
                     </div>
-                  </div>
+                  </a>
                 </td>
 
                 {/* 收盤 */}
@@ -172,19 +184,26 @@ export default function StockTable({ stocks, sortConfig, onSort }) {
                   </span>
                 </td>
 
-                {/* 條件通過數 */}
+                {/* 買進訊號：條件 + pill */}
                 <td className="right">
                   <ConditionDots conditions={stock.conditions} />
-                  <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--text-muted)' }}>
-                    {stock.passedCount}/5
+                  <span style={{ marginLeft: 6 }}>
+                    <span className={`signal-pill ${stock.signal}`}>
+                      {SIGNAL_MAP[stock.signal]}
+                    </span>
                   </span>
                 </td>
 
-                {/* 訊號 */}
+                {/* 賣出訊號：條件 + pill */}
                 <td className="right">
-                  <span className={`signal-pill ${stock.signal}`}>
-                    {SIGNAL_MAP[stock.signal]}
-                  </span>
+                  <SellConditionDots conditions={stock.sellConditions} />
+                  {stock.sellSignal && (
+                    <span style={{ marginLeft: 6 }}>
+                      <span className={`signal-pill ${stock.sellSignal}`}>
+                        {SELL_SIGNAL_MAP[stock.sellSignal]}
+                      </span>
+                    </span>
+                  )}
                 </td>
               </tr>
             )

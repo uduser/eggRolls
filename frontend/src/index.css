@@ -82,6 +82,43 @@ body {
   font-family: var(--font-mono);
 }
 
+/* ─── Tab Bar ──────────────────────────────── */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  width: fit-content;
+}
+
+.tab-btn {
+  font-size: 13px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: var(--radius);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+
+.tab-btn.active {
+  background: var(--bg-surface);
+  color: var(--green);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
 /* ─── Criteria Bar ──────────────────────────── */
 .criteria {
   background: var(--bg-card);
@@ -210,7 +247,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
-  min-width: 900px;
+  min-width: 1050px;
 }
 
 .stock-table th {
@@ -256,6 +293,23 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+a.ticker-link {
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius);
+  padding: 2px 4px;
+  margin: -2px -4px;
+  transition: background 0.15s;
+}
+
+a.ticker-link:hover {
+  background: var(--bg-surface);
+}
+
+a.ticker-link:hover .ticker-sym {
+  color: var(--blue);
 }
 
 .ticker-icon {
@@ -353,6 +407,24 @@ body {
   border: 1px solid rgba(240, 178, 50, 0.15);
 }
 
+.signal-pill.hold {
+  background: rgba(107, 125, 147, 0.10);
+  color: var(--text-secondary);
+  border: 1px solid rgba(107, 125, 147, 0.15);
+}
+
+.signal-pill.sell {
+  background: var(--red-dim);
+  color: var(--red);
+  border: 1px solid rgba(255, 92, 92, 0.15);
+}
+
+.signal-pill.caution {
+  background: var(--amber-dim);
+  color: var(--amber);
+  border: 1px solid rgba(240, 178, 50, 0.15);
+}
+
 /* ─── Condition Dots ────────────────────────── */
 .cond-dots {
   display: flex;
@@ -368,6 +440,7 @@ body {
 }
 
 .cond-dot.pass { background: var(--green); }
+.cond-dot.sell-pass { background: var(--red); }
 
 /* ─── Legend ─────────────────────────────────── */
 .legend {

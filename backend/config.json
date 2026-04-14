@@ -1,0 +1,37 @@
+{
+  "portfolio_tickers": [
+    "0050.TW",
+    "00948B.TW",
+    "00992A.TW",
+    "1727.TW",
+    "2327.TW",
+    "2330.TW",
+    "2408.TW"
+  ],
+  "screener_tickers": [
+    "2330.TW", "2454.TW", "3661.TW", "2303.TW", "3443.TW",
+    "2379.TW", "3034.TW", "6415.TW", "5274.TW", "3529.TW",
+    "6669.TW", "2382.TW", "3231.TW", "2356.TW", "3708.TW",
+    "2881.TW", "2882.TW", "2884.TW", "2886.TW", "2891.TW",
+    "2317.TW", "1301.TW", "1303.TW", "2002.TW", "2603.TW",
+    "2615.TW", "1216.TW", "2912.TW", "9910.TW", "8454.TW",
+    "6446.TW", "4743.TW", "6547.TWO",
+    "2308.TW", "2327.TW", "3037.TW", "2345.TW",
+    "6244.TW", "3576.TW"
+  ],
+  "screener_params": {
+    "ma_period": 5,
+    "rsi_period": 14,
+    "rsi_low": 30,
+    "rsi_high": 50,
+    "pe_multiple": 20,
+    "yoy_min": 10,
+    "vol_ratio_min": 1.5,
+    "vol_avg_days": 20,
+    "lookback_days": 120
+  },
+  "sell_params": {
+    "rsi_sell_low": 60,
+    "rsi_sell_high": 90
+  }
+}

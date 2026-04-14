@@ -28,44 +28,17 @@ import pandas as pd
 import yfinance as yf
 
 # ─── 設定 ───────────────────────────────────────────────
-# 你可以在這裡自訂掃描的股票清單
-# 格式：台股代號加上 .TW（上市）或 .TWO（上櫃）
-# 如果清單太長，建議分批跑避免被 Yahoo Finance 限速
+# 所有標的清單與篩選參數統一放在 config.json
+# 修改 config.json 即可，不需動程式碼
 
-# 預設：台灣市值前 50 大 + 熱門中小型股（可自行增減）
-DEFAULT_TICKERS = [
-    # 半導體
-    "2330.TW", "2454.TW", "3661.TW", "2303.TW", "3443.TW",
-    "2379.TW", "3034.TW", "6415.TW", "5274.TW", "3529.TW",
-    # AI / 伺服器
-    "6669.TW", "2382.TW", "3231.TW", "2356.TW", "3708.TW",
-    # 金融
-    "2881.TW", "2882.TW", "2884.TW", "2886.TW", "2891.TW",
-    # 傳產 / 航運 / 其他
-    "2317.TW", "1301.TW", "1303.TW", "2002.TW", "2603.TW",
-    "2615.TW", "1216.TW", "2912.TW", "9910.TW", "8454.TW",
-    # 生技
-    "6446.TW", "4743.TW", "6547.TWO",
-    # 電子零件
-    "2308.TW", "2327.TW", "3037.TW", "2345.TW",
-    # 綠能
-    "6244.TW", "3576.TW",
-]
-
-# 篩選參數（可調整）
-CONFIG = {
-    "ma_period": 5,           # 均線天數
-    "rsi_period": 14,         # RSI 計算天數
-    "rsi_low": 30,            # RSI 下限
-    "rsi_high": 50,           # RSI 上限
-    "pe_multiple": 20,        # 合理本益比倍數
-    "yoy_min": 10,            # 最低 YoY 成長率 (%)
-    "vol_ratio_min": 1.5,     # 最低量能倍數（vs 20 日均量）
-    "vol_avg_days": 20,       # 均量計算天數
-    "lookback_days": 120,     # 抓多少天歷史資料
-}
-
+CONFIG_PATH = Path(__file__).parent / "config.json"
 OUTPUT_DIR = Path(__file__).parent.parent / "frontend" / "public" / "data"
+
+
+def load_config() -> dict:
+    """讀取 config.json，回傳完整設定"""
+    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
 # ─── 技術指標計算 ─────────────────────────────────────────
@@ -85,8 +58,44 @@ def calc_ma(series: pd.Series, period: int) -> pd.Series:
     return series.rolling(window=period).mean()
 
 
+def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
+    """
+    用季報營收判斷 YoY 趨勢是否向下。
+    比較最近兩季各自的 YoY（本季 vs 去年同季），
+    若最新一季 YoY < 前一季 YoY 即為下降趨勢。
+    回傳 (is_down, [前季YoY%, 最新季YoY%] or None)
+    """
+    try:
+        qis = stock.quarterly_income_stmt
+        if qis is None or qis.empty:
+            return False, None
+
+        # 找 Total Revenue 行
+        rev_key = None
+        for k in qis.index:
+            if "Total Revenue" in str(k):
+                rev_key = k
+                break
+        if rev_key is None:
+            return False, None
+
+        rev = qis.loc[rev_key].dropna().sort_index()  # 由舊到新
+        if len(rev) < 6:
+            return False, None
+
+        # 最新季 YoY：rev[-1] vs rev[-5]（4 季前同期）
+        # 前一季 YoY：rev[-2] vs rev[-6]
+        latest_yoy = (rev.iloc[-1] - rev.iloc[-5]) / abs(rev.iloc[-5]) * 100
+        prev_yoy = (rev.iloc[-2] - rev.iloc[-6]) / abs(rev.iloc[-6]) * 100
+
+        return latest_yoy < prev_yoy, [round(prev_yoy, 1), round(latest_yoy, 1)]
+    except Exception:
+        return False, None
+
+
 # ─── 單檔股票分析 ─────────────────────────────────────────
-def analyze_stock(ticker: str, config: dict) -> dict | None:
+def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
+                  min_conditions: int = 3) -> dict | None:
     """
     分析單檔股票，回傳篩選結果。
     如果不符合任何條件，回傳 None。
@@ -166,8 +175,8 @@ def analyze_stock(ticker: str, config: dict) -> dict | None:
         }
         passed = sum(conditions.values())
 
-        # 至少通過 3 個條件才列入
-        if passed < 3:
+        # 至少通過指定條件數才列入
+        if passed < min_conditions:
             return None
 
         # 判斷訊號強度
@@ -175,13 +184,42 @@ def analyze_stock(ticker: str, config: dict) -> dict | None:
             signal = "strong"
         elif passed >= 4:
             signal = "buy"
-        else:
+        elif passed >= 3:
             signal = "watch"
+        else:
+            signal = "hold"
 
         name = info.get("shortName", info.get("longName", ticker.replace(".TW", "")))
 
+        # --- 賣出訊號 ---
+        sell_conditions = None
+        sell_passed_count = 0
+        sell_signal = None
+        yoy_trend = None
+
+        if sell_params:
+            # 1. 跌破均線：收盤 < MA
+            sell_ma_below = latest_close < latest_ma
+            # 2. RSI 過熱區
+            sell_rsi = sell_params["rsi_sell_low"] <= latest_rsi <= sell_params["rsi_sell_high"]
+            # 3. YoY 趨勢向下（季報營收）
+            sell_yoy_down, yoy_trend = calc_yoy_trend_down(stock)
+
+            sell_conditions = {
+                "ma_below": sell_ma_below,
+                "rsi_overbought": sell_rsi,
+                "yoy_trend_down": sell_yoy_down,
+            }
+            sell_passed_count = sum(sell_conditions.values())
+
+            if sell_passed_count >= 3:
+                sell_signal = "sell"
+            elif sell_passed_count >= 2:
+                sell_signal = "caution"
+
         return {
             "symbol": ticker.replace(".TW", "").replace(".TWO", ""),
+            "exchange": "TPEX" if ".TWO" in ticker else "TWSE",
             "name": name,
             "close": round(latest_close, 1),
             "ma5": round(latest_ma, 1),
@@ -191,6 +229,7 @@ def analyze_stock(ticker: str, config: dict) -> dict | None:
             "fairValue": fair_value,
             "undervalPct": underval_pct,
             "yoyPct": yoy_pct,
+            "yoyTrend": yoy_trend,
             "volume": latest_vol,
             "avgVolume": avg_vol,
             "volRatio": vol_ratio,
@@ -198,6 +237,9 @@ def analyze_stock(ticker: str, config: dict) -> dict | None:
             "signal": signal,
             "conditions": conditions,
             "passedCount": passed,
+            "sellConditions": sell_conditions,
+            "sellPassedCount": sell_passed_count,
+            "sellSignal": sell_signal,
         }
 
     except Exception as e:
@@ -207,18 +249,22 @@ def analyze_stock(ticker: str, config: dict) -> dict | None:
 
 # ─── 主程式 ───────────────────────────────────────────────
 def main():
-    tickers = DEFAULT_TICKERS
-    config = CONFIG
+    cfg = load_config()
+    tickers = cfg["screener_tickers"]
+    config = cfg["screener_params"]
+    sell_params = cfg.get("sell_params")
 
     print(f"🔍 開始掃描 {len(tickers)} 檔股票...")
     print(f"   篩選條件：MA{config['ma_period']} 突破 / RSI {config['rsi_low']}-{config['rsi_high']} / "
           f"EPS×{config['pe_multiple']} 低估 / YoY≥{config['yoy_min']}% / 量能≥{config['vol_ratio_min']}x")
+    if sell_params:
+        print(f"   賣出條件：跌破 MA / RSI {sell_params['rsi_sell_low']}-{sell_params['rsi_sell_high']} / YoY 趨勢向下")
     print()
 
     results = []
     for i, ticker in enumerate(tickers, 1):
         print(f"  [{i}/{len(tickers)}] 分析 {ticker}...", end=" ")
-        result = analyze_stock(ticker, config)
+        result = analyze_stock(ticker, config, sell_params=sell_params)
         if result:
             print(f"✓ 通過 {result['passedCount']}/5 條件 → {result['signal']}")
             results.append(result)
@@ -251,6 +297,37 @@ def main():
     backup_path = Path(__file__).parent / "latest_result.json"
     with open(backup_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
+
+    # ─── 手上標的掃描 ─────────────────────────────────────
+    portfolio_tickers = cfg["portfolio_tickers"]
+    print(f"\n📊 掃描手上標的 {len(portfolio_tickers)} 檔...")
+
+    portfolio_results = []
+    for i, ticker in enumerate(portfolio_tickers, 1):
+        print(f"  [{i}/{len(portfolio_tickers)}] 分析 {ticker}...", end=" ")
+        result = analyze_stock(ticker, config, sell_params=sell_params, min_conditions=0)
+        if result:
+            print(f"✓ {result['passedCount']}/5 條件 → {result['signal']}")
+            portfolio_results.append(result)
+        else:
+            print("✗ 資料取得失敗")
+
+    portfolio_results.sort(key=lambda x: (-x["passedCount"], x.get("undervalPct") or 0))
+
+    portfolio_output = {
+        "generatedAt": datetime.now().isoformat(),
+        "config": config,
+        "totalHoldings": len(portfolio_tickers),
+        "totalFetched": len(portfolio_results),
+        "stocks": portfolio_results,
+    }
+
+    portfolio_path = OUTPUT_DIR / "portfolio.json"
+    with open(portfolio_path, "w", encoding="utf-8") as f:
+        json.dump(portfolio_output, f, ensure_ascii=False, indent=2)
+
+    print(f"✅ 手上標的完成！{len(portfolio_results)}/{len(portfolio_tickers)} 檔取得資料")
+    print(f"📄 輸出：{portfolio_path}")
 
 
 if __name__ == "__main__":
