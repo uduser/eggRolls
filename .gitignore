@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.vercel/
+*.pyc
+__pycache__/
+.env
+.DS_Store
+backend/latest_result.json
