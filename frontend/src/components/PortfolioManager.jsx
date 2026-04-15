@@ -86,7 +86,7 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
         }),
       })
 
-      setSuccess('已儲存！請執行 python screener.py 更新資料')
+      setSuccess('已儲存！資料將在幾分鐘內自動更新')
       onSave?.()
       setTimeout(() => onClose(), 1500)
     } catch (e) {
