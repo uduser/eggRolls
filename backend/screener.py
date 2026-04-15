@@ -142,20 +142,26 @@ def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
 
 
 # ─── 單檔股票分析 ─────────────────────────────────────────
+class AnalysisError(Exception):
+    """analyze_stock 發生錯誤時拋出，用來和「條件不符」區分"""
+    pass
+
+
 def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
                   min_conditions: int = 3, name_map: dict | None = None,
                   quiet: bool = False) -> dict | None:
     """
     分析單檔股票，回傳篩選結果。
-    如果不符合條件或資料不足，回傳 None。
+    條件不符回傳 None；資料錯誤時 quiet=True 拋 AnalysisError，quiet=False 印訊息回傳 None。
     """
     try:
         stock = yf.Ticker(ticker)
 
         hist = stock.history(period=f"{config['lookback_days']}d")
         if hist.empty or len(hist) < config["lookback_days"] // 2:
-            if not quiet:
-                print(f"  ⚠ {ticker}: 資料不足，跳過")
+            if quiet:
+                raise AnalysisError("資料不足")
+            print(f"  ⚠ {ticker}: 資料不足，跳過")
             return None
 
         close = hist["Close"]
@@ -289,9 +295,12 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
             "sellSignal": sell_signal,
         }
 
+    except AnalysisError:
+        raise  # 讓 caller 處理
     except Exception as e:
-        if not quiet:
-            print(f"  ✗ {ticker}: {e}")
+        if quiet:
+            raise AnalysisError(str(e))
+        print(f"  ✗ {ticker}: {e}")
         return None
 
 
@@ -339,23 +348,32 @@ def ensure_logos(tickers: list[str], name_map: dict):
 
 # ─── 多執行緒掃描 ────────────────────────────────────────
 def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map: dict) -> list[dict]:
-    """用多執行緒掃描大量股票，回傳通過篩選的結果"""
+    """用多執行緒掃描大量股票，回傳通過篩選的結果，並統計錯誤數"""
     results = []
     total = len(tickers)
-    progress = {"done": 0, "passed": 0}
+    progress = {"done": 0, "passed": 0, "errors": 0}
+    error_samples = []  # 記錄前幾筆錯誤原因
     lock = threading.Lock()
 
     def worker(ticker):
-        result = analyze_stock(
-            ticker, config, sell_params=sell_params, name_map=name_map, quiet=True,
-        )
+        try:
+            result = analyze_stock(
+                ticker, config, sell_params=sell_params, name_map=name_map, quiet=True,
+            )
+        except AnalysisError as e:
+            result = None
+            with lock:
+                progress["errors"] += 1
+                if len(error_samples) < 5:
+                    error_samples.append(f"{ticker}: {e}")
         with lock:
             progress["done"] += 1
             if result:
                 progress["passed"] += 1
             done = progress["done"]
             if done % 100 == 0 or done == total:
-                print(f"  進度 {done}/{total} ({done * 100 // total}%) — 通過 {progress['passed']} 檔")
+                print(f"  進度 {done}/{total} ({done * 100 // total}%) "
+                      f"— 通過 {progress['passed']} 檔 / 失敗 {progress['errors']} 檔")
         return result
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -367,6 +385,18 @@ def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map
                     results.append(result)
             except Exception:
                 pass
+
+    # 掃描摘要
+    errors = progress["errors"]
+    if errors > 0:
+        pct = errors * 100 // total
+        print(f"\n  ⚠ 共 {errors}/{total} 檔失敗 ({pct}%)")
+        if pct > 30:
+            print(f"  🚨 失敗率偏高，可能被 Yahoo Finance 限流！")
+        if error_samples:
+            print(f"  錯誤範例：")
+            for s in error_samples:
+                print(f"    - {s}")
 
     return results
 
