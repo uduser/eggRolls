@@ -24,6 +24,8 @@ export default function App() {
   const [filter, setFilter] = useState('all')
   const [sortConfig, setSortConfig] = useState({ key: 'passedCount', dir: 'desc' })
   const [managerTarget, setManagerTarget] = useState(null) // 'portfolio' | 'screener' | null
+  // 儲存後的即時過濾清單：{ portfolio_tickers: [...], screener_tickers: [...] }
+  const [tickerOverride, setTickerOverride] = useState(null)
 
   useEffect(() => {
     Promise.all([
@@ -45,6 +47,17 @@ export default function App() {
   const filteredStocks = useMemo(() => {
     if (!activeData?.stocks) return []
     let stocks = activeData.stocks
+
+    // 管理標的儲存後，立即過濾被移除的標的（不用等 screener 重跑）
+    if (tickerOverride) {
+      const configKey = activeTab === 'portfolio' ? 'portfolio_tickers' : 'screener_tickers'
+      const allowed = tickerOverride[configKey]
+      if (allowed) {
+        const allowedSymbols = new Set(allowed.map(t => t.replace(/\.(TW|TWO)$/i, '')))
+        stocks = stocks.filter(s => allowedSymbols.has(s.symbol))
+      }
+    }
+
     if (filter !== 'all') {
       stocks = stocks.filter(s => s.signal === filter)
     }
@@ -54,7 +67,7 @@ export default function App() {
       const bVal = b[key] ?? 0
       return dir === 'asc' ? aVal - bVal : bVal - aVal
     })
-  }, [activeData, activeTab, filter, sortConfig])
+  }, [activeData, activeTab, filter, sortConfig, tickerOverride])
 
   // 大盤分析統計
   const screenerStats = useMemo(() => {
@@ -137,8 +150,8 @@ export default function App() {
         {activeData && (
           <span className="badge">
             {activeTab === 'portfolio'
-              ? `${portfolioData?.totalFetched || 0} 檔持有`
-              : `${screenerData?.totalPassed || 0} 檔符合`}
+              ? `${filteredStocks.length} 檔持有`
+              : `${filteredStocks.length} 檔符合`}
           </span>
         )}
         <button className="manage-btn" onClick={() => setManagerTarget(activeTab)}>
@@ -339,7 +352,7 @@ export default function App() {
         onClose={() => setManagerTarget(null)}
         configKey={managerTarget === 'screener' ? 'screener_tickers' : 'portfolio_tickers'}
         title={managerTarget === 'screener' ? '管理掃描標的' : '管理持有標的'}
-        onSave={() => {}}
+        onSave={(key, tickers) => setTickerOverride(prev => ({ ...prev, [key]: tickers }))}
       />
     </>
   )

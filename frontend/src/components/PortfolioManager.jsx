@@ -87,7 +87,7 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
       })
 
       setSuccess('已儲存！資料將在幾分鐘內自動更新')
-      onSave?.()
+      onSave?.(configKey, tickers.map((t) => t.ticker))
       setTimeout(() => onClose(), 1500)
     } catch (e) {
       setError('儲存失敗：' + e.message)
