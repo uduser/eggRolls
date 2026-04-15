@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-15T15:57:56.235534+08:00",
+  "generatedAt": "2026-04-15T16:08:17.765319+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -11,8 +11,8 @@
     "vol_avg_days": 20,
     "lookback_days": 120
   },
-  "totalScanned": 1953,
-  "totalPassed": 83,
+  "totalScanned": 1074,
+  "totalPassed": 82,
   "stocks": [
     {
       "symbol": "2442",
@@ -309,6 +309,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "1731",
+      "exchange": "TWSE",
+      "name": "美吾華",
+      "close": 21.9,
+      "ma5": 21.8,
+      "maDiffPct": 0.32,
+      "rsi": 55.2,
+      "forwardEps": 1.36,
+      "fairValue": 27.2,
+      "undervalPct": -19.5,
+      "yoyPct": 10.3,
+      "yoyTrend": null,
+      "volume": 140533,
+      "avgVolume": 86070,
+      "volRatio": 1.63,
+      "volSpark": [
+        33,
+        58,
+        24,
+        43,
+        69,
+        100,
+        88
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2201",
       "exchange": "TWSE",
       "name": "裕隆",
@@ -382,48 +424,6 @@
         "undervalued": true,
         "yoy_pass": true,
         "vol_surge": false
-      },
-      "passedCount": 4,
-      "sellConditions": {
-        "ma_below": false,
-        "rsi_overbought": false,
-        "yoy_trend_down": false
-      },
-      "sellPassedCount": 0,
-      "sellSignal": null
-    },
-    {
-      "symbol": "1731",
-      "exchange": "TWSE",
-      "name": "美吾華",
-      "close": 21.9,
-      "ma5": 21.8,
-      "maDiffPct": 0.32,
-      "rsi": 55.2,
-      "forwardEps": 1.1,
-      "fairValue": 22.0,
-      "undervalPct": -0.5,
-      "yoyPct": 10.3,
-      "yoyTrend": null,
-      "volume": 140533,
-      "avgVolume": 86070,
-      "volRatio": 1.63,
-      "volSpark": [
-        33,
-        58,
-        24,
-        43,
-        69,
-        100,
-        88
-      ],
-      "signal": "buy",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": false,
-        "undervalued": true,
-        "yoy_pass": true,
-        "vol_surge": true
       },
       "passedCount": 4,
       "sellConditions": {
@@ -1642,48 +1642,6 @@
         "undervalued": true,
         "yoy_pass": false,
         "vol_surge": true
-      },
-      "passedCount": 3,
-      "sellConditions": {
-        "ma_below": false,
-        "rsi_overbought": false,
-        "yoy_trend_down": false
-      },
-      "sellPassedCount": 0,
-      "sellSignal": null
-    },
-    {
-      "symbol": "2855",
-      "exchange": "TWSE",
-      "name": "統一證",
-      "close": 32.8,
-      "ma5": 31.7,
-      "maDiffPct": 3.6,
-      "rsi": 57.0,
-      "forwardEps": 2.99,
-      "fairValue": 59.8,
-      "undervalPct": -45.1,
-      "yoyPct": 115.0,
-      "yoyTrend": null,
-      "volume": 8523417,
-      "avgVolume": 6225410,
-      "volRatio": 1.37,
-      "volSpark": [
-        26,
-        50,
-        100,
-        25,
-        45,
-        46,
-        67
-      ],
-      "signal": "watch",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": false,
-        "undervalued": true,
-        "yoy_pass": true,
-        "vol_surge": false
       },
       "passedCount": 3,
       "sellConditions": {
