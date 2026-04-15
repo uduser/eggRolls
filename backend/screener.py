@@ -158,7 +158,16 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         stock = yf.Ticker(ticker)
 
         hist = stock.history(period=f"{config['lookback_days']}d")
-        if hist.empty or len(hist) < config["lookback_days"] // 2:
+
+        # 完全沒資料 → 失敗
+        if hist.empty:
+            if quiet:
+                raise AnalysisError("無任何資料")
+            print(f"  ⚠ {ticker}: 無任何資料，跳過")
+            return None
+
+        # 資料太少：大盤篩選跳過，手上標的（min_conditions=0）仍嘗試分析
+        if len(hist) < config["lookback_days"] // 2 and min_conditions > 0:
             if quiet:
                 raise AnalysisError("資料不足")
             print(f"  ⚠ {ticker}: 資料不足，跳過")
@@ -172,16 +181,21 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
 
         # 1. MA：前一天收盤 < MA，當天收盤 > MA → 突破
         ma = calc_ma(close, config["ma_period"])
-        latest_ma = float(ma.iloc[-1])
-        prev_close = float(close.iloc[-2])
-        prev_ma = float(ma.iloc[-2])
-        ma_breakout = prev_close < prev_ma and latest_close > latest_ma
-        ma_diff_pct = round((latest_close - latest_ma) / latest_ma * 100, 2)
+        latest_ma = float(ma.iloc[-1]) if not pd.isna(ma.iloc[-1]) else None
+        prev_close = float(close.iloc[-2]) if len(close) >= 2 else None
+        prev_ma = float(ma.iloc[-2]) if len(ma) >= 2 and not pd.isna(ma.iloc[-2]) else None
+
+        if latest_ma is not None and prev_close is not None and prev_ma is not None:
+            ma_breakout = prev_close < prev_ma and latest_close > latest_ma
+            ma_diff_pct = round((latest_close - latest_ma) / latest_ma * 100, 2)
+        else:
+            ma_breakout = False
+            ma_diff_pct = None
 
         # 2. RSI
         rsi = calc_rsi(close, config["rsi_period"])
-        latest_rsi = round(float(rsi.iloc[-1]), 1)
-        rsi_in_range = config["rsi_low"] <= latest_rsi <= config["rsi_high"]
+        latest_rsi = round(float(rsi.iloc[-1]), 1) if not pd.isna(rsi.iloc[-1]) else None
+        rsi_in_range = (config["rsi_low"] <= latest_rsi <= config["rsi_high"]) if latest_rsi is not None else False
 
         # 3. 估值：預估 EPS × 倍數
         info = stock.info or {}
@@ -211,15 +225,16 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
                 yoy_pass = False
 
         # 5. 量能
-        latest_vol = int(volume.iloc[-1])
-        avg_vol = int(volume.iloc[-config["vol_avg_days"]:].mean())
+        latest_vol = int(volume.iloc[-1]) if len(volume) > 0 else 0
+        vol_window = volume.iloc[-config["vol_avg_days"]:]
+        avg_vol = int(vol_window.mean()) if len(vol_window) > 0 else 0
         vol_ratio = round(latest_vol / avg_vol, 2) if avg_vol > 0 else 0
         vol_surge = vol_ratio >= config["vol_ratio_min"]
 
         # 最近 7 天成交量（前端 spark bar 用）
         recent_vols = volume.iloc[-7:].tolist()
         max_vol = max(recent_vols) if recent_vols else 1
-        vol_spark = [round(v / max_vol * 100) for v in recent_vols]
+        vol_spark = [round(v / max_vol * 100) for v in recent_vols] if max_vol > 0 else []
 
         # --- 篩選 ---
         conditions = {
@@ -254,8 +269,10 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         yoy_trend = None
 
         if sell_params:
-            sell_ma_below = prev_close > prev_ma and latest_close < latest_ma
-            sell_rsi = sell_params["rsi_sell_low"] <= latest_rsi <= sell_params["rsi_sell_high"]
+            sell_ma_below = (prev_close is not None and prev_ma is not None and latest_ma is not None
+                            and prev_close > prev_ma and latest_close < latest_ma)
+            sell_rsi = (latest_rsi is not None
+                        and sell_params["rsi_sell_low"] <= latest_rsi <= sell_params["rsi_sell_high"])
             sell_yoy_down, yoy_trend = calc_yoy_trend_down(stock)
 
             sell_conditions = {
@@ -275,7 +292,7 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
             "exchange": "TPEX" if ".TWO" in ticker else "TWSE",
             "name": name,
             "close": round(latest_close, 1),
-            "ma5": round(latest_ma, 1),
+            "ma5": round(latest_ma, 1) if latest_ma is not None else None,
             "maDiffPct": ma_diff_pct,
             "rsi": latest_rsi,
             "forwardEps": round(forward_eps, 2) if forward_eps else None,
