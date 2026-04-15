@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-15T15:09:10.366406+08:00",
+  "generatedAt": "2026-04-15T15:57:56.332431+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -11,7 +11,7 @@
     "vol_avg_days": 20,
     "lookback_days": 120
   },
-  "totalHoldings": 6,
+  "totalHoldings": 7,
   "totalFetched": 0,
   "stocks": []
 }
