@@ -1,5 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
 
+async function loadConfig() {
+  // dev server API → fall back to static file (production)
+  const apiRes = await fetch('/api/config')
+  if (apiRes.ok && apiRes.headers.get('content-type')?.includes('json')) {
+    return { config: await apiRes.json(), editable: true }
+  }
+  const staticRes = await fetch('/data/config.json')
+  if (staticRes.ok) {
+    return { config: await staticRes.json(), editable: false }
+  }
+  throw new Error('無法載入設定檔')
+}
+
 export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 'portfolio_tickers', title = '管理持有標的' }) {
   const [tickers, setTickers] = useState([])
   const [newTicker, setNewTicker] = useState('')
@@ -7,15 +20,16 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [editable, setEditable] = useState(false)
   const inputRef = useRef(null)
 
   useEffect(() => {
     if (!isOpen) return
     setError('')
     setSuccess('')
-    fetch('/api/config')
-      .then((r) => r.json())
-      .then((config) => {
+    loadConfig()
+      .then(({ config, editable }) => {
+        setEditable(editable)
         setTickers(
           (config[configKey] || []).map((t) => ({
             ticker: t,
@@ -23,12 +37,12 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
           }))
         )
       })
-      .catch(() => setError('無法載入設定檔'))
+      .catch((e) => setError(e.message))
   }, [isOpen, configKey])
 
   useEffect(() => {
-    if (isOpen) inputRef.current?.focus()
-  }, [isOpen])
+    if (isOpen && editable) inputRef.current?.focus()
+  }, [isOpen, editable])
 
   const addTicker = () => {
     let t = newTicker.trim().toUpperCase()
@@ -51,8 +65,7 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
     setSaving(true)
     setError('')
     try {
-      const res = await fetch('/api/config')
-      const config = await res.json()
+      const { config } = await loadConfig()
 
       config[configKey] = tickers.map((t) => t.ticker)
       tickers.forEach((t) => {
@@ -96,27 +109,29 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
           </button>
         </div>
 
-        {/* Add form */}
-        <div className="pm-add">
-          <input
-            ref={inputRef}
-            className="pm-input pm-input-ticker"
-            placeholder="股票代號（如 2330）"
-            value={newTicker}
-            onChange={(e) => setNewTicker(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && addTicker()}
-          />
-          <input
-            className="pm-input pm-input-name"
-            placeholder="中文名稱（選填）"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && addTicker()}
-          />
-          <button className="pm-btn-add" onClick={addTicker}>
-            新增
-          </button>
-        </div>
+        {/* Add form — only in dev mode */}
+        {editable && (
+          <div className="pm-add">
+            <input
+              ref={inputRef}
+              className="pm-input pm-input-ticker"
+              placeholder="股票代號（如 2330）"
+              value={newTicker}
+              onChange={(e) => setNewTicker(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && addTicker()}
+            />
+            <input
+              className="pm-input pm-input-name"
+              placeholder="中文名稱（選填）"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && addTicker()}
+            />
+            <button className="pm-btn-add" onClick={addTicker}>
+              新增
+            </button>
+          </div>
+        )}
 
         {error && <div className="pm-msg pm-error">{error}</div>}
         {success && <div className="pm-msg pm-success">{success}</div>}
@@ -137,9 +152,11 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
                   <span className="pm-item-ticker">{t.ticker}</span>
                   {t.name && <span className="pm-item-name">{t.name}</span>}
                 </div>
-                <button className="pm-item-rm" onClick={() => removeTicker(i)}>
-                  &times;
-                </button>
+                {editable && (
+                  <button className="pm-item-rm" onClick={() => removeTicker(i)}>
+                    &times;
+                  </button>
+                )}
               </div>
             )
           })}
@@ -150,16 +167,21 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
 
         {/* Actions */}
         <div className="pm-actions">
+          {!editable && (
+            <span className="pm-msg pm-hint">編輯請在本地 dev 環境操作</span>
+          )}
           <button className="pm-btn cancel" onClick={onClose}>
-            取消
+            {editable ? '取消' : '關閉'}
           </button>
-          <button
-            className="pm-btn save"
-            onClick={handleSave}
-            disabled={saving}
-          >
-            {saving ? '儲存中...' : '儲存'}
-          </button>
+          {editable && (
+            <button
+              className="pm-btn save"
+              onClick={handleSave}
+              disabled={saving}
+            >
+              {saving ? '儲存中...' : '儲存'}
+            </button>
+          )}
         </div>
       </div>
     </div>

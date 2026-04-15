@@ -227,6 +227,12 @@ body {
   color: var(--green);
 }
 
+.pm-hint {
+  color: var(--text-muted);
+  flex: 1;
+  padding: 0;
+}
+
 /* ─── Ticker list ─── */
 .pm-list {
   flex: 1;

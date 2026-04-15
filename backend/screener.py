@@ -380,6 +380,12 @@ def main():
     print(f"✅ 手上標的完成！{len(portfolio_results)}/{len(portfolio_tickers)} 檔取得資料")
     print(f"📄 輸出：{portfolio_path}")
 
+    # 複製 config.json 到 frontend/public/data/ 供 production 讀取
+    config_copy_path = OUTPUT_DIR / "config.json"
+    with open(config_copy_path, "w", encoding="utf-8") as f:
+        json.dump(cfg, f, ensure_ascii=False, indent=2)
+    print(f"📄 設定檔複製：{config_copy_path}")
+
 
 if __name__ == "__main__":
     main()

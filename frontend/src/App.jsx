@@ -100,7 +100,9 @@ export default function App() {
 
   const formatTime = (isoString) => {
     if (!isoString) return ''
-    const d = new Date(isoString)
+    // 沒有時區資訊的舊資料視為 UTC，新資料帶 +08:00 會自動正確解析
+    const s = isoString.includes('+') || isoString.endsWith('Z') ? isoString : isoString + 'Z'
+    const d = new Date(s)
     return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
   }
 
