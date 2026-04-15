@@ -154,9 +154,11 @@ export default function App() {
               : `${filteredStocks.length} 檔符合`}
           </span>
         )}
-        <button className="manage-btn" onClick={() => setManagerTarget(activeTab)}>
-          管理標的
-        </button>
+        {activeTab === 'portfolio' && (
+          <button className="manage-btn" onClick={() => setManagerTarget('portfolio')}>
+            管理標的
+          </button>
+        )}
         <span className="timestamp">
           Last Update: {formatTime(activeData?.generatedAt)}
         </span>

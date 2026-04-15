@@ -2,45 +2,83 @@
 台股選股雷達 — 後端篩選腳本
 =============================
 篩選條件：
-  1. 收盤價突破 MA5（5 日均線）
+  1. 收盤價突破 MA5（前日 < MA，今日 > MA）
   2. RSI(14) 介於 30–50（超賣回升區）
   3. 股價低於「預估 EPS × 20」（低估）
   4. 近月營收 YoY ≥ 10%（雙位數成長）
   5. 當日成交量 > 20 日均量 × 1.5（放量）
 
 使用方式：
-  pip install yfinance pandas ta-lib --break-system-packages
+  pip install yfinance pandas requests --break-system-packages
   python screener.py
-
-  如果 ta-lib 裝不起來，可改用 pandas_ta（腳本會自動 fallback）
 
 輸出：
   ../frontend/public/data/stocks.json
+  ../frontend/public/data/portfolio.json
 """
 
 import json
 import os
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
-
-TW_TZ = timezone(timedelta(hours=8))
 from pathlib import Path
 
 import pandas as pd
+import requests
 import yfinance as yf
 
-# ─── 設定 ───────────────────────────────────────────────
-# 所有標的清單與篩選參數統一放在 config.json
-# 修改 config.json 即可，不需動程式碼
+TW_TZ = timezone(timedelta(hours=8))
+MAX_WORKERS = 10
 
+# ─── 設定 ───────────────────────────────────────────────
 CONFIG_PATH = Path(__file__).parent / "config.json"
 OUTPUT_DIR = Path(__file__).parent.parent / "frontend" / "public" / "data"
+LOGOS_DIR = Path(__file__).parent.parent / "frontend" / "public" / "logos"
 
 
 def load_config() -> dict:
     """讀取 config.json，回傳完整設定"""
     with open(CONFIG_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+# ─── 全市場股票清單 ──────────────────────────────────────
+def fetch_all_tw_tickers() -> list[str]:
+    """從 TWSE / TPEX 官方 API 抓取全市場股票代號（僅一般股票，排除 ETF / 債券 / 權證）"""
+    tickers = []
+
+    # ── TWSE 上市 ──
+    try:
+        r = requests.get(
+            "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL",
+            timeout=30,
+        )
+        r.raise_for_status()
+        for item in r.json():
+            code = item.get("Code", "").strip()
+            # 4 碼數字 ≥ 1100 → 一般上市股票（排除 ETF 0050 等）
+            if code.isdigit() and len(code) == 4 and int(code) >= 1100:
+                tickers.append(f"{code}.TW")
+    except Exception as e:
+        print(f"  ⚠ TWSE API 失敗: {e}")
+
+    # ── TPEX 上櫃 ──
+    try:
+        r = requests.get(
+            "https://www.tpex.org.tw/openapi/v1/tpex_mainboard_quotes",
+            timeout=30,
+        )
+        r.raise_for_status()
+        for item in r.json():
+            code = item.get("SecuritiesCompanyCode", "").strip()
+            if code.isdigit() and len(code) == 4 and int(code) >= 1100:
+                tickers.append(f"{code}.TWO")
+    except Exception as e:
+        print(f"  ⚠ TPEX API 失敗: {e}")
+
+    return tickers
 
 
 # ─── 技術指標計算 ─────────────────────────────────────────
@@ -72,7 +110,6 @@ def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
         if qis is None or qis.empty:
             return False, None
 
-        # 找 Total Revenue 行
         rev_key = None
         for k in qis.index:
             if "Total Revenue" in str(k):
@@ -81,12 +118,10 @@ def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
         if rev_key is None:
             return False, None
 
-        rev = qis.loc[rev_key].dropna().sort_index()  # 由舊到新
+        rev = qis.loc[rev_key].dropna().sort_index()
         if len(rev) < 6:
             return False, None
 
-        # 最新季 YoY：rev[-1] vs rev[-5]（4 季前同期）
-        # 前一季 YoY：rev[-2] vs rev[-6]
         latest_yoy = (rev.iloc[-1] - rev.iloc[-5]) / abs(rev.iloc[-5]) * 100
         prev_yoy = (rev.iloc[-2] - rev.iloc[-6]) / abs(rev.iloc[-6]) * 100
 
@@ -97,18 +132,19 @@ def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
 
 # ─── 單檔股票分析 ─────────────────────────────────────────
 def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
-                  min_conditions: int = 3, name_map: dict | None = None) -> dict | None:
+                  min_conditions: int = 3, name_map: dict | None = None,
+                  quiet: bool = False) -> dict | None:
     """
     分析單檔股票，回傳篩選結果。
-    如果不符合任何條件，回傳 None。
+    如果不符合條件或資料不足，回傳 None。
     """
     try:
         stock = yf.Ticker(ticker)
-        
-        # 抓歷史資料
+
         hist = stock.history(period=f"{config['lookback_days']}d")
         if hist.empty or len(hist) < config["lookback_days"] // 2:
-            print(f"  ⚠ {ticker}: 資料不足，跳過")
+            if not quiet:
+                print(f"  ⚠ {ticker}: 資料不足，跳過")
             return None
 
         close = hist["Close"]
@@ -116,11 +152,13 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
 
         # --- 指標計算 ---
         latest_close = float(close.iloc[-1])
-        
-        # 1. MA
+
+        # 1. MA：前一天收盤 < MA，當天收盤 > MA → 突破
         ma = calc_ma(close, config["ma_period"])
         latest_ma = float(ma.iloc[-1])
-        ma_breakout = latest_close > latest_ma
+        prev_close = float(close.iloc[-2])
+        prev_ma = float(ma.iloc[-2])
+        ma_breakout = prev_close < prev_ma and latest_close > latest_ma
         ma_diff_pct = round((latest_close - latest_ma) / latest_ma * 100, 2)
 
         # 2. RSI
@@ -131,7 +169,7 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         # 3. 估值：預估 EPS × 倍數
         info = stock.info or {}
         forward_eps = info.get("forwardEps") or info.get("trailingEps")
-        
+
         if forward_eps and forward_eps > 0:
             fair_value = round(forward_eps * config["pe_multiple"], 1)
             undervalued = latest_close < fair_value
@@ -141,13 +179,12 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
             undervalued = False
             underval_pct = None
 
-        # 4. YoY 營收成長（用 yfinance 的 revenueGrowth 或 earningsGrowth）
+        # 4. YoY 營收成長
         revenue_growth = info.get("revenueGrowth")
         if revenue_growth is not None:
             yoy_pct = round(revenue_growth * 100, 1)
             yoy_pass = yoy_pct >= config["yoy_min"]
         else:
-            # fallback: 用 earningsGrowth
             earnings_growth = info.get("earningsGrowth")
             if earnings_growth is not None:
                 yoy_pct = round(earnings_growth * 100, 1)
@@ -162,7 +199,7 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         vol_ratio = round(latest_vol / avg_vol, 2) if avg_vol > 0 else 0
         vol_surge = vol_ratio >= config["vol_ratio_min"]
 
-        # 最近 7 天成交量（給前端畫 spark bar 用）
+        # 最近 7 天成交量（前端 spark bar 用）
         recent_vols = volume.iloc[-7:].tolist()
         max_vol = max(recent_vols) if recent_vols else 1
         vol_spark = [round(v / max_vol * 100) for v in recent_vols]
@@ -177,11 +214,9 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         }
         passed = sum(conditions.values())
 
-        # 至少通過指定條件數才列入
         if passed < min_conditions:
             return None
 
-        # 判斷訊號強度
         if passed >= 5:
             signal = "strong"
         elif passed >= 4:
@@ -191,7 +226,9 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         else:
             signal = "hold"
 
-        name = (name_map or {}).get(ticker) or info.get("shortName", info.get("longName", ticker.replace(".TW", "").replace(".TWO", "")))
+        name = (name_map or {}).get(ticker) or info.get(
+            "shortName", info.get("longName", ticker.replace(".TW", "").replace(".TWO", ""))
+        )
 
         # --- 賣出訊號 ---
         sell_conditions = None
@@ -200,11 +237,8 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         yoy_trend = None
 
         if sell_params:
-            # 1. 跌破均線：收盤 < MA
-            sell_ma_below = latest_close < latest_ma
-            # 2. RSI 過熱區
+            sell_ma_below = prev_close > prev_ma and latest_close < latest_ma
             sell_rsi = sell_params["rsi_sell_low"] <= latest_rsi <= sell_params["rsi_sell_high"]
-            # 3. YoY 趨勢向下（季報營收）
             sell_yoy_down, yoy_trend = calc_yoy_trend_down(stock)
 
             sell_conditions = {
@@ -245,14 +279,12 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         }
 
     except Exception as e:
-        print(f"  ✗ {ticker}: {e}")
+        if not quiet:
+            print(f"  ✗ {ticker}: {e}")
         return None
 
 
-# ─── 主程式 ───────────────────────────────────────────────
-LOGOS_DIR = Path(__file__).parent.parent / "frontend" / "public" / "logos"
-
-
+# ─── Logo 自動產生 ────────────────────────────────────────
 def generate_logo_svg(symbol: str, name: str, output_dir: Path):
     """為缺少 logo 的標的自動產生簡易 SVG 圖示"""
     logo_path = output_dir / f"{symbol}.svg"
@@ -291,38 +323,69 @@ def ensure_logos(tickers: list[str], name_map: dict):
         if generate_logo_svg(symbol, name, LOGOS_DIR):
             generated.append(symbol)
     if generated:
-        print(f"🖼️  自動產生 {len(generated)} 個 logo：{', '.join(generated)}")
+        print(f"🖼️  自動產生 {len(generated)} 個 logo")
 
 
+# ─── 多執行緒掃描 ────────────────────────────────────────
+def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map: dict) -> list[dict]:
+    """用多執行緒掃描大量股票，回傳通過篩選的結果"""
+    results = []
+    total = len(tickers)
+    progress = {"done": 0, "passed": 0}
+    lock = threading.Lock()
+
+    def worker(ticker):
+        result = analyze_stock(
+            ticker, config, sell_params=sell_params, name_map=name_map, quiet=True,
+        )
+        with lock:
+            progress["done"] += 1
+            if result:
+                progress["passed"] += 1
+            done = progress["done"]
+            if done % 100 == 0 or done == total:
+                print(f"  進度 {done}/{total} ({done * 100 // total}%) — 通過 {progress['passed']} 檔")
+        return result
+
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = [executor.submit(worker, t) for t in tickers]
+        for future in as_completed(futures):
+            try:
+                result = future.result()
+                if result:
+                    results.append(result)
+            except Exception:
+                pass
+
+    return results
+
+
+# ─── 主程式 ───────────────────────────────────────────────
 def main():
     cfg = load_config()
-    tickers = cfg["screener_tickers"]
     config = cfg["screener_params"]
     sell_params = cfg.get("sell_params")
     name_map = cfg.get("name_map", {})
 
-    # 自動產生缺少的 logo
-    all_tickers = list(set(tickers + cfg.get("portfolio_tickers", [])))
-    ensure_logos(all_tickers, name_map)
+    # ─── 全市場掃描 ─────────────────────────────────────
+    print("📡 從 TWSE / TPEX 抓取全市場股票清單...")
+    tickers = fetch_all_tw_tickers()
 
-    print(f"🔍 開始掃描 {len(tickers)} 檔股票...")
+    if not tickers:
+        # API 失敗時 fallback 到 config.json
+        tickers = cfg.get("screener_tickers", [])
+        print(f"  ⚠ API 無回應，使用 config.json 的 {len(tickers)} 檔標的")
+    else:
+        print(f"  ✓ 共取得 {len(tickers)} 檔股票（上市 + 上櫃）")
+
+    print(f"\n🔍 開始掃描 {len(tickers)} 檔股票（{MAX_WORKERS} 執行緒）...")
     print(f"   篩選條件：MA{config['ma_period']} 突破 / RSI {config['rsi_low']}-{config['rsi_high']} / "
           f"EPS×{config['pe_multiple']} 低估 / YoY≥{config['yoy_min']}% / 量能≥{config['vol_ratio_min']}x")
     if sell_params:
         print(f"   賣出條件：跌破 MA / RSI {sell_params['rsi_sell_low']}-{sell_params['rsi_sell_high']} / YoY 趨勢向下")
     print()
 
-    results = []
-    for i, ticker in enumerate(tickers, 1):
-        print(f"  [{i}/{len(tickers)}] 分析 {ticker}...", end=" ")
-        result = analyze_stock(ticker, config, sell_params=sell_params, name_map=name_map)
-        if result:
-            print(f"✓ 通過 {result['passedCount']}/5 條件 → {result['signal']}")
-            results.append(result)
-        else:
-            print("✗")
-
-    # 按通過條件數 + 低估幅度排序
+    results = scan_stocks_parallel(tickers, config, sell_params, name_map)
     results.sort(key=lambda x: (-x["passedCount"], x.get("undervalPct") or 0))
 
     # 組裝輸出 JSON
@@ -334,23 +397,22 @@ def main():
         "stocks": results,
     }
 
-    # 寫入檔案
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     output_path = OUTPUT_DIR / "stocks.json"
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
     print()
-    print(f"✅ 完成！{len(results)}/{len(tickers)} 檔通過篩選")
+    print(f"✅ 大盤掃描完成！{len(results)}/{len(tickers)} 檔通過篩選")
     print(f"📄 輸出：{output_path}")
 
-    # 同時輸出一份到 backend 資料夾方便備份
+    # 備份
     backup_path = Path(__file__).parent / "latest_result.json"
     with open(backup_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
-    # ─── 手上標的掃描 ─────────────────────────────────────
-    portfolio_tickers = cfg["portfolio_tickers"]
+    # ─── 手上標的掃描（單執行緒，數量少） ─────────────────
+    portfolio_tickers = cfg.get("portfolio_tickers", [])
     print(f"\n📊 掃描手上標的 {len(portfolio_tickers)} 檔...")
 
     portfolio_results = []
@@ -379,6 +441,13 @@ def main():
 
     print(f"✅ 手上標的完成！{len(portfolio_results)}/{len(portfolio_tickers)} 檔取得資料")
     print(f"📄 輸出：{portfolio_path}")
+
+    # ─── Logo 自動產生（只為通過的標的 + 持有標的） ────────
+    passed_tickers = [
+        f"{r['symbol']}.{'TWO' if r['exchange'] == 'TPEX' else 'TW'}"
+        for r in results + portfolio_results
+    ]
+    ensure_logos(passed_tickers, name_map)
 
     # 複製 config.json 到 frontend/public/data/ 供 production 讀取
     config_copy_path = OUTPUT_DIR / "config.json"
