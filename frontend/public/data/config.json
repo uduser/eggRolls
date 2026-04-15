@@ -46,7 +46,6 @@
   },
   "_portfolio_desc": "手上持有的標的，格式：代號.TW（上市）或 代號.TWO（上櫃）",
   "portfolio_tickers": [
-    "0050.TW",
     "00948B.TW",
     "00992A.TW",
     "1727.TW",
