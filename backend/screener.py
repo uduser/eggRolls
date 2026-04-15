@@ -45,9 +45,12 @@ def load_config() -> dict:
 
 
 # ─── 全市場股票清單 ──────────────────────────────────────
-def fetch_all_tw_tickers() -> list[str]:
-    """從 TWSE / TPEX 官方 API 抓取全市場股票代號（僅一般股票，排除 ETF / 債券 / 權證）"""
+def fetch_all_tw_tickers() -> tuple[list[str], dict[str, str]]:
+    """從 TWSE / TPEX 官方 API 抓取全市場股票代號與中文名稱。
+    回傳 (tickers, auto_name_map)，僅一般股票（排除 ETF / 債券 / 權證）。
+    """
     tickers = []
+    names = {}  # {"2330.TW": "台積電", ...}
 
     # ── TWSE 上市 ──
     try:
@@ -60,7 +63,11 @@ def fetch_all_tw_tickers() -> list[str]:
             code = item.get("Code", "").strip()
             # 4 碼數字 ≥ 1100 → 一般上市股票（排除 ETF 0050 等）
             if code.isdigit() and len(code) == 4 and int(code) >= 1100:
-                tickers.append(f"{code}.TW")
+                ticker = f"{code}.TW"
+                tickers.append(ticker)
+                name = item.get("Name", "").strip()
+                if name:
+                    names[ticker] = name
     except Exception as e:
         print(f"  ⚠ TWSE API 失敗: {e}")
 
@@ -74,11 +81,15 @@ def fetch_all_tw_tickers() -> list[str]:
         for item in r.json():
             code = item.get("SecuritiesCompanyCode", "").strip()
             if code.isdigit() and len(code) == 4 and int(code) >= 1100:
-                tickers.append(f"{code}.TWO")
+                ticker = f"{code}.TWO"
+                tickers.append(ticker)
+                name = item.get("CompanyName", "").strip()
+                if name:
+                    names[ticker] = name
     except Exception as e:
         print(f"  ⚠ TPEX API 失敗: {e}")
 
-    return tickers
+    return tickers, names
 
 
 # ─── 技術指標計算 ─────────────────────────────────────────
@@ -369,7 +380,11 @@ def main():
 
     # ─── 全市場掃描 ─────────────────────────────────────
     print("📡 從 TWSE / TPEX 抓取全市場股票清單...")
-    tickers = fetch_all_tw_tickers()
+    tickers, auto_names = fetch_all_tw_tickers()
+
+    # 合併中文名稱：API 抓到的 + config.json 手動覆寫（手動優先）
+    merged_names = {**auto_names, **name_map}
+    name_map = merged_names
 
     if not tickers:
         # API 失敗時 fallback 到 config.json
