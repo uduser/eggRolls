@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import MetricCards from './components/MetricCards'
 import StockTable from './components/StockTable'
+import PortfolioManager from './components/PortfolioManager'
 
 const FILTER_OPTIONS = [
   { key: 'all', label: '全部' },
@@ -22,6 +23,7 @@ export default function App() {
   const [error, setError] = useState(null)
   const [filter, setFilter] = useState('all')
   const [sortConfig, setSortConfig] = useState({ key: 'passedCount', dir: 'desc' })
+  const [managerTarget, setManagerTarget] = useState(null) // 'portfolio' | 'screener' | null
 
   useEffect(() => {
     Promise.all([
@@ -137,8 +139,11 @@ export default function App() {
               : `${screenerData?.totalPassed || 0} 檔符合`}
           </span>
         )}
+        <button className="manage-btn" onClick={() => setManagerTarget(activeTab)}>
+          管理標的
+        </button>
         <span className="timestamp">
-          {formatTime(activeData?.generatedAt)}
+          Last Update: {formatTime(activeData?.generatedAt)}
         </span>
       </div>
 
@@ -326,6 +331,14 @@ export default function App() {
           )}
         </>
       )}
+
+      <PortfolioManager
+        isOpen={managerTarget !== null}
+        onClose={() => setManagerTarget(null)}
+        configKey={managerTarget === 'screener' ? 'screener_tickers' : 'portfolio_tickers'}
+        title={managerTarget === 'screener' ? '管理掃描標的' : '管理持有標的'}
+        onSave={() => {}}
+      />
     </>
   )
 }

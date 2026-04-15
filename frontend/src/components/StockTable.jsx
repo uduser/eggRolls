@@ -159,7 +159,7 @@ export default function StockTable({ stocks, sortConfig, onSort }) {
                 <td>
                   <a
                     className="ticker-cell ticker-link"
-                    href={`https://www.tradingview.com/chart/?symbol=${stock.exchange || 'TWSE'}:${stock.symbol}`}
+                    href={`https://www.tradingview.com/symbols/${stock.exchange || 'TWSE'}-${stock.symbol}/`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

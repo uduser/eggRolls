@@ -21,7 +21,9 @@
 import json
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
+TW_TZ = timezone(timedelta(hours=8))
 from pathlib import Path
 
 import pandas as pd
@@ -248,12 +250,60 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
 
 
 # ─── 主程式 ───────────────────────────────────────────────
+LOGOS_DIR = Path(__file__).parent.parent / "frontend" / "public" / "logos"
+
+
+def generate_logo_svg(symbol: str, name: str, output_dir: Path):
+    """為缺少 logo 的標的自動產生簡易 SVG 圖示"""
+    logo_path = output_dir / f"{symbol}.svg"
+    if logo_path.exists():
+        return False
+
+    colors = [
+        "#E40001", "#0066CC", "#00A651", "#F5A623",
+        "#9B59B6", "#1ABC9C", "#E74C3C", "#3498DB",
+    ]
+    h = sum(ord(c) for c in symbol) % len(colors)
+    bg = colors[h]
+
+    display = name if name and len(name) <= 4 else symbol
+    size = 22 if len(display) <= 2 else 16 if len(display) <= 4 else 13
+
+    svg = (
+        f'<svg width="56" height="56" xmlns="http://www.w3.org/2000/svg">'
+        f'<rect width="56" height="56" rx="4" fill="{bg}"/>'
+        f'<text x="28" y="30" text-anchor="middle" dominant-baseline="central" '
+        f'fill="#fff" font-family="Arial,sans-serif" font-size="{size}" '
+        f'font-weight="700">{display}</text></svg>'
+    )
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    logo_path.write_text(svg, encoding="utf-8")
+    return True
+
+
+def ensure_logos(tickers: list[str], name_map: dict):
+    """檢查所有標的是否都有 logo，缺少的自動產生"""
+    generated = []
+    for ticker in tickers:
+        symbol = ticker.replace(".TW", "").replace(".TWO", "")
+        name = name_map.get(ticker, "")
+        if generate_logo_svg(symbol, name, LOGOS_DIR):
+            generated.append(symbol)
+    if generated:
+        print(f"🖼️  自動產生 {len(generated)} 個 logo：{', '.join(generated)}")
+
+
 def main():
     cfg = load_config()
     tickers = cfg["screener_tickers"]
     config = cfg["screener_params"]
     sell_params = cfg.get("sell_params")
     name_map = cfg.get("name_map", {})
+
+    # 自動產生缺少的 logo
+    all_tickers = list(set(tickers + cfg.get("portfolio_tickers", [])))
+    ensure_logos(all_tickers, name_map)
 
     print(f"🔍 開始掃描 {len(tickers)} 檔股票...")
     print(f"   篩選條件：MA{config['ma_period']} 突破 / RSI {config['rsi_low']}-{config['rsi_high']} / "
@@ -277,7 +327,7 @@ def main():
 
     # 組裝輸出 JSON
     output = {
-        "generatedAt": datetime.now().isoformat(),
+        "generatedAt": datetime.now(TW_TZ).isoformat(),
         "config": config,
         "totalScanned": len(tickers),
         "totalPassed": len(results),
@@ -316,7 +366,7 @@ def main():
     portfolio_results.sort(key=lambda x: (-x["passedCount"], x.get("undervalPct") or 0))
 
     portfolio_output = {
-        "generatedAt": datetime.now().isoformat(),
+        "generatedAt": datetime.now(TW_TZ).isoformat(),
         "config": config,
         "totalHoldings": len(portfolio_tickers),
         "totalFetched": len(portfolio_results),
