@@ -38,6 +38,10 @@ RETRY_BASE_SECONDS = 1.5
 REQUEST_JITTER_RANGE = (0.05, 0.2)
 BATCH_PAUSE_EVERY = 120
 BATCH_PAUSE_SECONDS = 2.0
+HISTORY_TIMEOUT_SECONDS = 12
+FINMIND_TIMEOUT_SECONDS = 12
+FINMIND_API_URL = "https://api.finmindtrade.com/api/v4/data"
+FINMIND_MIN_LOOKBACK_DAYS = 240
 RETRYABLE_ERROR_KEYWORDS = (
     "Too Many Requests",
     "Rate limited",
@@ -128,6 +132,54 @@ def calc_ma(series: pd.Series, period: int) -> pd.Series:
     return series.rolling(window=period).mean()
 
 
+def fetch_finmind_history(ticker: str, lookback_days: int) -> pd.DataFrame:
+    """
+    從 FinMind 抓日線價量，回傳欄位對齊 yfinance 的 DataFrame。
+    失敗時回傳空 DataFrame。
+    """
+    stock_id = ticker.replace(".TW", "").replace(".TWO", "").upper()
+    start_date = (datetime.now(TW_TZ) - timedelta(days=max(lookback_days * 2, FINMIND_MIN_LOOKBACK_DAYS))).date().isoformat()
+    params = {
+        "dataset": "TaiwanStockPrice",
+        "data_id": stock_id,
+        "start_date": start_date,
+    }
+    token = os.getenv("FINMIND_TOKEN", "").strip()
+    if token:
+        params["token"] = token
+
+    try:
+        resp = requests.get(FINMIND_API_URL, params=params, timeout=FINMIND_TIMEOUT_SECONDS)
+        resp.raise_for_status()
+        payload = resp.json()
+        rows = payload.get("data") or []
+        if not rows:
+            return pd.DataFrame()
+
+        df = pd.DataFrame(rows)
+        if "date" not in df.columns or "close" not in df.columns:
+            return pd.DataFrame()
+
+        df["date"] = pd.to_datetime(df["date"], errors="coerce")
+        df = df.dropna(subset=["date"]).sort_values("date")
+        if df.empty:
+            return pd.DataFrame()
+
+        hist = pd.DataFrame(index=df["date"])
+        hist["Close"] = pd.to_numeric(df["close"], errors="coerce")
+        hist["Volume"] = pd.to_numeric(df.get("Trading_Volume"), errors="coerce").fillna(0)
+        if "open" in df.columns:
+            hist["Open"] = pd.to_numeric(df["open"], errors="coerce")
+        if "max" in df.columns:
+            hist["High"] = pd.to_numeric(df["max"], errors="coerce")
+        if "min" in df.columns:
+            hist["Low"] = pd.to_numeric(df["min"], errors="coerce")
+        hist = hist.dropna(subset=["Close"])
+        return hist
+    except Exception:
+        return pd.DataFrame()
+
+
 def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
     """
     用季報營收判斷 YoY 趨勢是否向下。
@@ -177,6 +229,7 @@ def analyze_with_retry(
     sell_params: dict | None = None,
     min_conditions: int = 3,
     name_map: dict | None = None,
+    allow_finmind_fallback: bool = False,
     raise_on_error: bool = False,
 ) -> dict | None:
     """包裝 analyze_stock：遇到限流/暫時性錯誤時自動重試。"""
@@ -190,6 +243,7 @@ def analyze_with_retry(
                 sell_params=sell_params,
                 min_conditions=min_conditions,
                 name_map=name_map,
+                allow_finmind_fallback=allow_finmind_fallback,
                 quiet=True,
             )
         except AnalysisError as e:
@@ -207,6 +261,7 @@ def analyze_with_retry(
 
 def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
                   min_conditions: int = 3, name_map: dict | None = None,
+                  allow_finmind_fallback: bool = False,
                   quiet: bool = False) -> dict | None:
     """
     分析單檔股票，回傳篩選結果。
@@ -214,14 +269,28 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
     """
     try:
         stock = yf.Ticker(ticker)
+        history_error = None
+        hist_source = "yahoo"
+        try:
+            hist = stock.history(
+                period=f"{config['lookback_days']}d",
+                timeout=HISTORY_TIMEOUT_SECONDS,
+            )
+        except Exception as e:
+            history_error = str(e)
+            hist = pd.DataFrame()
 
-        hist = stock.history(period=f"{config['lookback_days']}d")
+        if hist.empty and allow_finmind_fallback:
+            hist = fetch_finmind_history(ticker, config["lookback_days"])
+            if not hist.empty:
+                hist_source = "finmind"
 
         # 完全沒資料 → 失敗
         if hist.empty:
+            msg = "無任何資料" if not history_error else f"無資料 ({history_error})"
             if quiet:
-                raise AnalysisError("無任何資料")
-            print(f"  ⚠ {ticker}: 無任何資料，跳過")
+                raise AnalysisError(msg)
+            print(f"  ⚠ {ticker}: {msg}，跳過")
             return None
 
         # 資料太少：大盤篩選跳過，手上標的（min_conditions=0）仍嘗試分析
@@ -256,7 +325,12 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         rsi_in_range = (config["rsi_low"] <= latest_rsi <= config["rsi_high"]) if latest_rsi is not None else False
 
         # 3. 估值：預估 EPS × 倍數
-        info = stock.info or {}
+        info = {}
+        if hist_source == "yahoo":
+            try:
+                info = stock.info or {}
+            except Exception:
+                info = {}
         forward_eps = info.get("forwardEps") or info.get("trailingEps")
 
         if forward_eps and forward_eps > 0:
@@ -331,7 +405,10 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
                             and prev_close > prev_ma and latest_close < latest_ma)
             sell_rsi = (latest_rsi is not None
                         and sell_params["rsi_sell_low"] <= latest_rsi <= sell_params["rsi_sell_high"])
-            sell_yoy_down, yoy_trend = calc_yoy_trend_down(stock)
+            if hist_source == "yahoo":
+                sell_yoy_down, yoy_trend = calc_yoy_trend_down(stock)
+            else:
+                sell_yoy_down, yoy_trend = False, None
 
             sell_conditions = {
                 "ma_below": sell_ma_below,
@@ -362,6 +439,7 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
             "avgVolume": avg_vol,
             "volRatio": vol_ratio,
             "volSpark": vol_spark,
+            "dataSource": hist_source,
             "signal": signal,
             "conditions": conditions,
             "passedCount": passed,
@@ -494,6 +572,7 @@ def main():
     config = cfg["screener_params"]
     sell_params = cfg.get("sell_params")
     name_map = cfg.get("name_map", {})
+    skip_tickers = {t.upper() for t in cfg.get("skip_tickers", [])}
 
     # ─── 抓取全市場股票清單 + 中文名稱 ─────────────────
     print("📡 從 TWSE / TPEX 抓取全市場股票清單...")
@@ -509,8 +588,21 @@ def main():
     else:
         print(f"  ✓ 共取得 {len(tickers)} 檔股票（上市 + 上櫃）")
 
+    if skip_tickers:
+        original = len(tickers)
+        tickers = [t for t in tickers if t.upper() not in skip_tickers]
+        removed = original - len(tickers)
+        if removed > 0:
+            print(f"  ⏭️ 已排除 {removed} 檔 skip_tickers 標的")
+
     # ─── 手上標的先掃（數量少，避免全市場掃完後被限流） ───
     portfolio_tickers = cfg.get("portfolio_tickers", [])
+    if skip_tickers:
+        original_portfolio = len(portfolio_tickers)
+        portfolio_tickers = [t for t in portfolio_tickers if t.upper() not in skip_tickers]
+        removed_portfolio = original_portfolio - len(portfolio_tickers)
+        if removed_portfolio > 0:
+            print(f"  ⏭️ 手上標的排除 {removed_portfolio} 檔 skip_tickers")
     print(f"\n📊 掃描手上標的 {len(portfolio_tickers)} 檔...")
 
     portfolio_results = []
@@ -522,6 +614,7 @@ def main():
             sell_params=sell_params,
             min_conditions=0,
             name_map=name_map,
+            allow_finmind_fallback=True,
             raise_on_error=False,
         )
         if result:

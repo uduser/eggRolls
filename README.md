@@ -238,6 +238,9 @@ git push
 - **營收 YoY**：Yahoo Finance info API
 - **EPS 預估**：Yahoo Finance forwardEps
 
+當 Yahoo 單一標的無資料時（常見於部分 ETF/債券代號），手上標的分析會自動 fallback 到 FinMind 的日線價量資料。
+如需提高 FinMind 穩定性，可設定環境變數 `FINMIND_TOKEN`。
+
 ### 替代資料源
 
 如果 Yahoo Finance 不穩定，可以考慮：

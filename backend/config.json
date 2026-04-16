@@ -45,6 +45,8 @@
     "9910.TW": "豐泰"
   },
   "_portfolio_desc": "手上持有的標的，格式：代號.TW（上市）或 代號.TWO（上櫃）",
+  "_skip_tickers_desc": "暫時排除掃描的標的（例如 Yahoo 無資料或常 timeout）",
+  "skip_tickers": [],
   "portfolio_tickers": [
     "00948B.TW",
     "00992A.TW",
