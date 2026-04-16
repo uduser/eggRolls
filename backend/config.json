@@ -118,7 +118,7 @@
     "yoy_min": 10,
     "vol_ratio_min": 1.5,
     "vol_avg_days": 20,
-    "lookback_days": 120
+    "lookback_days": 60
   },
   "_sell_params_desc": {
     "_summary": "賣出訊號條件：跌破MA / RSI過熱 / YoY趨勢向下，符合 ≥2 注意、3/3 賣出",

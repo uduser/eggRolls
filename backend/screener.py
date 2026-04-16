@@ -217,7 +217,13 @@ def fetch_bulk_fundamentals() -> dict[str, dict]:
     """批次從 FinMind 抓 PER 和月營收，回傳 {ticker: {pe, eps, yoy_pct}, ...}。
 
     ticker 格式為 "2330.TW" / "6547.TWO"（與 config 一致）。
+    需要 FINMIND_TOKEN 才能執行批次查詢（不帶 data_id）。
     """
+    token = os.getenv("FINMIND_TOKEN", "").strip()
+    if not token:
+        print("  ⚠ FINMIND_TOKEN 未設定，跳過批次基本面抓取（將 fallback 到 Yahoo stock.info）")
+        return {}
+
     result: dict[str, dict] = {}
 
     # ── 1. PER（本益比）→ 反推 EPS ──
