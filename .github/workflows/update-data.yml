@@ -38,7 +38,7 @@ jobs:
 
           url = os.getenv("KV_REST_API_URL", "").rstrip("/")
           token = os.getenv("KV_REST_API_TOKEN", "")
-          key = os.getenv("CONFIG_KV_KEY", "eggrolls:config:current")
+          key = os.getenv("CONFIG_KV_KEY", "").strip() or "eggrolls:config:current"
           target = Path("backend/config.json")
 
           if not url or not token:
@@ -63,8 +63,6 @@ jobs:
               print(f"⚠ Failed to fetch KV config: {exc}")
               raise SystemExit(0)
 
-          print(f"🔍 KV pipeline raw response type={type(pipeline_resp).__name__}, keys={list(pipeline_resp[0].keys()) if isinstance(pipeline_resp, list) and pipeline_resp else 'N/A'}")
-          print(f"🔍 KV pipeline result preview: {str(pipeline_resp)[:300]}")
           result = pipeline_resp[0].get("result") if isinstance(pipeline_resp, list) and pipeline_resp else None
           if result is None:
               print("⚠ KV config key not found, keep repository config.json")
