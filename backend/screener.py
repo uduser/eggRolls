@@ -19,8 +19,10 @@
 
 import json
 import os
+import random
 import sys
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -30,7 +32,24 @@ import requests
 import yfinance as yf
 
 TW_TZ = timezone(timedelta(hours=8))
-MAX_WORKERS = 10
+MAX_WORKERS = 4
+MAX_RETRIES = 3
+RETRY_BASE_SECONDS = 1.5
+REQUEST_JITTER_RANGE = (0.05, 0.2)
+BATCH_PAUSE_EVERY = 120
+BATCH_PAUSE_SECONDS = 2.0
+RETRYABLE_ERROR_KEYWORDS = (
+    "Too Many Requests",
+    "Rate limited",
+    "429",
+    "Invalid Crumb",
+    "Unauthorized",
+    "temporarily unavailable",
+    "Service Unavailable",
+    "Bad Gateway",
+    "timed out",
+    "Connection",
+)
 
 # ─── 設定 ───────────────────────────────────────────────
 CONFIG_PATH = Path(__file__).parent / "config.json"
@@ -145,6 +164,45 @@ def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
 class AnalysisError(Exception):
     """analyze_stock 發生錯誤時拋出，用來和「條件不符」區分"""
     pass
+
+
+def is_retryable_error(msg: str) -> bool:
+    text = (msg or "").lower()
+    return any(keyword.lower() in text for keyword in RETRYABLE_ERROR_KEYWORDS)
+
+
+def analyze_with_retry(
+    ticker: str,
+    config: dict,
+    sell_params: dict | None = None,
+    min_conditions: int = 3,
+    name_map: dict | None = None,
+    raise_on_error: bool = False,
+) -> dict | None:
+    """包裝 analyze_stock：遇到限流/暫時性錯誤時自動重試。"""
+    last_error = None
+
+    for attempt in range(MAX_RETRIES):
+        try:
+            return analyze_stock(
+                ticker,
+                config,
+                sell_params=sell_params,
+                min_conditions=min_conditions,
+                name_map=name_map,
+                quiet=True,
+            )
+        except AnalysisError as e:
+            last_error = e
+            if attempt < MAX_RETRIES - 1 and is_retryable_error(str(e)):
+                sleep_seconds = RETRY_BASE_SECONDS * (2 ** attempt) + random.uniform(0, 0.4)
+                time.sleep(sleep_seconds)
+                continue
+            break
+
+    if raise_on_error and last_error:
+        raise last_error
+    return None
 
 
 def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
@@ -373,9 +431,16 @@ def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map
     lock = threading.Lock()
 
     def worker(ticker):
+        pause_now = False
         try:
-            result = analyze_stock(
-                ticker, config, sell_params=sell_params, name_map=name_map, quiet=True,
+            # 加入少量隨機抖動，避免同時大量打到同一 upstream
+            time.sleep(random.uniform(*REQUEST_JITTER_RANGE))
+            result = analyze_with_retry(
+                ticker,
+                config,
+                sell_params=sell_params,
+                name_map=name_map,
+                raise_on_error=True,
             )
         except AnalysisError as e:
             result = None
@@ -391,6 +456,11 @@ def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map
             if done % 100 == 0 or done == total:
                 print(f"  進度 {done}/{total} ({done * 100 // total}%) "
                       f"— 通過 {progress['passed']} 檔 / 失敗 {progress['errors']} 檔")
+            if done % BATCH_PAUSE_EVERY == 0 and done < total:
+                pause_now = True
+        if pause_now:
+            print(f"  ⏸️ 批次冷卻 {BATCH_PAUSE_SECONDS:.1f}s，降低限流機率...")
+            time.sleep(BATCH_PAUSE_SECONDS)
         return result
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -446,7 +516,14 @@ def main():
     portfolio_results = []
     for i, ticker in enumerate(portfolio_tickers, 1):
         print(f"  [{i}/{len(portfolio_tickers)}] 分析 {ticker}...", end=" ")
-        result = analyze_stock(ticker, config, sell_params=sell_params, min_conditions=0, name_map=name_map)
+        result = analyze_with_retry(
+            ticker,
+            config,
+            sell_params=sell_params,
+            min_conditions=0,
+            name_map=name_map,
+            raise_on_error=False,
+        )
         if result:
             print(f"✓ {result['passedCount']}/5 條件 → {result['signal']}")
             portfolio_results.append(result)
