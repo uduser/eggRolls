@@ -52,8 +52,7 @@
     "2327.TW",
     "2330.TW",
     "2408.TW",
-    "0050.TW",
-    "1522.TW"
+    "0050.TW"
   ],
   "_screener_desc": "大盤分析掃描清單，通過 ≥3 個買進條件才會列入結果",
   "screener_tickers": [
@@ -129,7 +128,7 @@
     "rsi_sell_high": 90
   },
   "_meta": {
-    "updatedAt": "2026-04-16T05:08:10.203Z",
+    "updatedAt": "2026-04-16T05:45:46.649Z",
     "updatedBy": "web-ui"
   }
 }
