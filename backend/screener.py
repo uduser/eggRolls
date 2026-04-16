@@ -295,6 +295,50 @@ def fetch_bulk_fundamentals() -> dict[str, dict]:
     return result
 
 
+def fetch_bulk_history(lookback_days: int) -> dict[str, pd.DataFrame]:
+    """從 FinMind 一次抓全市場日線價量，回傳 {stock_id: DataFrame, ...}。
+
+    DataFrame 欄位對齊 yfinance: Close, Volume, Open, High, Low。
+    需要 FINMIND_TOKEN。
+    """
+    token = os.getenv("FINMIND_TOKEN", "").strip()
+    if not token:
+        print("  ⚠ FINMIND_TOKEN 未設定，跳過批次價量抓取")
+        return {}
+
+    # 多抓一些天數，確保扣除假日後仍有足夠交易日
+    start = (datetime.now(TW_TZ) - timedelta(days=lookback_days * 2)).date().isoformat()
+    print(f"  📥 從 FinMind 批次抓取全市場價量（{start} 起）...")
+    rows = _finmind_get("TaiwanStockPrice", {"start_date": start}, timeout=120)
+    if not rows:
+        print("  ⚠ 全市場價量無資料")
+        return {}
+
+    df = pd.DataFrame(rows)
+    df["date"] = pd.to_datetime(df["date"], errors="coerce")
+    df = df.dropna(subset=["date"]).sort_values("date")
+
+    result: dict[str, pd.DataFrame] = {}
+    for sid, grp in df.groupby("stock_id"):
+        sid = str(sid).strip()
+        grp = grp.sort_values("date")
+        hist = pd.DataFrame(index=grp["date"].values)
+        hist["Close"] = pd.to_numeric(grp["close"].values, errors="coerce")
+        hist["Volume"] = pd.to_numeric(grp["Trading_Volume"].values, errors="coerce").fillna(0)
+        if "open" in grp.columns:
+            hist["Open"] = pd.to_numeric(grp["open"].values, errors="coerce")
+        if "max" in grp.columns:
+            hist["High"] = pd.to_numeric(grp["max"].values, errors="coerce")
+        if "min" in grp.columns:
+            hist["Low"] = pd.to_numeric(grp["min"].values, errors="coerce")
+        hist = hist.dropna(subset=["Close"])
+        if not hist.empty:
+            result[sid] = hist
+
+    print(f"  ✓ 全市場價量取得 {len(result)} 檔")
+    return result
+
+
 def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
     """
     用季報營收判斷 YoY 趨勢是否向下。
@@ -347,6 +391,7 @@ def analyze_with_retry(
     allow_finmind_fallback: bool = False,
     raise_on_error: bool = False,
     prefetched: dict | None = None,
+    prefetched_hist: pd.DataFrame | None = None,
 ) -> dict | None:
     """包裝 analyze_stock：遇到限流/暫時性錯誤時自動重試。"""
     last_error = None
@@ -362,6 +407,7 @@ def analyze_with_retry(
                 allow_finmind_fallback=allow_finmind_fallback,
                 quiet=True,
                 prefetched=prefetched,
+                prefetched_hist=prefetched_hist,
             )
         except AnalysisError as e:
             last_error = e
@@ -380,32 +426,42 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
                   min_conditions: int = 3, name_map: dict | None = None,
                   allow_finmind_fallback: bool = False,
                   quiet: bool = False,
-                  prefetched: dict | None = None) -> dict | None:
+                  prefetched: dict | None = None,
+                  prefetched_hist: pd.DataFrame | None = None) -> dict | None:
     """
     分析單檔股票，回傳篩選結果。
 
     prefetched: 從 fetch_bulk_fundamentals() 預抓的基本面資料 {pe, eps, yoy_pct}。
-    有值時跳過 stock.info 呼叫，大幅降低 Yahoo API 負擔。
+    prefetched_hist: 從 fetch_bulk_history() 預抓的價量 DataFrame。
+    有值時跳過 Yahoo API 呼叫，大幅降低限流失敗率。
 
     條件不符回傳 None；資料錯誤時 quiet=True 拋 AnalysisError，quiet=False 印訊息回傳 None。
     """
     try:
-        stock = yf.Ticker(ticker)
+        # ── 價量資料：優先用批次預抓，沒有才逐檔打 Yahoo / FinMind ──
+        hist = pd.DataFrame()
+        hist_source = "finmind-bulk"
         history_error = None
-        hist_source = "yahoo"
-        try:
-            hist = stock.history(
-                period=f"{config['lookback_days']}d",
-                timeout=HISTORY_TIMEOUT_SECONDS,
-            )
-        except Exception as e:
-            history_error = str(e)
-            hist = pd.DataFrame()
+        stock = None
 
-        if hist.empty and allow_finmind_fallback:
-            hist = fetch_finmind_history(ticker, config["lookback_days"])
-            if not hist.empty:
-                hist_source = "finmind"
+        if prefetched_hist is not None and not prefetched_hist.empty:
+            hist = prefetched_hist
+        else:
+            stock = yf.Ticker(ticker)
+            hist_source = "yahoo"
+            try:
+                hist = stock.history(
+                    period=f"{config['lookback_days']}d",
+                    timeout=HISTORY_TIMEOUT_SECONDS,
+                )
+            except Exception as e:
+                history_error = str(e)
+                hist = pd.DataFrame()
+
+            if hist.empty and allow_finmind_fallback:
+                hist = fetch_finmind_history(ticker, config["lookback_days"])
+                if not hist.empty:
+                    hist_source = "finmind"
 
         # 完全沒資料 → 失敗
         if hist.empty:
@@ -453,7 +509,7 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         if prefetched and prefetched.get("eps"):
             forward_eps = prefetched["eps"]
         else:
-            if hist_source == "yahoo":
+            if hist_source == "yahoo" and stock is not None:
                 try:
                     info = stock.info or {}
                 except Exception:
@@ -536,7 +592,7 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
                             and prev_close > prev_ma and latest_close < latest_ma)
             sell_rsi = (latest_rsi is not None
                         and sell_params["rsi_sell_low"] <= latest_rsi <= sell_params["rsi_sell_high"])
-            if hist_source == "yahoo":
+            if hist_source == "yahoo" and stock is not None:
                 sell_yoy_down, yoy_trend = calc_yoy_trend_down(stock)
             else:
                 sell_yoy_down, yoy_trend = False, None
@@ -632,7 +688,8 @@ def ensure_logos(tickers: list[str], name_map: dict):
 
 # ─── 多執行緒掃描 ────────────────────────────────────────
 def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map: dict,
-                         bulk_fundamentals: dict | None = None) -> list[dict]:
+                         bulk_fundamentals: dict | None = None,
+                         bulk_history: dict[str, pd.DataFrame] | None = None) -> list[dict]:
     """用多執行緒掃描大量股票，回傳通過篩選的結果，並統計錯誤數"""
     results = []
     total = len(tickers)
@@ -640,17 +697,26 @@ def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map
     error_samples = []  # 記錄前幾筆錯誤原因
     lock = threading.Lock()
 
+    def _ticker_to_id(ticker: str) -> str:
+        return ticker.replace(".TW", "").replace(".TWO", "").upper()
+
     def _get_prefetched(ticker: str) -> dict | None:
         if not bulk_fundamentals:
             return None
-        stock_id = ticker.replace(".TW", "").replace(".TWO", "").upper()
-        return bulk_fundamentals.get(stock_id)
+        return bulk_fundamentals.get(_ticker_to_id(ticker))
+
+    def _get_hist(ticker: str) -> pd.DataFrame | None:
+        if not bulk_history:
+            return None
+        return bulk_history.get(_ticker_to_id(ticker))
 
     def worker(ticker):
         pause_now = False
+        hist = _get_hist(ticker)
         try:
-            # 加入少量隨機抖動，避免同時大量打到同一 upstream
-            time.sleep(random.uniform(*REQUEST_JITTER_RANGE))
+            # 有預抓價量就不用打 Yahoo，不需要 jitter
+            if hist is None:
+                time.sleep(random.uniform(*REQUEST_JITTER_RANGE))
             result = analyze_with_retry(
                 ticker,
                 config,
@@ -659,6 +725,7 @@ def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map
                 allow_finmind_fallback=True,
                 raise_on_error=True,
                 prefetched=_get_prefetched(ticker),
+                prefetched_hist=hist,
             )
         except AnalysisError as e:
             result = None
@@ -743,9 +810,11 @@ def main():
         if skipped > 0:
             print(f"  ⏭️ 預過濾排除 {skipped} 檔零成交量標的（停牌/冷門）")
 
-    # ─── 批次抓取基本面資料（PER + 月營收 YoY） ────────
+    # ─── 批次抓取基本面 + 價量資料 ────────────────────
     print("\n📥 批次抓取基本面資料...")
     bulk_fundamentals = fetch_bulk_fundamentals()
+    print("\n📥 批次抓取全市場價量...")
+    bulk_history = fetch_bulk_history(config["lookback_days"])
 
     # ─── 手上標的先掃（數量少，避免全市場掃完後被限流） ───
     portfolio_tickers = cfg.get("portfolio_tickers", [])
@@ -757,9 +826,14 @@ def main():
             print(f"  ⏭️ 手上標的排除 {removed_portfolio} 檔 skip_tickers")
     print(f"\n📊 掃描手上標的 {len(portfolio_tickers)} 檔...")
 
+    def _ticker_to_id(ticker: str) -> str:
+        return ticker.replace(".TW", "").replace(".TWO", "").upper()
+
     def _get_prefetched(ticker: str) -> dict | None:
-        stock_id = ticker.replace(".TW", "").replace(".TWO", "").upper()
-        return bulk_fundamentals.get(stock_id)
+        return bulk_fundamentals.get(_ticker_to_id(ticker))
+
+    def _get_hist(ticker: str) -> pd.DataFrame | None:
+        return bulk_history.get(_ticker_to_id(ticker)) if bulk_history else None
 
     portfolio_results = []
     for i, ticker in enumerate(portfolio_tickers, 1):
@@ -773,6 +847,7 @@ def main():
             allow_finmind_fallback=True,
             raise_on_error=False,
             prefetched=_get_prefetched(ticker),
+            prefetched_hist=_get_hist(ticker),
         )
         if result:
             print(f"✓ {result['passedCount']}/5 條件 → {result['signal']}")
@@ -807,7 +882,7 @@ def main():
         print(f"   賣出條件：跌破 MA / RSI {sell_params['rsi_sell_low']}-{sell_params['rsi_sell_high']} / YoY 趨勢向下")
     print()
 
-    results = scan_stocks_parallel(tickers, config, sell_params, name_map, bulk_fundamentals)
+    results = scan_stocks_parallel(tickers, config, sell_params, name_map, bulk_fundamentals, bulk_history)
     results.sort(key=lambda x: (-x["passedCount"], x.get("undervalPct") or 0))
 
     output = {
