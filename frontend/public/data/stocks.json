@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T09:05:13.285194+08:00",
+  "generatedAt": "2026-04-16T09:24:05.588043+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -12,8 +12,176 @@
     "lookback_days": 120
   },
   "totalScanned": 1953,
-  "totalPassed": 82,
+  "totalPassed": 253,
   "stocks": [
+    {
+      "symbol": "8432O",
+      "exchange": "TPEX",
+      "name": "東生華",
+      "close": 51.6,
+      "ma5": 51.2,
+      "maDiffPct": 0.7,
+      "rsi": 47.0,
+      "forwardEps": 3.62,
+      "fairValue": 72.4,
+      "undervalPct": -28.7,
+      "yoyPct": 22.8,
+      "yoyTrend": null,
+      "volume": 33000,
+      "avgVolume": 21073,
+      "volRatio": 1.57,
+      "volSpark": [
+        36,
+        92,
+        70,
+        55,
+        58,
+        67,
+        100
+      ],
+      "signal": "strong",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 5,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3379O",
+      "exchange": "TPEX",
+      "name": "彬台",
+      "close": 37.0,
+      "ma5": 36.6,
+      "maDiffPct": 1.12,
+      "rsi": 43.0,
+      "forwardEps": 2.11,
+      "fairValue": 42.2,
+      "undervalPct": -12.2,
+      "yoyPct": 95.6,
+      "yoyTrend": null,
+      "volume": 298068,
+      "avgVolume": 192496,
+      "volRatio": 1.55,
+      "volSpark": [
+        14,
+        32,
+        18,
+        35,
+        52,
+        100,
+        47
+      ],
+      "signal": "strong",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 5,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4433O",
+      "exchange": "TPEX",
+      "name": "興采",
+      "close": 20.5,
+      "ma5": 20.5,
+      "maDiffPct": 0.2,
+      "rsi": 44.0,
+      "forwardEps": 1.05,
+      "fairValue": 21.0,
+      "undervalPct": -2.4,
+      "yoyPct": 25.7,
+      "yoyTrend": null,
+      "volume": 61030,
+      "avgVolume": 24743,
+      "volRatio": 2.47,
+      "volSpark": [
+        10,
+        20,
+        18,
+        66,
+        74,
+        18,
+        100
+      ],
+      "signal": "strong",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 5,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6235",
+      "exchange": "TWSE",
+      "name": "華孚",
+      "close": 45.3,
+      "ma5": 45.2,
+      "maDiffPct": 0.27,
+      "rsi": 40.2,
+      "forwardEps": 12.57,
+      "fairValue": 251.4,
+      "undervalPct": -82.0,
+      "yoyPct": 42.7,
+      "yoyTrend": null,
+      "volume": 697500,
+      "avgVolume": 659133,
+      "volRatio": 1.06,
+      "volSpark": [
+        100,
+        50,
+        34,
+        37,
+        41,
+        47,
+        50
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
     {
       "symbol": "2442",
       "exchange": "TWSE",
@@ -141,6 +309,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "6757",
+      "exchange": "TWSE",
+      "name": "台灣虎航",
+      "close": 49.8,
+      "ma5": 49.6,
+      "maDiffPct": 0.26,
+      "rsi": 37.1,
+      "forwardEps": 5.36,
+      "fairValue": 107.2,
+      "undervalPct": -53.6,
+      "yoyPct": 13.9,
+      "yoyTrend": null,
+      "volume": 628862,
+      "avgVolume": 999116,
+      "volRatio": 0.63,
+      "volSpark": [
+        100,
+        99,
+        66,
+        67,
+        95,
+        77,
+        58
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8936O",
+      "exchange": "TPEX",
+      "name": "國統",
+      "close": 50.5,
+      "ma5": 50.3,
+      "maDiffPct": 0.36,
+      "rsi": 42.8,
+      "forwardEps": 5.38,
+      "fairValue": 107.7,
+      "undervalPct": -53.1,
+      "yoyPct": 26.4,
+      "yoyTrend": null,
+      "volume": 52000,
+      "avgVolume": 2783298,
+      "volRatio": 0.02,
+      "volSpark": [
+        76,
+        72,
+        69,
+        75,
+        100,
+        53,
+        2
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2314",
       "exchange": "TWSE",
       "name": "台揚",
@@ -164,6 +416,594 @@
         43,
         32,
         14
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6637O",
+      "exchange": "TPEX",
+      "name": "醫影",
+      "close": 71.9,
+      "ma5": 71.9,
+      "maDiffPct": 0.03,
+      "rsi": 43.9,
+      "forwardEps": 7.14,
+      "fairValue": 142.8,
+      "undervalPct": -49.6,
+      "yoyPct": 18.8,
+      "yoyTrend": null,
+      "volume": 24105,
+      "avgVolume": 28814,
+      "volRatio": 0.84,
+      "volSpark": [
+        37,
+        18,
+        46,
+        100,
+        65,
+        46,
+        31
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3052",
+      "exchange": "TWSE",
+      "name": "夆典",
+      "close": 11.1,
+      "ma5": 11.0,
+      "maDiffPct": 0.36,
+      "rsi": 44.3,
+      "forwardEps": 1.09,
+      "fairValue": 21.8,
+      "undervalPct": -49.3,
+      "yoyPct": 21.8,
+      "yoyTrend": null,
+      "volume": 777210,
+      "avgVolume": 571358,
+      "volRatio": 1.36,
+      "volSpark": [
+        42,
+        68,
+        100,
+        68,
+        34,
+        59,
+        67
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6005",
+      "exchange": "TWSE",
+      "name": "群益證",
+      "close": 28.1,
+      "ma5": 28.2,
+      "maDiffPct": -0.5,
+      "rsi": 48.5,
+      "forwardEps": 2.64,
+      "fairValue": 52.8,
+      "undervalPct": -46.8,
+      "yoyPct": 41.5,
+      "yoyTrend": null,
+      "volume": 15541507,
+      "avgVolume": 8586181,
+      "volRatio": 1.81,
+      "volSpark": [
+        22,
+        73,
+        44,
+        44,
+        89,
+        100,
+        89
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "5209O",
+      "exchange": "TPEX",
+      "name": "新鼎",
+      "close": 164.5,
+      "ma5": 165.6,
+      "maDiffPct": -0.66,
+      "rsi": 41.6,
+      "forwardEps": 15.28,
+      "fairValue": 305.6,
+      "undervalPct": -46.2,
+      "yoyPct": 18.9,
+      "yoyTrend": null,
+      "volume": 69015,
+      "avgVolume": 27110,
+      "volRatio": 2.55,
+      "volSpark": [
+        25,
+        19,
+        25,
+        25,
+        22,
+        97,
+        100
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6994",
+      "exchange": "TWSE",
+      "name": "富威電力",
+      "close": 68.5,
+      "ma5": 66.5,
+      "maDiffPct": 2.98,
+      "rsi": 42.5,
+      "forwardEps": 6.19,
+      "fairValue": 123.8,
+      "undervalPct": -44.7,
+      "yoyPct": 456.2,
+      "yoyTrend": null,
+      "volume": 636303,
+      "avgVolume": 711102,
+      "volRatio": 0.89,
+      "volSpark": [
+        100,
+        71,
+        73,
+        39,
+        38,
+        42,
+        55
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3622",
+      "exchange": "TWSE",
+      "name": "洋華",
+      "close": 56.2,
+      "ma5": 55.4,
+      "maDiffPct": 1.37,
+      "rsi": 42.3,
+      "forwardEps": 5.01,
+      "fairValue": 100.2,
+      "undervalPct": -43.9,
+      "yoyPct": 52.9,
+      "yoyTrend": null,
+      "volume": 318049,
+      "avgVolume": 309064,
+      "volRatio": 1.03,
+      "volSpark": [
+        25,
+        42,
+        100,
+        48,
+        43,
+        43,
+        36
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "9946",
+      "exchange": "TWSE",
+      "name": "三發地產",
+      "close": 17.0,
+      "ma5": 17.1,
+      "maDiffPct": -0.29,
+      "rsi": 41.8,
+      "forwardEps": 1.52,
+      "fairValue": 30.4,
+      "undervalPct": -43.9,
+      "yoyPct": 146.2,
+      "yoyTrend": null,
+      "volume": 601080,
+      "avgVolume": 365406,
+      "volRatio": 1.64,
+      "volSpark": [
+        34,
+        42,
+        57,
+        68,
+        49,
+        93,
+        100
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2949O",
+      "exchange": "TPEX",
+      "name": "欣新網",
+      "close": 57.8,
+      "ma5": 58.6,
+      "maDiffPct": -1.37,
+      "rsi": 38.1,
+      "forwardEps": 5.1,
+      "fairValue": 102.0,
+      "undervalPct": -43.3,
+      "yoyPct": 18.0,
+      "yoyTrend": null,
+      "volume": 13000,
+      "avgVolume": 4225,
+      "volRatio": 3.08,
+      "volSpark": [
+        15,
+        31,
+        15,
+        23,
+        0,
+        38,
+        100
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8462",
+      "exchange": "TWSE",
+      "name": "柏文",
+      "close": 140.5,
+      "ma5": 139.8,
+      "maDiffPct": 0.5,
+      "rsi": 48.2,
+      "forwardEps": 12.18,
+      "fairValue": 243.6,
+      "undervalPct": -42.3,
+      "yoyPct": 20.5,
+      "yoyTrend": null,
+      "volume": 100239,
+      "avgVolume": 167432,
+      "volRatio": 0.6,
+      "volSpark": [
+        33,
+        100,
+        90,
+        58,
+        53,
+        66,
+        68
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6203O",
+      "exchange": "TPEX",
+      "name": "海韻電",
+      "close": 64.8,
+      "ma5": 64.4,
+      "maDiffPct": 0.68,
+      "rsi": 46.2,
+      "forwardEps": 5.49,
+      "fairValue": 109.8,
+      "undervalPct": -41.0,
+      "yoyPct": 21.0,
+      "yoyTrend": null,
+      "volume": 6000,
+      "avgVolume": 137993,
+      "volRatio": 0.04,
+      "volSpark": [
+        31,
+        19,
+        100,
+        58,
+        35,
+        44,
+        1
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4584O",
+      "exchange": "TPEX",
+      "name": "君帆",
+      "close": 42.0,
+      "ma5": 41.9,
+      "maDiffPct": 0.14,
+      "rsi": 43.7,
+      "forwardEps": 3.42,
+      "fairValue": 68.4,
+      "undervalPct": -38.7,
+      "yoyPct": -19.8,
+      "yoyTrend": null,
+      "volume": 19016,
+      "avgVolume": 7643,
+      "volRatio": 2.49,
+      "volSpark": [
+        3,
+        41,
+        76,
+        5,
+        41,
+        100,
+        51
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6728O",
+      "exchange": "TPEX",
+      "name": "上洋",
+      "close": 118.0,
+      "ma5": 118.5,
+      "maDiffPct": -0.42,
+      "rsi": 36.3,
+      "forwardEps": 9.61,
+      "fairValue": 192.2,
+      "undervalPct": -38.6,
+      "yoyPct": 32.8,
+      "yoyTrend": null,
+      "volume": 51030,
+      "avgVolume": 27187,
+      "volRatio": 1.88,
+      "volSpark": [
+        8,
+        33,
+        8,
+        66,
+        55,
+        18,
+        100
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3019",
+      "exchange": "TWSE",
+      "name": "亞光",
+      "close": 127.0,
+      "ma5": 126.7,
+      "maDiffPct": 0.24,
+      "rsi": 46.9,
+      "forwardEps": 9.61,
+      "fairValue": 192.1,
+      "undervalPct": -33.9,
+      "yoyPct": 10.4,
+      "yoyTrend": null,
+      "volume": 4581716,
+      "avgVolume": 2359837,
+      "volRatio": 1.94,
+      "volSpark": [
+        22,
+        38,
+        32,
+        35,
+        48,
+        98,
+        100
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3324O",
+      "exchange": "TPEX",
+      "name": "雙鴻",
+      "close": 972.0,
+      "ma5": 971.2,
+      "maDiffPct": 0.08,
+      "rsi": 48.7,
+      "forwardEps": 72.89,
+      "fairValue": 1457.9,
+      "undervalPct": -33.3,
+      "yoyPct": 84.2,
+      "yoyTrend": null,
+      "volume": 2951201,
+      "avgVolume": 4509973,
+      "volRatio": 0.65,
+      "volSpark": [
+        52,
+        94,
+        75,
+        70,
+        100,
+        76,
+        50
       ],
       "signal": "buy",
       "conditions": {
@@ -267,6 +1107,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "5314O",
+      "exchange": "TPEX",
+      "name": "世紀*",
+      "close": 78.7,
+      "ma5": 78.0,
+      "maDiffPct": 0.85,
+      "rsi": 49.2,
+      "forwardEps": 5.55,
+      "fairValue": 111.0,
+      "undervalPct": -29.1,
+      "yoyPct": 317.6,
+      "yoyTrend": null,
+      "volume": 35000,
+      "avgVolume": 4848365,
+      "volRatio": 0.01,
+      "volSpark": [
+        66,
+        100,
+        54,
+        46,
+        42,
+        49,
+        1
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6918",
+      "exchange": "TWSE",
+      "name": "愛派司",
+      "close": 75.4,
+      "ma5": 74.9,
+      "maDiffPct": 0.67,
+      "rsi": 40.2,
+      "forwardEps": 5.15,
+      "fairValue": 103.0,
+      "undervalPct": -26.8,
+      "yoyPct": 5.1,
+      "yoyTrend": null,
+      "volume": 96367,
+      "avgVolume": 51192,
+      "volRatio": 1.88,
+      "volSpark": [
+        47,
+        64,
+        94,
+        48,
+        53,
+        59,
+        100
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1540",
       "exchange": "TWSE",
       "name": "喬福",
@@ -298,6 +1222,48 @@
         "undervalued": true,
         "yoy_pass": true,
         "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6781",
+      "exchange": "TWSE",
+      "name": "AES-KY",
+      "close": 983.0,
+      "ma5": 980.8,
+      "maDiffPct": 0.22,
+      "rsi": 43.3,
+      "forwardEps": 62.54,
+      "fairValue": 1250.7,
+      "undervalPct": -21.4,
+      "yoyPct": 39.8,
+      "yoyTrend": null,
+      "volume": 790339,
+      "avgVolume": 1180879,
+      "volRatio": 0.67,
+      "volSpark": [
+        100,
+        80,
+        83,
+        78,
+        36,
+        61,
+        49
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
       },
       "passedCount": 4,
       "sellConditions": {
@@ -393,6 +1359,132 @@
       "sellSignal": null
     },
     {
+      "symbol": "5525",
+      "exchange": "TWSE",
+      "name": "順天",
+      "close": 25.3,
+      "ma5": 25.3,
+      "maDiffPct": 0.12,
+      "rsi": 50.0,
+      "forwardEps": 1.4,
+      "fairValue": 28.0,
+      "undervalPct": -9.6,
+      "yoyPct": 9.0,
+      "yoyTrend": null,
+      "volume": 96115,
+      "avgVolume": 62133,
+      "volRatio": 1.55,
+      "volSpark": [
+        28,
+        56,
+        24,
+        30,
+        62,
+        100,
+        65
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2889",
+      "exchange": "TWSE",
+      "name": "國票金",
+      "close": 15.3,
+      "ma5": 15.3,
+      "maDiffPct": 0.2,
+      "rsi": 42.2,
+      "forwardEps": 0.82,
+      "fairValue": 16.4,
+      "undervalPct": -6.7,
+      "yoyPct": 18.9,
+      "yoyTrend": null,
+      "volume": 2032524,
+      "avgVolume": 4119627,
+      "volRatio": 0.49,
+      "volSpark": [
+        67,
+        79,
+        57,
+        56,
+        100,
+        69,
+        69
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2756O",
+      "exchange": "TPEX",
+      "name": "聯發國際",
+      "close": 69.1,
+      "ma5": 68.7,
+      "maDiffPct": 0.52,
+      "rsi": 35.6,
+      "forwardEps": 3.68,
+      "fairValue": 73.6,
+      "undervalPct": -6.1,
+      "yoyPct": 78.6,
+      "yoyTrend": null,
+      "volume": 28000,
+      "avgVolume": 34110,
+      "volRatio": 0.82,
+      "volSpark": [
+        39,
+        52,
+        100,
+        28,
+        20,
+        20,
+        25
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1731",
       "exchange": "TWSE",
       "name": "美吾華",
@@ -435,6 +1527,258 @@
       "sellSignal": null
     },
     {
+      "symbol": "9939",
+      "exchange": "TWSE",
+      "name": "宏全",
+      "close": 111.5,
+      "ma5": 112.0,
+      "maDiffPct": -0.45,
+      "rsi": 36.9,
+      "forwardEps": 315.77,
+      "fairValue": 6315.5,
+      "undervalPct": -98.2,
+      "yoyPct": -8.6,
+      "yoyTrend": null,
+      "volume": 3030960,
+      "avgVolume": 1480578,
+      "volRatio": 2.05,
+      "volSpark": [
+        9,
+        49,
+        26,
+        94,
+        100,
+        74,
+        80
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4763",
+      "exchange": "TWSE",
+      "name": "材料*-KY",
+      "close": 46.1,
+      "ma5": 42.8,
+      "maDiffPct": 7.76,
+      "rsi": 57.2,
+      "forwardEps": 105.7,
+      "fairValue": 2114.0,
+      "undervalPct": -97.8,
+      "yoyPct": -38.9,
+      "yoyTrend": null,
+      "volume": 9015457,
+      "avgVolume": 4810439,
+      "volRatio": 1.87,
+      "volSpark": [
+        41,
+        46,
+        36,
+        55,
+        50,
+        79,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3416",
+      "exchange": "TWSE",
+      "name": "融程電",
+      "close": 158.5,
+      "ma5": 155.1,
+      "maDiffPct": 2.19,
+      "rsi": 62.3,
+      "forwardEps": 335.32,
+      "fairValue": 6706.5,
+      "undervalPct": -97.6,
+      "yoyPct": 20.7,
+      "yoyTrend": null,
+      "volume": 633164,
+      "avgVolume": 306429,
+      "volRatio": 2.07,
+      "volSpark": [
+        4,
+        10,
+        13,
+        11,
+        36,
+        100,
+        43
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2929",
+      "exchange": "TWSE",
+      "name": "淘帝-KY",
+      "close": 6.2,
+      "ma5": 6.2,
+      "maDiffPct": 0.55,
+      "rsi": 36.2,
+      "forwardEps": 12.64,
+      "fairValue": 252.8,
+      "undervalPct": -97.5,
+      "yoyPct": -31.3,
+      "yoyTrend": null,
+      "volume": 166615,
+      "avgVolume": 304529,
+      "volRatio": 0.55,
+      "volSpark": [
+        72,
+        72,
+        43,
+        100,
+        51,
+        62,
+        64
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4943",
+      "exchange": "TWSE",
+      "name": "康控-KY",
+      "close": 10.2,
+      "ma5": 10.7,
+      "maDiffPct": -5.03,
+      "rsi": 37.0,
+      "forwardEps": 12.14,
+      "fairValue": 242.8,
+      "undervalPct": -95.8,
+      "yoyPct": 24.4,
+      "yoyTrend": null,
+      "volume": 28112,
+      "avgVolume": 21544,
+      "volRatio": 1.3,
+      "volSpark": [
+        88,
+        59,
+        52,
+        50,
+        100,
+        71,
+        70
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "5608",
+      "exchange": "TWSE",
+      "name": "四維航",
+      "close": 16.5,
+      "ma5": 16.3,
+      "maDiffPct": 1.11,
+      "rsi": 46.5,
+      "forwardEps": 11.05,
+      "fairValue": 221.0,
+      "undervalPct": -92.6,
+      "yoyPct": -7.7,
+      "yoyTrend": null,
+      "volume": 1971981,
+      "avgVolume": 1455265,
+      "volRatio": 1.36,
+      "volSpark": [
+        31,
+        51,
+        50,
+        60,
+        49,
+        70,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1517",
       "exchange": "TWSE",
       "name": "利奇",
@@ -466,6 +1810,48 @@
         "undervalued": true,
         "yoy_pass": false,
         "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8422",
+      "exchange": "TWSE",
+      "name": "可寧衛*",
+      "close": 29.2,
+      "ma5": 29.1,
+      "maDiffPct": 0.52,
+      "rsi": 43.9,
+      "forwardEps": 12.79,
+      "fairValue": 255.8,
+      "undervalPct": -88.6,
+      "yoyPct": -23.3,
+      "yoyTrend": null,
+      "volume": 14937120,
+      "avgVolume": 11166838,
+      "volRatio": 1.34,
+      "volSpark": [
+        32,
+        100,
+        72,
+        41,
+        31,
+        42,
+        82
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
       },
       "passedCount": 3,
       "sellConditions": {
@@ -591,6 +1977,132 @@
         "rsi_in_range": true,
         "undervalued": true,
         "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6641",
+      "exchange": "TWSE",
+      "name": "基士德-KY",
+      "close": 18.2,
+      "ma5": 18.2,
+      "maDiffPct": 0.0,
+      "rsi": 35.9,
+      "forwardEps": 4.67,
+      "fairValue": 93.4,
+      "undervalPct": -80.5,
+      "yoyPct": 6.9,
+      "yoyTrend": null,
+      "volume": 23000,
+      "avgVolume": 25851,
+      "volRatio": 0.89,
+      "volSpark": [
+        77,
+        65,
+        35,
+        51,
+        44,
+        100,
+        53
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3609O",
+      "exchange": "TPEX",
+      "name": "三一東林",
+      "close": 25.9,
+      "ma5": 26.2,
+      "maDiffPct": -1.15,
+      "rsi": 33.9,
+      "forwardEps": 6.42,
+      "fairValue": 128.4,
+      "undervalPct": -79.8,
+      "yoyPct": 214.5,
+      "yoyTrend": null,
+      "volume": 131031,
+      "avgVolume": 163035,
+      "volRatio": 0.8,
+      "volSpark": [
+        100,
+        37,
+        13,
+        52,
+        16,
+        24,
+        34
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6887",
+      "exchange": "TWSE",
+      "name": "寶綠特-KY",
+      "close": 42.5,
+      "ma5": 42.4,
+      "maDiffPct": 0.07,
+      "rsi": 41.0,
+      "forwardEps": 10.26,
+      "fairValue": 205.2,
+      "undervalPct": -79.3,
+      "yoyPct": -27.8,
+      "yoyTrend": null,
+      "volume": 64610,
+      "avgVolume": 100090,
+      "volRatio": 0.65,
+      "volSpark": [
+        65,
+        64,
+        24,
+        25,
+        26,
+        50,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
         "vol_surge": false
       },
       "passedCount": 3,
@@ -729,6 +2241,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "4438",
+      "exchange": "TWSE",
+      "name": "廣越",
+      "close": 57.6,
+      "ma5": 57.0,
+      "maDiffPct": 1.12,
+      "rsi": 41.1,
+      "forwardEps": 11.92,
+      "fairValue": 238.4,
+      "undervalPct": -75.8,
+      "yoyPct": 35.5,
+      "yoyTrend": null,
+      "volume": 48000,
+      "avgVolume": 80591,
+      "volRatio": 0.6,
+      "volSpark": [
+        37,
+        46,
+        100,
+        37,
+        57,
+        92,
+        35
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8016",
+      "exchange": "TWSE",
+      "name": "矽創",
+      "close": 209.5,
+      "ma5": 203.9,
+      "maDiffPct": 2.75,
+      "rsi": 64.6,
+      "forwardEps": 42.89,
+      "fairValue": 857.8,
+      "undervalPct": -75.6,
+      "yoyPct": 15.0,
+      "yoyTrend": null,
+      "volume": 1516356,
+      "avgVolume": 646093,
+      "volRatio": 2.35,
+      "volSpark": [
+        25,
+        100,
+        56,
+        53,
+        29,
+        24,
+        99
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
       "symbol": "2337",
       "exchange": "TWSE",
       "name": "旺宏",
@@ -855,6 +2451,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "4746",
+      "exchange": "TWSE",
+      "name": "台耀",
+      "close": 53.1,
+      "ma5": 52.5,
+      "maDiffPct": 1.22,
+      "rsi": 45.6,
+      "forwardEps": 8.7,
+      "fairValue": 174.0,
+      "undervalPct": -69.5,
+      "yoyPct": -3.5,
+      "yoyTrend": null,
+      "volume": 917774,
+      "avgVolume": 849210,
+      "volRatio": 1.08,
+      "volSpark": [
+        40,
+        38,
+        69,
+        100,
+        39,
+        32,
+        54
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2520",
       "exchange": "TWSE",
       "name": "冠德",
@@ -897,6 +2535,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "9945",
+      "exchange": "TWSE",
+      "name": "潤泰新",
+      "close": 25.2,
+      "ma5": 25.4,
+      "maDiffPct": -0.59,
+      "rsi": 38.0,
+      "forwardEps": 3.91,
+      "fairValue": 78.2,
+      "undervalPct": -67.7,
+      "yoyPct": 60.9,
+      "yoyTrend": null,
+      "volume": 7086989,
+      "avgVolume": 6247190,
+      "volRatio": 1.13,
+      "volSpark": [
+        51,
+        55,
+        44,
+        41,
+        82,
+        100,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "5511O",
+      "exchange": "TPEX",
+      "name": "德昌",
+      "close": 71.1,
+      "ma5": 71.7,
+      "maDiffPct": -0.78,
+      "rsi": 42.9,
+      "forwardEps": 10.58,
+      "fairValue": 211.6,
+      "undervalPct": -66.4,
+      "yoyPct": 31.7,
+      "yoyTrend": null,
+      "volume": 5000,
+      "avgVolume": 193089,
+      "volRatio": 0.03,
+      "volSpark": [
+        29,
+        43,
+        17,
+        100,
+        40,
+        31,
+        1
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2323",
       "exchange": "TWSE",
       "name": "中環",
@@ -920,6 +2642,48 @@
         59,
         75,
         71
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6873",
+      "exchange": "TWSE",
+      "name": "泓德能源",
+      "close": 87.5,
+      "ma5": 86.3,
+      "maDiffPct": 1.34,
+      "rsi": 41.8,
+      "forwardEps": 12.36,
+      "fairValue": 247.2,
+      "undervalPct": -64.6,
+      "yoyPct": -18.2,
+      "yoyTrend": null,
+      "volume": 601745,
+      "avgVolume": 776125,
+      "volRatio": 0.78,
+      "volSpark": [
+        65,
+        100,
+        67,
+        86,
+        73,
+        58,
+        57
       ],
       "signal": "watch",
       "conditions": {
@@ -1023,6 +2787,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "4568O",
+      "exchange": "TPEX",
+      "name": "科際精密",
+      "close": 41.6,
+      "ma5": 41.7,
+      "maDiffPct": -0.22,
+      "rsi": 43.9,
+      "forwardEps": 5.65,
+      "fairValue": 113.0,
+      "undervalPct": -63.2,
+      "yoyPct": 31.9,
+      "yoyTrend": null,
+      "volume": 7000,
+      "avgVolume": 9153,
+      "volRatio": 0.76,
+      "volSpark": [
+        29,
+        11,
+        11,
+        100,
+        0,
+        13,
+        16
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2462",
       "exchange": "TWSE",
       "name": "良得電",
@@ -1046,6 +2852,48 @@
         100,
         79,
         78
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8404",
+      "exchange": "TWSE",
+      "name": "百和興業-KY",
+      "close": 18.3,
+      "ma5": 17.9,
+      "maDiffPct": 2.29,
+      "rsi": 36.6,
+      "forwardEps": 2.46,
+      "fairValue": 49.2,
+      "undervalPct": -62.8,
+      "yoyPct": 4.0,
+      "yoyTrend": null,
+      "volume": 562808,
+      "avgVolume": 531785,
+      "volRatio": 1.06,
+      "volSpark": [
+        40,
+        72,
+        97,
+        84,
+        86,
+        80,
+        100
       ],
       "signal": "watch",
       "conditions": {
@@ -1107,6 +2955,468 @@
       "sellSignal": null
     },
     {
+      "symbol": "1295O",
+      "exchange": "TPEX",
+      "name": "生合",
+      "close": 59.3,
+      "ma5": 59.5,
+      "maDiffPct": -0.37,
+      "rsi": 30.8,
+      "forwardEps": 7.85,
+      "fairValue": 157.0,
+      "undervalPct": -62.2,
+      "yoyPct": 15.5,
+      "yoyTrend": null,
+      "volume": 49000,
+      "avgVolume": 59570,
+      "volRatio": 0.82,
+      "volSpark": [
+        100,
+        70,
+        22,
+        22,
+        90,
+        33,
+        28
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3703",
+      "exchange": "TWSE",
+      "name": "欣陸",
+      "close": 22.1,
+      "ma5": 22.2,
+      "maDiffPct": -0.45,
+      "rsi": 44.3,
+      "forwardEps": 2.9,
+      "fairValue": 58.0,
+      "undervalPct": -61.9,
+      "yoyPct": 59.9,
+      "yoyTrend": null,
+      "volume": 1254295,
+      "avgVolume": 911059,
+      "volRatio": 1.38,
+      "volSpark": [
+        34,
+        81,
+        31,
+        61,
+        100,
+        55,
+        94
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8927O",
+      "exchange": "TPEX",
+      "name": "北基",
+      "close": 23.2,
+      "ma5": 23.2,
+      "maDiffPct": -0.13,
+      "rsi": 44.8,
+      "forwardEps": 3.04,
+      "fairValue": 60.8,
+      "undervalPct": -61.8,
+      "yoyPct": 49.8,
+      "yoyTrend": null,
+      "volume": 3000,
+      "avgVolume": 607078,
+      "volRatio": 0.0,
+      "volSpark": [
+        55,
+        34,
+        100,
+        36,
+        19,
+        19,
+        0
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4545",
+      "exchange": "TWSE",
+      "name": "銘鈺",
+      "close": 31.2,
+      "ma5": 31.1,
+      "maDiffPct": 0.55,
+      "rsi": 46.0,
+      "forwardEps": 4.06,
+      "fairValue": 81.2,
+      "undervalPct": -61.5,
+      "yoyPct": -0.9,
+      "yoyTrend": null,
+      "volume": 146000,
+      "avgVolume": 153865,
+      "volRatio": 0.95,
+      "volSpark": [
+        72,
+        90,
+        58,
+        100,
+        64,
+        96,
+        83
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "7786",
+      "exchange": "TWSE",
+      "name": "東方風能",
+      "close": 137.0,
+      "ma5": 135.7,
+      "maDiffPct": 0.96,
+      "rsi": 48.5,
+      "forwardEps": 17.0,
+      "fairValue": 340.0,
+      "undervalPct": -59.7,
+      "yoyPct": 38.3,
+      "yoyTrend": null,
+      "volume": 214679,
+      "avgVolume": 244831,
+      "volRatio": 0.88,
+      "volSpark": [
+        27,
+        32,
+        43,
+        34,
+        100,
+        66,
+        37
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3284O",
+      "exchange": "TPEX",
+      "name": "太普高",
+      "close": 18.6,
+      "ma5": 19.0,
+      "maDiffPct": -2.05,
+      "rsi": 37.8,
+      "forwardEps": 2.27,
+      "fairValue": 45.4,
+      "undervalPct": -58.9,
+      "yoyPct": 50.0,
+      "yoyTrend": null,
+      "volume": 223652,
+      "avgVolume": 155709,
+      "volRatio": 1.44,
+      "volSpark": [
+        14,
+        41,
+        15,
+        26,
+        41,
+        72,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6768",
+      "exchange": "TWSE",
+      "name": "志強-KY",
+      "close": 83.4,
+      "ma5": 82.4,
+      "maDiffPct": 1.16,
+      "rsi": 38.5,
+      "forwardEps": 10.01,
+      "fairValue": 200.1,
+      "undervalPct": -58.3,
+      "yoyPct": -4.9,
+      "yoyTrend": null,
+      "volume": 384000,
+      "avgVolume": 685547,
+      "volRatio": 0.56,
+      "volSpark": [
+        20,
+        15,
+        100,
+        17,
+        51,
+        15,
+        15
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6869",
+      "exchange": "TWSE",
+      "name": "雲豹能源",
+      "close": 86.0,
+      "ma5": 83.3,
+      "maDiffPct": 3.27,
+      "rsi": 39.2,
+      "forwardEps": 10.23,
+      "fairValue": 204.6,
+      "undervalPct": -58.0,
+      "yoyPct": 70.6,
+      "yoyTrend": null,
+      "volume": 805010,
+      "avgVolume": 707017,
+      "volRatio": 1.14,
+      "volSpark": [
+        100,
+        43,
+        34,
+        56,
+        52,
+        38,
+        68
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8213",
+      "exchange": "TWSE",
+      "name": "志超",
+      "close": 35.4,
+      "ma5": 34.5,
+      "maDiffPct": 2.49,
+      "rsi": 56.9,
+      "forwardEps": 4.12,
+      "fairValue": 82.4,
+      "undervalPct": -57.0,
+      "yoyPct": 11.2,
+      "yoyTrend": null,
+      "volume": 1178076,
+      "avgVolume": 680502,
+      "volRatio": 1.73,
+      "volSpark": [
+        41,
+        31,
+        18,
+        100,
+        55,
+        69,
+        86
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4580O",
+      "exchange": "TPEX",
+      "name": "捷流閥業",
+      "close": 79.5,
+      "ma5": 79.8,
+      "maDiffPct": -0.35,
+      "rsi": 44.2,
+      "forwardEps": 9.01,
+      "fairValue": 180.2,
+      "undervalPct": -55.9,
+      "yoyPct": -14.0,
+      "yoyTrend": null,
+      "volume": 62145,
+      "avgVolume": 38674,
+      "volRatio": 1.61,
+      "volSpark": [
+        48,
+        47,
+        71,
+        89,
+        61,
+        34,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4119",
+      "exchange": "TWSE",
+      "name": "旭富",
+      "close": 50.0,
+      "ma5": 50.5,
+      "maDiffPct": -1.07,
+      "rsi": 38.6,
+      "forwardEps": 5.63,
+      "fairValue": 112.6,
+      "undervalPct": -55.6,
+      "yoyPct": -11.5,
+      "yoyTrend": null,
+      "volume": 204450,
+      "avgVolume": 124901,
+      "volRatio": 1.64,
+      "volSpark": [
+        35,
+        50,
+        80,
+        100,
+        53,
+        63,
+        89
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1442",
       "exchange": "TWSE",
       "name": "名軒",
@@ -1138,6 +3448,90 @@
         "undervalued": true,
         "yoy_pass": false,
         "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3484O",
+      "exchange": "TPEX",
+      "name": "崧騰",
+      "close": 45.7,
+      "ma5": 45.9,
+      "maDiffPct": -0.35,
+      "rsi": 47.6,
+      "forwardEps": 5.06,
+      "fairValue": 101.2,
+      "undervalPct": -54.8,
+      "yoyPct": -9.8,
+      "yoyTrend": null,
+      "volume": 375006,
+      "avgVolume": 238189,
+      "volRatio": 1.57,
+      "volSpark": [
+        34,
+        97,
+        80,
+        65,
+        35,
+        55,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6890",
+      "exchange": "TWSE",
+      "name": "來億-KY",
+      "close": 156.5,
+      "ma5": 152.5,
+      "maDiffPct": 2.62,
+      "rsi": 39.3,
+      "forwardEps": 17.13,
+      "fairValue": 342.5,
+      "undervalPct": -54.3,
+      "yoyPct": -2.6,
+      "yoyTrend": null,
+      "volume": 776050,
+      "avgVolume": 732455,
+      "volRatio": 1.06,
+      "volSpark": [
+        65,
+        54,
+        100,
+        48,
+        44,
+        54,
+        77
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
       },
       "passedCount": 3,
       "sellConditions": {
@@ -1191,6 +3585,132 @@
       "sellSignal": null
     },
     {
+      "symbol": "4441",
+      "exchange": "TWSE",
+      "name": "振大環球",
+      "close": 192.5,
+      "ma5": 194.6,
+      "maDiffPct": -1.08,
+      "rsi": 39.6,
+      "forwardEps": 20.7,
+      "fairValue": 414.0,
+      "undervalPct": -53.5,
+      "yoyPct": 26.4,
+      "yoyTrend": null,
+      "volume": 80529,
+      "avgVolume": 91703,
+      "volRatio": 0.88,
+      "volSpark": [
+        20,
+        87,
+        100,
+        95,
+        96,
+        47,
+        70
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6272",
+      "exchange": "TWSE",
+      "name": "驊陞",
+      "close": 32.0,
+      "ma5": 31.4,
+      "maDiffPct": 1.72,
+      "rsi": 42.8,
+      "forwardEps": 3.41,
+      "fairValue": 68.2,
+      "undervalPct": -53.2,
+      "yoyPct": 6.3,
+      "yoyTrend": null,
+      "volume": 389718,
+      "avgVolume": 342186,
+      "volRatio": 1.14,
+      "volSpark": [
+        28,
+        24,
+        33,
+        100,
+        48,
+        37,
+        46
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6605",
+      "exchange": "TWSE",
+      "name": "帝寶",
+      "close": 130.5,
+      "ma5": 133.9,
+      "maDiffPct": -2.54,
+      "rsi": 38.7,
+      "forwardEps": 13.79,
+      "fairValue": 275.8,
+      "undervalPct": -52.7,
+      "yoyPct": -5.0,
+      "yoyTrend": null,
+      "volume": 712380,
+      "avgVolume": 268257,
+      "volRatio": 2.66,
+      "volSpark": [
+        15,
+        23,
+        23,
+        23,
+        66,
+        64,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1736",
       "exchange": "TWSE",
       "name": "喬山",
@@ -1219,6 +3739,48 @@
       "conditions": {
         "ma_breakout": false,
         "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3036",
+      "exchange": "TWSE",
+      "name": "文曄",
+      "close": 229.5,
+      "ma5": 226.9,
+      "maDiffPct": 1.15,
+      "rsi": 56.1,
+      "forwardEps": 23.96,
+      "fairValue": 479.2,
+      "undervalPct": -52.1,
+      "yoyPct": 30.6,
+      "yoyTrend": null,
+      "volume": 6722581,
+      "avgVolume": 8863918,
+      "volRatio": 0.76,
+      "volSpark": [
+        69,
+        44,
+        62,
+        80,
+        59,
+        100,
+        83
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
         "undervalued": true,
         "yoy_pass": true,
         "vol_surge": false
@@ -1317,6 +3879,132 @@
       "sellSignal": null
     },
     {
+      "symbol": "2882",
+      "exchange": "TWSE",
+      "name": "國泰金",
+      "close": 72.9,
+      "ma5": 72.8,
+      "maDiffPct": 0.11,
+      "rsi": 51.2,
+      "forwardEps": 7.44,
+      "fairValue": 148.7,
+      "undervalPct": -51.0,
+      "yoyPct": 112.9,
+      "yoyTrend": null,
+      "volume": 27238084,
+      "avgVolume": 22346241,
+      "volRatio": 1.22,
+      "volSpark": [
+        59,
+        100,
+        94,
+        64,
+        74,
+        90,
+        97
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6841O",
+      "exchange": "TPEX",
+      "name": "長佳智能",
+      "close": 58.8,
+      "ma5": 58.9,
+      "maDiffPct": -0.24,
+      "rsi": 39.4,
+      "forwardEps": 5.95,
+      "fairValue": 119.0,
+      "undervalPct": -50.6,
+      "yoyPct": 34.3,
+      "yoyTrend": null,
+      "volume": 3000,
+      "avgVolume": 477728,
+      "volRatio": 0.01,
+      "volSpark": [
+        80,
+        100,
+        63,
+        64,
+        60,
+        96,
+        1
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8473",
+      "exchange": "TWSE",
+      "name": "山林水",
+      "close": 37.5,
+      "ma5": 37.2,
+      "maDiffPct": 0.83,
+      "rsi": 47.8,
+      "forwardEps": 3.77,
+      "fairValue": 75.4,
+      "undervalPct": -50.3,
+      "yoyPct": 29.5,
+      "yoyTrend": null,
+      "volume": 256135,
+      "avgVolume": 873777,
+      "volRatio": 0.29,
+      "volSpark": [
+        100,
+        60,
+        33,
+        41,
+        56,
+        62,
+        27
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1603",
       "exchange": "TWSE",
       "name": "華電",
@@ -1340,6 +4028,48 @@
         100,
         67,
         77
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4164",
+      "exchange": "TWSE",
+      "name": "承業醫",
+      "close": 30.9,
+      "ma5": 31.0,
+      "maDiffPct": -0.42,
+      "rsi": 46.3,
+      "forwardEps": 3.08,
+      "fairValue": 61.6,
+      "undervalPct": -49.8,
+      "yoyPct": 18.4,
+      "yoyTrend": null,
+      "volume": 534474,
+      "avgVolume": 1094507,
+      "volRatio": 0.49,
+      "volSpark": [
+        49,
+        92,
+        73,
+        74,
+        100,
+        93,
+        53
       ],
       "signal": "watch",
       "conditions": {
@@ -1443,6 +4173,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "1580O",
+      "exchange": "TPEX",
+      "name": "新麥",
+      "close": 127.5,
+      "ma5": 128.4,
+      "maDiffPct": -0.7,
+      "rsi": 36.9,
+      "forwardEps": 12.51,
+      "fairValue": 250.2,
+      "undervalPct": -49.0,
+      "yoyPct": -10.7,
+      "yoyTrend": null,
+      "volume": 63302,
+      "avgVolume": 32637,
+      "volRatio": 1.94,
+      "volSpark": [
+        12,
+        28,
+        11,
+        100,
+        31,
+        27,
+        50
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1817",
       "exchange": "TWSE",
       "name": "凱撒衛",
@@ -1485,6 +4257,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "2641O",
+      "exchange": "TPEX",
+      "name": "正德",
+      "close": 18.4,
+      "ma5": 18.1,
+      "maDiffPct": 1.27,
+      "rsi": 47.4,
+      "forwardEps": 1.79,
+      "fairValue": 35.8,
+      "undervalPct": -48.7,
+      "yoyPct": 34.4,
+      "yoyTrend": null,
+      "volume": 1739403,
+      "avgVolume": 1466420,
+      "volRatio": 1.19,
+      "volSpark": [
+        51,
+        88,
+        54,
+        64,
+        58,
+        54,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2439",
       "exchange": "TWSE",
       "name": "美律",
@@ -1516,6 +4330,48 @@
         "undervalued": true,
         "yoy_pass": true,
         "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "5212O",
+      "exchange": "TPEX",
+      "name": "凌網",
+      "close": 48.8,
+      "ma5": 49.2,
+      "maDiffPct": -0.77,
+      "rsi": 44.6,
+      "forwardEps": 4.73,
+      "fairValue": 94.6,
+      "undervalPct": -48.4,
+      "yoyPct": 12.6,
+      "yoyTrend": null,
+      "volume": 29000,
+      "avgVolume": 58726,
+      "volRatio": 0.49,
+      "volSpark": [
+        100,
+        54,
+        21,
+        13,
+        9,
+        5,
+        11
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
       },
       "passedCount": 3,
       "sellConditions": {
@@ -1653,6 +4509,300 @@
       "sellSignal": null
     },
     {
+      "symbol": "2745O",
+      "exchange": "TPEX",
+      "name": "五福",
+      "close": 104.0,
+      "ma5": 105.6,
+      "maDiffPct": -1.52,
+      "rsi": 48.4,
+      "forwardEps": 9.94,
+      "fairValue": 198.8,
+      "undervalPct": -47.7,
+      "yoyPct": 17.8,
+      "yoyTrend": null,
+      "volume": 267024,
+      "avgVolume": 264293,
+      "volRatio": 1.01,
+      "volSpark": [
+        5,
+        11,
+        10,
+        9,
+        100,
+        19,
+        13
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2887",
+      "exchange": "TWSE",
+      "name": "台新新光金",
+      "close": 24.6,
+      "ma5": 24.5,
+      "maDiffPct": 0.49,
+      "rsi": 54.7,
+      "forwardEps": 2.34,
+      "fairValue": 46.7,
+      "undervalPct": -47.3,
+      "yoyPct": 165.9,
+      "yoyTrend": null,
+      "volume": 50768779,
+      "avgVolume": 65913339,
+      "volRatio": 0.77,
+      "volSpark": [
+        51,
+        68,
+        59,
+        43,
+        86,
+        100,
+        71
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8924O",
+      "exchange": "TPEX",
+      "name": "大田",
+      "close": 67.9,
+      "ma5": 68.0,
+      "maDiffPct": -0.09,
+      "rsi": 46.8,
+      "forwardEps": 6.44,
+      "fairValue": 128.8,
+      "undervalPct": -47.3,
+      "yoyPct": 41.8,
+      "yoyTrend": null,
+      "volume": 79000,
+      "avgVolume": 62595,
+      "volRatio": 1.26,
+      "volSpark": [
+        24,
+        62,
+        71,
+        51,
+        88,
+        100,
+        85
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "1294O",
+      "exchange": "TPEX",
+      "name": "漢田生技",
+      "close": 80.3,
+      "ma5": 81.2,
+      "maDiffPct": -1.16,
+      "rsi": 44.3,
+      "forwardEps": 7.61,
+      "fairValue": 152.2,
+      "undervalPct": -47.2,
+      "yoyPct": 39.7,
+      "yoyTrend": null,
+      "volume": 37012,
+      "avgVolume": 36775,
+      "volRatio": 1.01,
+      "volSpark": [
+        59,
+        53,
+        60,
+        95,
+        100,
+        62,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4771",
+      "exchange": "TWSE",
+      "name": "望隼",
+      "close": 191.5,
+      "ma5": 191.0,
+      "maDiffPct": 0.26,
+      "rsi": 56.8,
+      "forwardEps": 17.96,
+      "fairValue": 359.2,
+      "undervalPct": -46.7,
+      "yoyPct": 24.8,
+      "yoyTrend": null,
+      "volume": 134651,
+      "avgVolume": 292375,
+      "volRatio": 0.46,
+      "volSpark": [
+        48,
+        21,
+        100,
+        37,
+        28,
+        43,
+        28
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "9933",
+      "exchange": "TWSE",
+      "name": "中鼎",
+      "close": 38.1,
+      "ma5": 35.8,
+      "maDiffPct": 6.51,
+      "rsi": 64.8,
+      "forwardEps": 3.56,
+      "fairValue": 71.2,
+      "undervalPct": -46.5,
+      "yoyPct": -23.2,
+      "yoyTrend": null,
+      "volume": 17580542,
+      "avgVolume": 8727973,
+      "volRatio": 2.01,
+      "volSpark": [
+        27,
+        50,
+        27,
+        25,
+        25,
+        26,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "7767O",
+      "exchange": "TPEX",
+      "name": "仁大資訊",
+      "close": 44.5,
+      "ma5": 44.2,
+      "maDiffPct": 0.63,
+      "rsi": 44.8,
+      "forwardEps": 4.15,
+      "fairValue": 83.0,
+      "undervalPct": -46.4,
+      "yoyPct": -6.7,
+      "yoyTrend": null,
+      "volume": 25035,
+      "avgVolume": 16758,
+      "volRatio": 1.49,
+      "volSpark": [
+        20,
+        24,
+        17,
+        63,
+        51,
+        100,
+        71
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2612",
       "exchange": "TWSE",
       "name": "中航",
@@ -1692,6 +4842,132 @@
         "yoy_trend_down": false
       },
       "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2881",
+      "exchange": "TWSE",
+      "name": "富邦金",
+      "close": 87.5,
+      "ma5": 87.6,
+      "maDiffPct": -0.09,
+      "rsi": 45.1,
+      "forwardEps": 8.07,
+      "fairValue": 161.5,
+      "undervalPct": -45.8,
+      "yoyPct": 24.0,
+      "yoyTrend": null,
+      "volume": 21034630,
+      "avgVolume": 18243523,
+      "volRatio": 1.15,
+      "volSpark": [
+        65,
+        82,
+        100,
+        96,
+        81,
+        85,
+        99
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2855",
+      "exchange": "TWSE",
+      "name": "統一證",
+      "close": 32.8,
+      "ma5": 31.7,
+      "maDiffPct": 3.6,
+      "rsi": 57.0,
+      "forwardEps": 2.99,
+      "fairValue": 59.8,
+      "undervalPct": -45.1,
+      "yoyPct": 115.0,
+      "yoyTrend": null,
+      "volume": 8473518,
+      "avgVolume": 6222915,
+      "volRatio": 1.36,
+      "volSpark": [
+        26,
+        50,
+        100,
+        25,
+        45,
+        46,
+        66
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2643O",
+      "exchange": "TPEX",
+      "name": "捷迅",
+      "close": 69.1,
+      "ma5": 69.3,
+      "maDiffPct": -0.35,
+      "rsi": 40.8,
+      "forwardEps": 6.28,
+      "fairValue": 125.6,
+      "undervalPct": -45.0,
+      "yoyPct": 35.9,
+      "yoyTrend": null,
+      "volume": 25000,
+      "avgVolume": 21117,
+      "volRatio": 1.18,
+      "volSpark": [
+        50,
+        97,
+        47,
+        54,
+        26,
+        100,
+        54
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
       "sellSignal": null
     },
     {
@@ -1737,6 +5013,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "5522",
+      "exchange": "TWSE",
+      "name": "遠雄",
+      "close": 70.1,
+      "ma5": 71.9,
+      "maDiffPct": -2.53,
+      "rsi": 48.1,
+      "forwardEps": 6.31,
+      "fairValue": 126.2,
+      "undervalPct": -44.5,
+      "yoyPct": 349.5,
+      "yoyTrend": null,
+      "volume": 807400,
+      "avgVolume": 1128452,
+      "volRatio": 0.72,
+      "volSpark": [
+        41,
+        43,
+        37,
+        46,
+        50,
+        100,
+        39
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2601",
       "exchange": "TWSE",
       "name": "益航",
@@ -1760,6 +5078,48 @@
         61,
         93,
         100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8114",
+      "exchange": "TWSE",
+      "name": "振樺電",
+      "close": 169.0,
+      "ma5": 167.1,
+      "maDiffPct": 1.14,
+      "rsi": 46.1,
+      "forwardEps": 15.03,
+      "fairValue": 300.6,
+      "undervalPct": -43.8,
+      "yoyPct": -40.7,
+      "yoyTrend": null,
+      "volume": 330210,
+      "avgVolume": 442781,
+      "volRatio": 0.75,
+      "volSpark": [
+        29,
+        62,
+        89,
+        53,
+        100,
+        45,
+        44
       ],
       "signal": "watch",
       "conditions": {
@@ -1821,6 +5181,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "6591",
+      "exchange": "TWSE",
+      "name": "動力-KY",
+      "close": 57.7,
+      "ma5": 57.7,
+      "maDiffPct": -0.07,
+      "rsi": 35.0,
+      "forwardEps": 4.96,
+      "fairValue": 99.2,
+      "undervalPct": -41.8,
+      "yoyPct": 38.7,
+      "yoyTrend": null,
+      "volume": 263002,
+      "avgVolume": 284515,
+      "volRatio": 0.92,
+      "volSpark": [
+        27,
+        26,
+        18,
+        100,
+        39,
+        27,
+        26
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4167O",
+      "exchange": "TPEX",
+      "name": "松瑞藥",
+      "close": 20.0,
+      "ma5": 20.0,
+      "maDiffPct": -0.4,
+      "rsi": 43.7,
+      "forwardEps": 1.71,
+      "fairValue": 34.2,
+      "undervalPct": -41.7,
+      "yoyPct": 15.5,
+      "yoyTrend": null,
+      "volume": 25000,
+      "avgVolume": 1352279,
+      "volRatio": 0.02,
+      "volSpark": [
+        74,
+        80,
+        55,
+        100,
+        97,
+        65,
+        2
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1730",
       "exchange": "TWSE",
       "name": "花仙子",
@@ -1844,6 +5288,174 @@
         80,
         49,
         100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2891",
+      "exchange": "TWSE",
+      "name": "中信金",
+      "close": 52.8,
+      "ma5": 53.6,
+      "maDiffPct": -1.49,
+      "rsi": 48.8,
+      "forwardEps": 4.5,
+      "fairValue": 90.0,
+      "undervalPct": -41.3,
+      "yoyPct": 43.3,
+      "yoyTrend": null,
+      "volume": 54074851,
+      "avgVolume": 43870603,
+      "volRatio": 1.23,
+      "volSpark": [
+        75,
+        100,
+        89,
+        60,
+        50,
+        63,
+        75
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6902",
+      "exchange": "TWSE",
+      "name": "GOGOLOOK",
+      "close": 85.4,
+      "ma5": 79.2,
+      "maDiffPct": 7.88,
+      "rsi": 73.7,
+      "forwardEps": 7.18,
+      "fairValue": 143.6,
+      "undervalPct": -40.5,
+      "yoyPct": 21.5,
+      "yoyTrend": null,
+      "volume": 232886,
+      "avgVolume": 48045,
+      "volRatio": 4.85,
+      "volSpark": [
+        7,
+        7,
+        39,
+        25,
+        39,
+        38,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "7738O",
+      "exchange": "TPEX",
+      "name": "東聯互動",
+      "close": 185.0,
+      "ma5": 184.7,
+      "maDiffPct": 0.16,
+      "rsi": 51.1,
+      "forwardEps": 15.35,
+      "fairValue": 307.0,
+      "undervalPct": -39.7,
+      "yoyPct": 23.8,
+      "yoyTrend": null,
+      "volume": 36000,
+      "avgVolume": 39732,
+      "volRatio": 0.91,
+      "volSpark": [
+        100,
+        74,
+        62,
+        36,
+        84,
+        40,
+        53
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "1777O",
+      "exchange": "TPEX",
+      "name": "生泰",
+      "close": 70.9,
+      "ma5": 71.2,
+      "maDiffPct": -0.37,
+      "rsi": 38.3,
+      "forwardEps": 5.85,
+      "fairValue": 117.0,
+      "undervalPct": -39.4,
+      "yoyPct": 2.8,
+      "yoyTrend": null,
+      "volume": 39000,
+      "avgVolume": 21676,
+      "volRatio": 1.8,
+      "volSpark": [
+        13,
+        98,
+        42,
+        39,
+        52,
+        100,
+        64
       ],
       "signal": "watch",
       "conditions": {
@@ -1928,6 +5540,90 @@
         100,
         87,
         48
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4735O",
+      "exchange": "TPEX",
+      "name": "豪展",
+      "close": 30.6,
+      "ma5": 31.0,
+      "maDiffPct": -1.29,
+      "rsi": 48.1,
+      "forwardEps": 2.46,
+      "fairValue": 49.2,
+      "undervalPct": -37.7,
+      "yoyPct": 19.0,
+      "yoyTrend": null,
+      "volume": 16002,
+      "avgVolume": 18364,
+      "volRatio": 0.87,
+      "volSpark": [
+        42,
+        100,
+        42,
+        26,
+        42,
+        60,
+        42
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6165",
+      "exchange": "TWSE",
+      "name": "浪凡",
+      "close": 45.0,
+      "ma5": 45.2,
+      "maDiffPct": -0.49,
+      "rsi": 47.4,
+      "forwardEps": 3.59,
+      "fairValue": 71.8,
+      "undervalPct": -37.4,
+      "yoyPct": 14.0,
+      "yoyTrend": null,
+      "volume": 352020,
+      "avgVolume": 390047,
+      "volRatio": 0.9,
+      "volSpark": [
+        50,
+        48,
+        40,
+        61,
+        83,
+        100,
+        74
       ],
       "signal": "watch",
       "conditions": {
@@ -2073,6 +5769,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "3624O",
+      "exchange": "TPEX",
+      "name": "光頡",
+      "close": 55.0,
+      "ma5": 51.5,
+      "maDiffPct": 6.82,
+      "rsi": 60.2,
+      "forwardEps": 4.36,
+      "fairValue": 87.2,
+      "undervalPct": -36.9,
+      "yoyPct": 11.9,
+      "yoyTrend": null,
+      "volume": 4708691,
+      "avgVolume": 1487102,
+      "volRatio": 3.17,
+      "volSpark": [
+        11,
+        15,
+        16,
+        49,
+        63,
+        69,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2751O",
+      "exchange": "TPEX",
+      "name": "王座",
+      "close": 57.1,
+      "ma5": 57.5,
+      "maDiffPct": -0.66,
+      "rsi": 49.3,
+      "forwardEps": 4.5,
+      "fairValue": 90.0,
+      "undervalPct": -36.6,
+      "yoyPct": 35.2,
+      "yoyTrend": null,
+      "volume": 20000,
+      "avgVolume": 16684,
+      "volRatio": 1.2,
+      "volSpark": [
+        23,
+        100,
+        9,
+        25,
+        48,
+        36,
+        30
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1437",
       "exchange": "TWSE",
       "name": "勤益控",
@@ -2115,6 +5895,132 @@
       "sellSignal": null
     },
     {
+      "symbol": "3044",
+      "exchange": "TWSE",
+      "name": "健鼎",
+      "close": 402.0,
+      "ma5": 382.0,
+      "maDiffPct": 5.24,
+      "rsi": 64.2,
+      "forwardEps": 31.27,
+      "fairValue": 625.3,
+      "undervalPct": -35.7,
+      "yoyPct": 11.3,
+      "yoyTrend": null,
+      "volume": 10075274,
+      "avgVolume": 3854320,
+      "volRatio": 2.61,
+      "volSpark": [
+        24,
+        51,
+        40,
+        41,
+        31,
+        38,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "5478O",
+      "exchange": "TPEX",
+      "name": "智冠",
+      "close": 99.6,
+      "ma5": 99.6,
+      "maDiffPct": 0.0,
+      "rsi": 48.9,
+      "forwardEps": 7.74,
+      "fairValue": 154.8,
+      "undervalPct": -35.7,
+      "yoyPct": 10.8,
+      "yoyTrend": null,
+      "volume": 2000,
+      "avgVolume": 263068,
+      "volRatio": 0.01,
+      "volSpark": [
+        51,
+        92,
+        71,
+        100,
+        69,
+        75,
+        1
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6752O",
+      "exchange": "TPEX",
+      "name": "叡揚",
+      "close": 103.5,
+      "ma5": 103.5,
+      "maDiffPct": 0.0,
+      "rsi": 39.8,
+      "forwardEps": 8.01,
+      "fairValue": 160.2,
+      "undervalPct": -35.4,
+      "yoyPct": 15.4,
+      "yoyTrend": null,
+      "volume": 1000,
+      "avgVolume": 52062,
+      "volRatio": 0.02,
+      "volSpark": [
+        57,
+        100,
+        54,
+        79,
+        90,
+        46,
+        1
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1504",
       "exchange": "TWSE",
       "name": "東元",
@@ -2138,6 +6044,48 @@
         62,
         90,
         100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6527O",
+      "exchange": "TPEX",
+      "name": "明達醫",
+      "close": 70.3,
+      "ma5": 70.8,
+      "maDiffPct": -0.65,
+      "rsi": 38.9,
+      "forwardEps": 5.41,
+      "fairValue": 108.2,
+      "undervalPct": -35.0,
+      "yoyPct": 19.3,
+      "yoyTrend": null,
+      "volume": 27150,
+      "avgVolume": 28368,
+      "volRatio": 0.96,
+      "volSpark": [
+        32,
+        100,
+        42,
+        43,
+        67,
+        57,
+        45
       ],
       "signal": "watch",
       "conditions": {
@@ -2199,6 +6147,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "4581",
+      "exchange": "TWSE",
+      "name": "光隆精密-KY",
+      "close": 50.2,
+      "ma5": 50.1,
+      "maDiffPct": 0.2,
+      "rsi": 54.9,
+      "forwardEps": 3.79,
+      "fairValue": 75.8,
+      "undervalPct": -33.8,
+      "yoyPct": 0.9,
+      "yoyTrend": null,
+      "volume": 26000,
+      "avgVolume": 11951,
+      "volRatio": 2.18,
+      "volSpark": [
+        8,
+        23,
+        46,
+        23,
+        12,
+        85,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8131",
+      "exchange": "TWSE",
+      "name": "福懋科",
+      "close": 61.6,
+      "ma5": 61.9,
+      "maDiffPct": -0.45,
+      "rsi": 47.3,
+      "forwardEps": 4.63,
+      "fairValue": 92.6,
+      "undervalPct": -33.5,
+      "yoyPct": 37.1,
+      "yoyTrend": null,
+      "volume": 2733651,
+      "avgVolume": 5404334,
+      "volRatio": 0.51,
+      "volSpark": [
+        35,
+        69,
+        93,
+        68,
+        100,
+        72,
+        50
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
       "symbol": "2303",
       "exchange": "TWSE",
       "name": "聯電",
@@ -2241,6 +6273,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "6275O",
+      "exchange": "TPEX",
+      "name": "元山",
+      "close": 48.8,
+      "ma5": 48.6,
+      "maDiffPct": 0.37,
+      "rsi": 50.0,
+      "forwardEps": 3.65,
+      "fairValue": 73.0,
+      "undervalPct": -33.2,
+      "yoyPct": 14.8,
+      "yoyTrend": null,
+      "volume": 6000,
+      "avgVolume": 275836,
+      "volRatio": 0.02,
+      "volSpark": [
+        64,
+        53,
+        41,
+        82,
+        79,
+        100,
+        1
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3406",
+      "exchange": "TWSE",
+      "name": "玉晶光",
+      "close": 509.0,
+      "ma5": 482.7,
+      "maDiffPct": 5.45,
+      "rsi": 70.6,
+      "forwardEps": 37.85,
+      "fairValue": 756.9,
+      "undervalPct": -32.8,
+      "yoyPct": 30.7,
+      "yoyTrend": null,
+      "volume": 3391571,
+      "avgVolume": 1185685,
+      "volRatio": 2.86,
+      "volSpark": [
+        6,
+        5,
+        8,
+        11,
+        28,
+        100,
+        58
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
       "symbol": "2812",
       "exchange": "TWSE",
       "name": "台中銀",
@@ -2264,6 +6380,300 @@
         84,
         94,
         47
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2892",
+      "exchange": "TWSE",
+      "name": "第一金",
+      "close": 28.9,
+      "ma5": 28.7,
+      "maDiffPct": 0.45,
+      "rsi": 51.8,
+      "forwardEps": 2.12,
+      "fairValue": 42.5,
+      "undervalPct": -32.1,
+      "yoyPct": 12.0,
+      "yoyTrend": null,
+      "volume": 20453903,
+      "avgVolume": 19593703,
+      "volRatio": 1.04,
+      "volSpark": [
+        41,
+        79,
+        97,
+        85,
+        64,
+        65,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3130",
+      "exchange": "TWSE",
+      "name": "一零四",
+      "close": 221.0,
+      "ma5": 220.8,
+      "maDiffPct": 0.09,
+      "rsi": 46.3,
+      "forwardEps": 16.28,
+      "fairValue": 325.6,
+      "undervalPct": -32.1,
+      "yoyPct": 6.9,
+      "yoyTrend": null,
+      "volume": 40010,
+      "avgVolume": 24943,
+      "volRatio": 1.6,
+      "volSpark": [
+        40,
+        100,
+        20,
+        42,
+        85,
+        56,
+        80
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "5203",
+      "exchange": "TWSE",
+      "name": "訊連",
+      "close": 63.9,
+      "ma5": 62.5,
+      "maDiffPct": 2.24,
+      "rsi": 46.0,
+      "forwardEps": 4.69,
+      "fairValue": 93.8,
+      "undervalPct": -31.9,
+      "yoyPct": 25.1,
+      "yoyTrend": null,
+      "volume": 160312,
+      "avgVolume": 259113,
+      "volRatio": 0.62,
+      "volSpark": [
+        54,
+        98,
+        86,
+        49,
+        56,
+        100,
+        45
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6770",
+      "exchange": "TWSE",
+      "name": "力積電",
+      "close": 53.2,
+      "ma5": 54.3,
+      "maDiffPct": -2.1,
+      "rsi": 40.0,
+      "forwardEps": 3.9,
+      "fairValue": 78.0,
+      "undervalPct": -31.8,
+      "yoyPct": 12.3,
+      "yoyTrend": null,
+      "volume": 100529813,
+      "avgVolume": 236286962,
+      "volRatio": 0.43,
+      "volSpark": [
+        72,
+        86,
+        99,
+        100,
+        76,
+        82,
+        75
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6961O",
+      "exchange": "TPEX",
+      "name": "旅天下",
+      "close": 57.7,
+      "ma5": 57.6,
+      "maDiffPct": 0.24,
+      "rsi": 47.3,
+      "forwardEps": 4.23,
+      "fairValue": 84.6,
+      "undervalPct": -31.8,
+      "yoyPct": null,
+      "yoyTrend": null,
+      "volume": 29092,
+      "avgVolume": 45433,
+      "volRatio": 0.64,
+      "volSpark": [
+        24,
+        57,
+        17,
+        21,
+        100,
+        44,
+        23
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6855O",
+      "exchange": "TPEX",
+      "name": "數泓科",
+      "close": 106.5,
+      "ma5": 109.6,
+      "maDiffPct": -2.83,
+      "rsi": 34.8,
+      "forwardEps": 7.79,
+      "fairValue": 155.8,
+      "undervalPct": -31.6,
+      "yoyPct": -10.0,
+      "yoyTrend": null,
+      "volume": 12070,
+      "avgVolume": 5091,
+      "volRatio": 2.37,
+      "volSpark": [
+        0,
+        40,
+        0,
+        74,
+        67,
+        100,
+        80
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3293O",
+      "exchange": "TPEX",
+      "name": "鈊象",
+      "close": 747.0,
+      "ma5": 761.0,
+      "maDiffPct": -1.84,
+      "rsi": 49.8,
+      "forwardEps": 54.05,
+      "fairValue": 1080.9,
+      "undervalPct": -30.9,
+      "yoyPct": 12.5,
+      "yoyTrend": null,
+      "volume": 1772140,
+      "avgVolume": 1796576,
+      "volRatio": 0.99,
+      "volSpark": [
+        51,
+        90,
+        100,
+        77,
+        30,
+        60,
+        78
       ],
       "signal": "watch",
       "conditions": {
@@ -2409,6 +6819,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "5284",
+      "exchange": "TWSE",
+      "name": "jpp-KY",
+      "close": 325.5,
+      "ma5": 309.0,
+      "maDiffPct": 5.34,
+      "rsi": 66.3,
+      "forwardEps": 23.06,
+      "fairValue": 461.2,
+      "undervalPct": -29.4,
+      "yoyPct": 61.7,
+      "yoyTrend": null,
+      "volume": 2913738,
+      "avgVolume": 1695147,
+      "volRatio": 1.72,
+      "volSpark": [
+        16,
+        68,
+        28,
+        100,
+        90,
+        51,
+        72
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
       "symbol": "1783",
       "exchange": "TWSE",
       "name": "和康生",
@@ -2493,6 +6945,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "6449",
+      "exchange": "TWSE",
+      "name": "鈺邦",
+      "close": 176.0,
+      "ma5": 167.1,
+      "maDiffPct": 5.33,
+      "rsi": 62.3,
+      "forwardEps": 12.33,
+      "fairValue": 246.6,
+      "undervalPct": -28.6,
+      "yoyPct": 22.7,
+      "yoyTrend": null,
+      "volume": 1646330,
+      "avgVolume": 616099,
+      "volRatio": 2.67,
+      "volSpark": [
+        8,
+        13,
+        17,
+        16,
+        100,
+        50,
+        66
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8101",
+      "exchange": "TWSE",
+      "name": "華冠",
+      "close": 13.5,
+      "ma5": 13.7,
+      "maDiffPct": -1.1,
+      "rsi": 40.2,
+      "forwardEps": 0.94,
+      "fairValue": 18.8,
+      "undervalPct": -28.2,
+      "yoyPct": 21.1,
+      "yoyTrend": null,
+      "volume": 8362,
+      "avgVolume": 7353,
+      "volRatio": 1.14,
+      "volSpark": [
+        100,
+        73,
+        29,
+        55,
+        29,
+        19,
+        43
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1416",
       "exchange": "TWSE",
       "name": "廣豐",
@@ -2521,6 +7057,48 @@
       "conditions": {
         "ma_breakout": true,
         "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6477",
+      "exchange": "TWSE",
+      "name": "安集",
+      "close": 34.4,
+      "ma5": 33.5,
+      "maDiffPct": 2.56,
+      "rsi": 47.7,
+      "forwardEps": 2.36,
+      "fairValue": 47.2,
+      "undervalPct": -27.1,
+      "yoyPct": 16.2,
+      "yoyTrend": null,
+      "volume": 1049348,
+      "avgVolume": 762753,
+      "volRatio": 1.38,
+      "volSpark": [
+        34,
+        46,
+        50,
+        52,
+        40,
+        51,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
         "undervalued": true,
         "yoy_pass": true,
         "vol_surge": false
@@ -2577,6 +7155,132 @@
       "sellSignal": null
     },
     {
+      "symbol": "6469O",
+      "exchange": "TPEX",
+      "name": "大樹",
+      "close": 79.7,
+      "ma5": 79.6,
+      "maDiffPct": 0.18,
+      "rsi": 37.9,
+      "forwardEps": 5.4,
+      "fairValue": 108.0,
+      "undervalPct": -26.2,
+      "yoyPct": 7.5,
+      "yoyTrend": null,
+      "volume": 17000,
+      "avgVolume": 423201,
+      "volRatio": 0.04,
+      "volSpark": [
+        25,
+        58,
+        31,
+        100,
+        96,
+        91,
+        2
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "9931",
+      "exchange": "TWSE",
+      "name": "欣高",
+      "close": 36.0,
+      "ma5": 35.9,
+      "maDiffPct": 0.56,
+      "rsi": 44.6,
+      "forwardEps": 2.44,
+      "fairValue": 48.8,
+      "undervalPct": -26.1,
+      "yoyPct": 20.4,
+      "yoyTrend": null,
+      "volume": 208150,
+      "avgVolume": 805340,
+      "volRatio": 0.26,
+      "volSpark": [
+        33,
+        100,
+        37,
+        58,
+        75,
+        82,
+        48
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "7713O",
+      "exchange": "TPEX",
+      "name": "威力德生醫",
+      "close": 67.0,
+      "ma5": 67.6,
+      "maDiffPct": -0.89,
+      "rsi": 46.4,
+      "forwardEps": 4.52,
+      "fairValue": 90.4,
+      "undervalPct": -25.9,
+      "yoyPct": 19.1,
+      "yoyTrend": null,
+      "volume": 8000,
+      "avgVolume": 16653,
+      "volRatio": 0.48,
+      "volSpark": [
+        32,
+        13,
+        100,
+        23,
+        12,
+        5,
+        13
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
       "symbol": "1229",
       "exchange": "TWSE",
       "name": "聯華",
@@ -2600,6 +7304,90 @@
         96,
         92,
         100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2941O",
+      "exchange": "TPEX",
+      "name": "米斯特",
+      "close": 35.2,
+      "ma5": 36.8,
+      "maDiffPct": -4.61,
+      "rsi": 37.9,
+      "forwardEps": 2.35,
+      "fairValue": 47.0,
+      "undervalPct": -25.2,
+      "yoyPct": 1.4,
+      "yoyTrend": null,
+      "volume": 34000,
+      "avgVolume": 5701,
+      "volRatio": 5.96,
+      "volSpark": [
+        0,
+        0,
+        0,
+        15,
+        12,
+        18,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6620O",
+      "exchange": "TPEX",
+      "name": "漢達",
+      "close": 72.3,
+      "ma5": 71.8,
+      "maDiffPct": 0.75,
+      "rsi": 49.4,
+      "forwardEps": 4.83,
+      "fairValue": 96.6,
+      "undervalPct": -25.2,
+      "yoyPct": 59.4,
+      "yoyTrend": null,
+      "volume": 22000,
+      "avgVolume": 320333,
+      "volRatio": 0.07,
+      "volSpark": [
+        25,
+        25,
+        100,
+        52,
+        39,
+        82,
+        3
       ],
       "signal": "watch",
       "conditions": {
@@ -2661,6 +7449,132 @@
       "sellSignal": null
     },
     {
+      "symbol": "3357O",
+      "exchange": "TPEX",
+      "name": "臺慶科",
+      "close": 168.5,
+      "ma5": 160.2,
+      "maDiffPct": 5.18,
+      "rsi": 59.8,
+      "forwardEps": 11.12,
+      "fairValue": 222.4,
+      "undervalPct": -24.2,
+      "yoyPct": 20.7,
+      "yoyTrend": null,
+      "volume": 6028662,
+      "avgVolume": 2356290,
+      "volRatio": 2.56,
+      "volSpark": [
+        12,
+        21,
+        21,
+        18,
+        55,
+        60,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "5312O",
+      "exchange": "TPEX",
+      "name": "寶島科",
+      "close": 97.4,
+      "ma5": 98.0,
+      "maDiffPct": -0.59,
+      "rsi": 47.1,
+      "forwardEps": 6.4,
+      "fairValue": 128.0,
+      "undervalPct": -23.9,
+      "yoyPct": 15.0,
+      "yoyTrend": null,
+      "volume": 2000,
+      "avgVolume": 29033,
+      "volRatio": 0.07,
+      "volSpark": [
+        61,
+        70,
+        98,
+        18,
+        17,
+        100,
+        4
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "1593O",
+      "exchange": "TPEX",
+      "name": "祺驊",
+      "close": 33.3,
+      "ma5": 33.5,
+      "maDiffPct": -0.57,
+      "rsi": 49.2,
+      "forwardEps": 2.18,
+      "fairValue": 43.6,
+      "undervalPct": -23.6,
+      "yoyPct": 12.9,
+      "yoyTrend": null,
+      "volume": 29000,
+      "avgVolume": 25712,
+      "volRatio": 1.13,
+      "volSpark": [
+        100,
+        24,
+        20,
+        71,
+        44,
+        33,
+        53
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2441",
       "exchange": "TWSE",
       "name": "超豐",
@@ -2700,6 +7614,48 @@
         "yoy_trend_down": false
       },
       "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6899O",
+      "exchange": "TPEX",
+      "name": "創為精密",
+      "close": 55.0,
+      "ma5": 54.9,
+      "maDiffPct": 0.26,
+      "rsi": 62.4,
+      "forwardEps": 3.57,
+      "fairValue": 71.4,
+      "undervalPct": -23.0,
+      "yoyPct": 34.3,
+      "yoyTrend": null,
+      "volume": 7000,
+      "avgVolume": 32071,
+      "volRatio": 0.22,
+      "volSpark": [
+        100,
+        65,
+        60,
+        40,
+        27,
+        42,
+        7
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
       "sellSignal": null
     },
     {
@@ -2745,6 +7701,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "8150",
+      "exchange": "TWSE",
+      "name": "南茂",
+      "close": 67.0,
+      "ma5": 62.9,
+      "maDiffPct": 6.45,
+      "rsi": 64.1,
+      "forwardEps": 4.34,
+      "fairValue": 86.8,
+      "undervalPct": -22.8,
+      "yoyPct": 20.8,
+      "yoyTrend": null,
+      "volume": 39370202,
+      "avgVolume": 12107585,
+      "volRatio": 3.25,
+      "volSpark": [
+        31,
+        32,
+        23,
+        33,
+        34,
+        28,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
       "symbol": "2114",
       "exchange": "TWSE",
       "name": "鑫永銓",
@@ -2776,6 +7774,132 @@
         "undervalued": true,
         "yoy_pass": false,
         "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3630O",
+      "exchange": "TPEX",
+      "name": "新鉅科",
+      "close": 28.8,
+      "ma5": 28.6,
+      "maDiffPct": 0.84,
+      "rsi": 46.9,
+      "forwardEps": 1.86,
+      "fairValue": 37.2,
+      "undervalPct": -22.6,
+      "yoyPct": 22.1,
+      "yoyTrend": null,
+      "volume": 849115,
+      "avgVolume": 629078,
+      "volRatio": 1.35,
+      "volSpark": [
+        79,
+        75,
+        48,
+        47,
+        81,
+        80,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6191",
+      "exchange": "TWSE",
+      "name": "精成科",
+      "close": 102.0,
+      "ma5": 99.3,
+      "maDiffPct": 2.76,
+      "rsi": 55.7,
+      "forwardEps": 6.54,
+      "fairValue": 130.8,
+      "undervalPct": -22.0,
+      "yoyPct": 87.2,
+      "yoyTrend": null,
+      "volume": 13159782,
+      "avgVolume": 5553036,
+      "volRatio": 2.37,
+      "volSpark": [
+        13,
+        27,
+        48,
+        97,
+        61,
+        100,
+        92
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "5490O",
+      "exchange": "TPEX",
+      "name": "同亨",
+      "close": 26.2,
+      "ma5": 26.1,
+      "maDiffPct": 0.61,
+      "rsi": 44.9,
+      "forwardEps": 1.68,
+      "fairValue": 33.6,
+      "undervalPct": -21.9,
+      "yoyPct": 9.3,
+      "yoyTrend": null,
+      "volume": 8000,
+      "avgVolume": 667747,
+      "volRatio": 0.01,
+      "volSpark": [
+        67,
+        78,
+        70,
+        100,
+        57,
+        50,
+        1
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
       },
       "passedCount": 3,
       "sellConditions": {
@@ -2871,6 +7995,174 @@
       "sellSignal": null
     },
     {
+      "symbol": "5607",
+      "exchange": "TWSE",
+      "name": "遠雄港",
+      "close": 48.8,
+      "ma5": 47.8,
+      "maDiffPct": 2.07,
+      "rsi": 56.7,
+      "forwardEps": 3.03,
+      "fairValue": 60.6,
+      "undervalPct": -19.5,
+      "yoyPct": 25.0,
+      "yoyTrend": null,
+      "volume": 736015,
+      "avgVolume": 419224,
+      "volRatio": 1.76,
+      "volSpark": [
+        26,
+        47,
+        27,
+        83,
+        44,
+        45,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4967",
+      "exchange": "TWSE",
+      "name": "十銓",
+      "close": 216.0,
+      "ma5": 219.2,
+      "maDiffPct": -1.46,
+      "rsi": 48.4,
+      "forwardEps": 12.94,
+      "fairValue": 258.8,
+      "undervalPct": -16.5,
+      "yoyPct": 94.4,
+      "yoyTrend": null,
+      "volume": 5101626,
+      "avgVolume": 15390753,
+      "volRatio": 0.33,
+      "volSpark": [
+        71,
+        100,
+        53,
+        87,
+        42,
+        87,
+        45
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3684O",
+      "exchange": "TPEX",
+      "name": "榮昌",
+      "close": 58.0,
+      "ma5": 58.0,
+      "maDiffPct": 0.07,
+      "rsi": 45.5,
+      "forwardEps": 3.41,
+      "fairValue": 68.2,
+      "undervalPct": -15.0,
+      "yoyPct": 0.9,
+      "yoyTrend": null,
+      "volume": 76000,
+      "avgVolume": 175765,
+      "volRatio": 0.43,
+      "volSpark": [
+        13,
+        20,
+        12,
+        100,
+        26,
+        31,
+        18
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2904",
+      "exchange": "TWSE",
+      "name": "匯僑",
+      "close": 16.8,
+      "ma5": 16.8,
+      "maDiffPct": 0.3,
+      "rsi": 46.9,
+      "forwardEps": 0.98,
+      "fairValue": 19.6,
+      "undervalPct": -14.3,
+      "yoyPct": -21.5,
+      "yoyTrend": null,
+      "volume": 69000,
+      "avgVolume": 49691,
+      "volRatio": 1.39,
+      "volSpark": [
+        50,
+        43,
+        10,
+        74,
+        61,
+        100,
+        96
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2471",
       "exchange": "TWSE",
       "name": "資通",
@@ -2894,6 +8186,594 @@
         100,
         58,
         73
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "7722",
+      "exchange": "TWSE",
+      "name": "LINEPAY",
+      "close": 305.0,
+      "ma5": 305.2,
+      "maDiffPct": -0.07,
+      "rsi": 33.9,
+      "forwardEps": 17.64,
+      "fairValue": 352.7,
+      "undervalPct": -13.5,
+      "yoyPct": 23.3,
+      "yoyTrend": null,
+      "volume": 110405,
+      "avgVolume": 156564,
+      "volRatio": 0.71,
+      "volSpark": [
+        21,
+        100,
+        59,
+        41,
+        61,
+        72,
+        65
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6526",
+      "exchange": "TWSE",
+      "name": "達發",
+      "close": 487.0,
+      "ma5": 481.7,
+      "maDiffPct": 1.1,
+      "rsi": 50.0,
+      "forwardEps": 28.04,
+      "fairValue": 560.7,
+      "undervalPct": -13.1,
+      "yoyPct": -5.8,
+      "yoyTrend": null,
+      "volume": 650014,
+      "avgVolume": 434045,
+      "volRatio": 1.5,
+      "volSpark": [
+        38,
+        64,
+        62,
+        64,
+        48,
+        78,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2596O",
+      "exchange": "TPEX",
+      "name": "綠意",
+      "close": 32.4,
+      "ma5": 32.3,
+      "maDiffPct": 0.25,
+      "rsi": 46.1,
+      "forwardEps": 1.86,
+      "fairValue": 37.2,
+      "undervalPct": -12.9,
+      "yoyPct": -25.7,
+      "yoyTrend": null,
+      "volume": 74075,
+      "avgVolume": 55823,
+      "volRatio": 1.33,
+      "volSpark": [
+        33,
+        21,
+        43,
+        41,
+        49,
+        100,
+        54
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8210",
+      "exchange": "TWSE",
+      "name": "勤誠",
+      "close": 992.0,
+      "ma5": 924.6,
+      "maDiffPct": 7.29,
+      "rsi": 62.6,
+      "forwardEps": 56.62,
+      "fairValue": 1132.3,
+      "undervalPct": -12.4,
+      "yoyPct": 74.4,
+      "yoyTrend": null,
+      "volume": 5169273,
+      "avgVolume": 2982325,
+      "volRatio": 1.73,
+      "volSpark": [
+        59,
+        73,
+        51,
+        27,
+        39,
+        100,
+        98
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6629O",
+      "exchange": "TPEX",
+      "name": "泰金-KY",
+      "close": 109.5,
+      "ma5": 113.2,
+      "maDiffPct": -3.27,
+      "rsi": 48.1,
+      "forwardEps": 6.2,
+      "fairValue": 124.0,
+      "undervalPct": -11.7,
+      "yoyPct": 71.0,
+      "yoyTrend": null,
+      "volume": 8000,
+      "avgVolume": 36369,
+      "volRatio": 0.22,
+      "volSpark": [
+        38,
+        6,
+        29,
+        9,
+        17,
+        100,
+        3
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6719",
+      "exchange": "TWSE",
+      "name": "力智",
+      "close": 162.0,
+      "ma5": 159.6,
+      "maDiffPct": 1.5,
+      "rsi": 43.3,
+      "forwardEps": 8.99,
+      "fairValue": 179.9,
+      "undervalPct": -9.9,
+      "yoyPct": 27.2,
+      "yoyTrend": null,
+      "volume": 357179,
+      "avgVolume": 261056,
+      "volRatio": 1.37,
+      "volSpark": [
+        29,
+        54,
+        100,
+        50,
+        52,
+        46,
+        70
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2948O",
+      "exchange": "TPEX",
+      "name": "寶陞",
+      "close": 38.8,
+      "ma5": 39.8,
+      "maDiffPct": -2.49,
+      "rsi": 45.5,
+      "forwardEps": 2.14,
+      "fairValue": 42.8,
+      "undervalPct": -9.3,
+      "yoyPct": -4.3,
+      "yoyTrend": null,
+      "volume": 9333,
+      "avgVolume": 5576,
+      "volRatio": 1.67,
+      "volSpark": [
+        20,
+        40,
+        30,
+        20,
+        10,
+        100,
+        93
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6464",
+      "exchange": "TWSE",
+      "name": "台數科",
+      "close": 76.3,
+      "ma5": 76.7,
+      "maDiffPct": -0.47,
+      "rsi": 47.1,
+      "forwardEps": 4.19,
+      "fairValue": 83.8,
+      "undervalPct": -8.9,
+      "yoyPct": 0.8,
+      "yoyTrend": null,
+      "volume": 36000,
+      "avgVolume": 21697,
+      "volRatio": 1.66,
+      "volSpark": [
+        86,
+        82,
+        36,
+        47,
+        42,
+        72,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8454",
+      "exchange": "TWSE",
+      "name": "富邦媒",
+      "close": 178.5,
+      "ma5": 180.9,
+      "maDiffPct": -1.33,
+      "rsi": 45.0,
+      "forwardEps": 9.8,
+      "fairValue": 196.0,
+      "undervalPct": -8.9,
+      "yoyPct": -5.4,
+      "yoyTrend": null,
+      "volume": 569834,
+      "avgVolume": 378792,
+      "volRatio": 1.5,
+      "volSpark": [
+        57,
+        58,
+        48,
+        77,
+        88,
+        52,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6730O",
+      "exchange": "TPEX",
+      "name": "常廣",
+      "close": 39.0,
+      "ma5": 38.2,
+      "maDiffPct": 2.04,
+      "rsi": 72.4,
+      "forwardEps": 2.11,
+      "fairValue": 42.2,
+      "undervalPct": -7.6,
+      "yoyPct": 16.3,
+      "yoyTrend": null,
+      "volume": 62000,
+      "avgVolume": 37896,
+      "volRatio": 1.64,
+      "volSpark": [
+        4,
+        22,
+        22,
+        57,
+        100,
+        42,
+        32
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8367",
+      "exchange": "TWSE",
+      "name": "建新國際",
+      "close": 43.5,
+      "ma5": 43.4,
+      "maDiffPct": 0.3,
+      "rsi": 63.3,
+      "forwardEps": 2.35,
+      "fairValue": 47.0,
+      "undervalPct": -7.3,
+      "yoyPct": 12.9,
+      "yoyTrend": null,
+      "volume": 79000,
+      "avgVolume": 51425,
+      "volRatio": 1.54,
+      "volSpark": [
+        10,
+        35,
+        73,
+        34,
+        76,
+        80,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4550O",
+      "exchange": "TPEX",
+      "name": "長佳",
+      "close": 24.6,
+      "ma5": 24.7,
+      "maDiffPct": -0.08,
+      "rsi": 43.0,
+      "forwardEps": 1.33,
+      "fairValue": 26.6,
+      "undervalPct": -7.3,
+      "yoyPct": 21.6,
+      "yoyTrend": null,
+      "volume": 7020,
+      "avgVolume": 13244,
+      "volRatio": 0.53,
+      "volSpark": [
+        64,
+        21,
+        50,
+        21,
+        18,
+        100,
+        25
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4205O",
+      "exchange": "TPEX",
+      "name": "中華食",
+      "close": 77.0,
+      "ma5": 76.9,
+      "maDiffPct": 0.18,
+      "rsi": 45.9,
+      "forwardEps": 4.14,
+      "fairValue": 82.8,
+      "undervalPct": -7.0,
+      "yoyPct": -0.3,
+      "yoyTrend": null,
+      "volume": 15125,
+      "avgVolume": 21801,
+      "volRatio": 0.69,
+      "volSpark": [
+        40,
+        35,
+        42,
+        100,
+        50,
+        40,
+        37
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3025",
+      "exchange": "TWSE",
+      "name": "星通",
+      "close": 63.9,
+      "ma5": 63.9,
+      "maDiffPct": 0.06,
+      "rsi": 56.2,
+      "forwardEps": 3.42,
+      "fairValue": 68.4,
+      "undervalPct": -6.6,
+      "yoyPct": 98.0,
+      "yoyTrend": null,
+      "volume": 754173,
+      "avgVolume": 971680,
+      "volRatio": 0.78,
+      "volSpark": [
+        79,
+        100,
+        66,
+        60,
+        46,
+        40,
+        48
       ],
       "signal": "watch",
       "conditions": {
@@ -2955,6 +8835,342 @@
       "sellSignal": null
     },
     {
+      "symbol": "6443",
+      "exchange": "TWSE",
+      "name": "元晶",
+      "close": 40.7,
+      "ma5": 37.3,
+      "maDiffPct": 9.23,
+      "rsi": 47.5,
+      "forwardEps": 2.17,
+      "fairValue": 43.4,
+      "undervalPct": -6.2,
+      "yoyPct": -50.4,
+      "yoyTrend": null,
+      "volume": 18767065,
+      "avgVolume": 47780327,
+      "volRatio": 0.39,
+      "volSpark": [
+        45,
+        49,
+        100,
+        91,
+        57,
+        26,
+        39
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3035",
+      "exchange": "TWSE",
+      "name": "智原",
+      "close": 149.5,
+      "ma5": 150.6,
+      "maDiffPct": -0.73,
+      "rsi": 47.5,
+      "forwardEps": 7.89,
+      "fairValue": 157.9,
+      "undervalPct": -5.3,
+      "yoyPct": -4.9,
+      "yoyTrend": null,
+      "volume": 3467477,
+      "avgVolume": 2056880,
+      "volRatio": 1.69,
+      "volSpark": [
+        34,
+        66,
+        63,
+        49,
+        39,
+        63,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4148",
+      "exchange": "TWSE",
+      "name": "全宇生技-KY",
+      "close": 38.8,
+      "ma5": 40.2,
+      "maDiffPct": -3.36,
+      "rsi": 40.2,
+      "forwardEps": 2.02,
+      "fairValue": 40.4,
+      "undervalPct": -3.8,
+      "yoyPct": 17.1,
+      "yoyTrend": null,
+      "volume": 85500,
+      "avgVolume": 122465,
+      "volRatio": 0.7,
+      "volSpark": [
+        33,
+        100,
+        38,
+        39,
+        56,
+        49,
+        43
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6936",
+      "exchange": "TWSE",
+      "name": "永鴻生技",
+      "close": 35.3,
+      "ma5": 35.3,
+      "maDiffPct": 0.09,
+      "rsi": 59.0,
+      "forwardEps": 1.82,
+      "fairValue": 36.4,
+      "undervalPct": -3.0,
+      "yoyPct": 14.5,
+      "yoyTrend": null,
+      "volume": 63090,
+      "avgVolume": 35089,
+      "volRatio": 1.8,
+      "volSpark": [
+        40,
+        46,
+        33,
+        96,
+        70,
+        42,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6614",
+      "exchange": "TWSE",
+      "name": "資拓宏宇",
+      "close": 40.2,
+      "ma5": 40.3,
+      "maDiffPct": -0.25,
+      "rsi": 35.9,
+      "forwardEps": 2.06,
+      "fairValue": 41.2,
+      "undervalPct": -2.4,
+      "yoyPct": -24.9,
+      "yoyTrend": null,
+      "volume": 208580,
+      "avgVolume": 84571,
+      "volRatio": 2.47,
+      "volSpark": [
+        49,
+        25,
+        27,
+        24,
+        28,
+        100,
+        91
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3533",
+      "exchange": "TWSE",
+      "name": "嘉澤",
+      "close": 2375.0,
+      "ma5": 2286.0,
+      "maDiffPct": 3.89,
+      "rsi": 66.4,
+      "forwardEps": 120.45,
+      "fairValue": 2409.0,
+      "undervalPct": -1.4,
+      "yoyPct": 11.6,
+      "yoyTrend": null,
+      "volume": 1674266,
+      "avgVolume": 1998382,
+      "volRatio": 0.84,
+      "volSpark": [
+        91,
+        88,
+        81,
+        67,
+        51,
+        45,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4569",
+      "exchange": "TWSE",
+      "name": "六方科-KY",
+      "close": 193.5,
+      "ma5": 175.4,
+      "maDiffPct": 10.32,
+      "rsi": 74.2,
+      "forwardEps": 9.78,
+      "fairValue": 195.6,
+      "undervalPct": -1.1,
+      "yoyPct": 15.0,
+      "yoyTrend": null,
+      "volume": 516000,
+      "avgVolume": 285611,
+      "volRatio": 1.81,
+      "volSpark": [
+        3,
+        6,
+        58,
+        39,
+        100,
+        32,
+        37
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6446",
+      "exchange": "TWSE",
+      "name": "百華生醫",
+      "close": 650.0,
+      "ma5": 643.2,
+      "maDiffPct": 1.06,
+      "rsi": 51.2,
+      "forwardEps": 32.64,
+      "fairValue": 652.9,
+      "undervalPct": -0.4,
+      "yoyPct": 59.4,
+      "yoyTrend": null,
+      "volume": 1244790,
+      "avgVolume": 1563575,
+      "volRatio": 0.8,
+      "volSpark": [
+        100,
+        73,
+        85,
+        60,
+        44,
+        58,
+        53
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2208",
       "exchange": "TWSE",
       "name": "台船",
@@ -2986,6 +9202,552 @@
         "undervalued": false,
         "yoy_pass": true,
         "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3032",
+      "exchange": "TWSE",
+      "name": "偉訓",
+      "close": 60.4,
+      "ma5": 62.1,
+      "maDiffPct": -2.71,
+      "rsi": 39.3,
+      "forwardEps": -7.93,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 56.0,
+      "yoyTrend": null,
+      "volume": 835900,
+      "avgVolume": 489242,
+      "volRatio": 1.71,
+      "volSpark": [
+        26,
+        27,
+        44,
+        58,
+        71,
+        75,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3686",
+      "exchange": "TWSE",
+      "name": "達能",
+      "close": 18.1,
+      "ma5": 17.6,
+      "maDiffPct": 2.84,
+      "rsi": 48.3,
+      "forwardEps": -0.5,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 11.3,
+      "yoyTrend": null,
+      "volume": 316330,
+      "avgVolume": 393094,
+      "volRatio": 0.8,
+      "volSpark": [
+        77,
+        61,
+        74,
+        94,
+        83,
+        69,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6885",
+      "exchange": "TWSE",
+      "name": "全福生技",
+      "close": 24.1,
+      "ma5": 23.9,
+      "maDiffPct": 0.96,
+      "rsi": 42.5,
+      "forwardEps": -3.32,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 868.2,
+      "yoyTrend": null,
+      "volume": 202045,
+      "avgVolume": 244148,
+      "volRatio": 0.83,
+      "volSpark": [
+        100,
+        96,
+        50,
+        72,
+        66,
+        41,
+        59
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "9103",
+      "exchange": "TWSE",
+      "name": "美德醫療-DR",
+      "close": 5.0,
+      "ma5": 5.0,
+      "maDiffPct": 0.24,
+      "rsi": 45.3,
+      "forwardEps": -0.28,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 47.1,
+      "yoyTrend": null,
+      "volume": 1267001,
+      "avgVolume": 1005088,
+      "volRatio": 1.26,
+      "volSpark": [
+        74,
+        57,
+        33,
+        100,
+        31,
+        67,
+        87
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3360O",
+      "exchange": "TPEX",
+      "name": "尚立",
+      "close": 14.4,
+      "ma5": 14.2,
+      "maDiffPct": 1.34,
+      "rsi": 45.3,
+      "forwardEps": -0.48,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 42.0,
+      "yoyTrend": null,
+      "volume": 675224,
+      "avgVolume": 584949,
+      "volRatio": 1.15,
+      "volSpark": [
+        23,
+        40,
+        57,
+        49,
+        32,
+        35,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4102O",
+      "exchange": "TPEX",
+      "name": "永日",
+      "close": 19.0,
+      "ma5": 19.2,
+      "maDiffPct": -0.83,
+      "rsi": 38.5,
+      "forwardEps": -0.34,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 11.3,
+      "yoyTrend": null,
+      "volume": 213001,
+      "avgVolume": 55519,
+      "volRatio": 3.84,
+      "volSpark": [
+        8,
+        16,
+        8,
+        30,
+        8,
+        19,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4416O",
+      "exchange": "TPEX",
+      "name": "三圓",
+      "close": 13.0,
+      "ma5": 12.6,
+      "maDiffPct": 2.85,
+      "rsi": 34.1,
+      "forwardEps": -0.64,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 202.8,
+      "yoyTrend": null,
+      "volume": 290357,
+      "avgVolume": 273553,
+      "volRatio": 1.06,
+      "volSpark": [
+        56,
+        84,
+        100,
+        60,
+        62,
+        43,
+        67
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4714O",
+      "exchange": "TPEX",
+      "name": "永捷",
+      "close": 14.5,
+      "ma5": 14.4,
+      "maDiffPct": 0.42,
+      "rsi": 45.8,
+      "forwardEps": -0.54,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 62.6,
+      "yoyTrend": null,
+      "volume": 18000,
+      "avgVolume": 859084,
+      "volRatio": 0.02,
+      "volSpark": [
+        60,
+        56,
+        94,
+        100,
+        77,
+        70,
+        2
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "5302O",
+      "exchange": "TPEX",
+      "name": "太欣",
+      "close": 11.0,
+      "ma5": 10.9,
+      "maDiffPct": 0.73,
+      "rsi": 47.1,
+      "forwardEps": -0.12,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 113.8,
+      "yoyTrend": null,
+      "volume": 4000,
+      "avgVolume": 581893,
+      "volRatio": 0.01,
+      "volSpark": [
+        54,
+        100,
+        69,
+        67,
+        76,
+        92,
+        1
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6496O",
+      "exchange": "TPEX",
+      "name": "科懋",
+      "close": 26.2,
+      "ma5": 26.6,
+      "maDiffPct": -1.43,
+      "rsi": 42.2,
+      "forwardEps": -3.97,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 16.0,
+      "yoyTrend": null,
+      "volume": 12051,
+      "avgVolume": 4825,
+      "volRatio": 2.5,
+      "volSpark": [
+        25,
+        92,
+        0,
+        0,
+        91,
+        17,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": true,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6560O",
+      "exchange": "TPEX",
+      "name": "欣普羅",
+      "close": 38.3,
+      "ma5": 38.2,
+      "maDiffPct": 0.47,
+      "rsi": 41.1,
+      "forwardEps": -0.16,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 103.7,
+      "yoyTrend": null,
+      "volume": 25975,
+      "avgVolume": 71524,
+      "volRatio": 0.36,
+      "volSpark": [
+        10,
+        29,
+        63,
+        100,
+        10,
+        18,
+        14
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8489O",
+      "exchange": "TPEX",
+      "name": "三貝德",
+      "close": 26.2,
+      "ma5": 25.6,
+      "maDiffPct": 2.54,
+      "rsi": 46.4,
+      "forwardEps": -0.76,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": 32.3,
+      "yoyTrend": null,
+      "volume": 221320,
+      "avgVolume": 212207,
+      "volRatio": 1.04,
+      "volSpark": [
+        77,
+        68,
+        50,
+        45,
+        100,
+        72,
+        89
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8921O",
+      "exchange": "TPEX",
+      "name": "沈氏",
+      "close": 17.3,
+      "ma5": 17.3,
+      "maDiffPct": 0.12,
+      "rsi": 46.7,
+      "forwardEps": -0.11,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": -0.8,
+      "yoyTrend": null,
+      "volume": 9000,
+      "avgVolume": 4621,
+      "volRatio": 1.95,
+      "volSpark": [
+        0,
+        23,
+        45,
+        74,
+        14,
+        100,
+        41
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": false,
+        "vol_surge": true
       },
       "passedCount": 3,
       "sellConditions": {
@@ -3207,6 +9969,300 @@
       "sellSignal": null
     },
     {
+      "symbol": "6148O",
+      "exchange": "TPEX",
+      "name": "驊宏資",
+      "close": 32.7,
+      "ma5": 32.4,
+      "maDiffPct": 0.93,
+      "rsi": 46.4,
+      "forwardEps": 1.36,
+      "fairValue": 27.2,
+      "undervalPct": 20.2,
+      "yoyPct": 43.8,
+      "yoyTrend": null,
+      "volume": 5000,
+      "avgVolume": 583344,
+      "volRatio": 0.01,
+      "volSpark": [
+        88,
+        56,
+        100,
+        49,
+        44,
+        76,
+        1
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6188O",
+      "exchange": "TPEX",
+      "name": "廣明",
+      "close": 88.1,
+      "ma5": 87.3,
+      "maDiffPct": 0.92,
+      "rsi": 44.0,
+      "forwardEps": 3.6,
+      "fairValue": 72.0,
+      "undervalPct": 22.4,
+      "yoyPct": 10.9,
+      "yoyTrend": null,
+      "volume": 175000,
+      "avgVolume": 1354039,
+      "volRatio": 0.13,
+      "volSpark": [
+        49,
+        48,
+        78,
+        66,
+        100,
+        99,
+        7
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3447",
+      "exchange": "TWSE",
+      "name": "展達",
+      "close": 39.8,
+      "ma5": 38.6,
+      "maDiffPct": 3.11,
+      "rsi": 50.0,
+      "forwardEps": 1.59,
+      "fairValue": 31.8,
+      "undervalPct": 25.2,
+      "yoyPct": 15.0,
+      "yoyTrend": null,
+      "volume": 340050,
+      "avgVolume": 183832,
+      "volRatio": 1.85,
+      "volSpark": [
+        37,
+        53,
+        45,
+        74,
+        56,
+        70,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4556O",
+      "exchange": "TPEX",
+      "name": "旭然",
+      "close": 27.5,
+      "ma5": 27.2,
+      "maDiffPct": 0.88,
+      "rsi": 48.8,
+      "forwardEps": 0.92,
+      "fairValue": 18.4,
+      "undervalPct": 49.2,
+      "yoyPct": 10.4,
+      "yoyTrend": null,
+      "volume": 3000,
+      "avgVolume": 88888,
+      "volRatio": 0.03,
+      "volSpark": [
+        26,
+        57,
+        80,
+        55,
+        75,
+        100,
+        3
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "8499",
+      "exchange": "TWSE",
+      "name": "鼎炫-KY",
+      "close": 284.5,
+      "ma5": 271.7,
+      "maDiffPct": 4.71,
+      "rsi": 57.4,
+      "forwardEps": 9.45,
+      "fairValue": 189.0,
+      "undervalPct": 50.5,
+      "yoyPct": 104.3,
+      "yoyTrend": null,
+      "volume": 235059,
+      "avgVolume": 129841,
+      "volRatio": 1.81,
+      "volSpark": [
+        12,
+        34,
+        26,
+        24,
+        35,
+        41,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "3189",
+      "exchange": "TWSE",
+      "name": "景碩",
+      "close": 383.5,
+      "ma5": 377.8,
+      "maDiffPct": 1.51,
+      "rsi": 61.2,
+      "forwardEps": 12.68,
+      "fairValue": 253.6,
+      "undervalPct": 51.2,
+      "yoyPct": 34.4,
+      "yoyTrend": null,
+      "volume": 41020088,
+      "avgVolume": 22064322,
+      "volRatio": 1.86,
+      "volSpark": [
+        19,
+        29,
+        100,
+        49,
+        45,
+        51,
+        81
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4930",
+      "exchange": "TWSE",
+      "name": "燦星網",
+      "close": 19.2,
+      "ma5": 19.2,
+      "maDiffPct": 0.05,
+      "rsi": 35.1,
+      "forwardEps": 0.6,
+      "fairValue": 12.0,
+      "undervalPct": 60.4,
+      "yoyPct": -28.2,
+      "yoyTrend": null,
+      "volume": 136977,
+      "avgVolume": 74119,
+      "volRatio": 1.85,
+      "volSpark": [
+        17,
+        13,
+        34,
+        23,
+        37,
+        100,
+        68
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": false,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1512",
       "exchange": "TWSE",
       "name": "瑞利",
@@ -3238,6 +10294,48 @@
         "undervalued": false,
         "yoy_pass": true,
         "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6516O",
+      "exchange": "TPEX",
+      "name": "勤崴國際",
+      "close": 61.3,
+      "ma5": 61.9,
+      "maDiffPct": -1.0,
+      "rsi": 45.0,
+      "forwardEps": 1.51,
+      "fairValue": 30.2,
+      "undervalPct": 103.0,
+      "yoyPct": 35.6,
+      "yoyTrend": null,
+      "volume": 89000,
+      "avgVolume": 37734,
+      "volRatio": 2.36,
+      "volSpark": [
+        56,
+        39,
+        29,
+        45,
+        19,
+        43,
+        100
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": true
       },
       "passedCount": 3,
       "sellConditions": {
@@ -3364,6 +10462,90 @@
         "undervalued": false,
         "yoy_pass": false,
         "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "6708O",
+      "exchange": "TPEX",
+      "name": "天擎",
+      "close": 38.7,
+      "ma5": 39.0,
+      "maDiffPct": -0.8,
+      "rsi": 42.7,
+      "forwardEps": 0.25,
+      "fairValue": 5.0,
+      "undervalPct": 673.0,
+      "yoyPct": 24.7,
+      "yoyTrend": null,
+      "volume": 28001,
+      "avgVolume": 14754,
+      "volRatio": 1.9,
+      "volSpark": [
+        37,
+        37,
+        14,
+        37,
+        13,
+        100,
+        57
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "4157O",
+      "exchange": "TPEX",
+      "name": "太景*-KY",
+      "close": 10.9,
+      "ma5": 10.8,
+      "maDiffPct": 1.02,
+      "rsi": 42.4,
+      "forwardEps": 0.06,
+      "fairValue": 1.2,
+      "undervalPct": 808.3,
+      "yoyPct": 2104.4,
+      "yoyTrend": null,
+      "volume": 22000,
+      "avgVolume": 1290613,
+      "volRatio": 0.02,
+      "volSpark": [
+        28,
+        26,
+        25,
+        100,
+        35,
+        32,
+        1
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": false,
+        "yoy_pass": true,
+        "vol_surge": false
       },
       "passedCount": 3,
       "sellConditions": {
