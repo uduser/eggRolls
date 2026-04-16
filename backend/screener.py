@@ -68,12 +68,21 @@ def load_config() -> dict:
 
 
 # ─── 全市場股票清單 ──────────────────────────────────────
-def fetch_all_tw_tickers() -> tuple[list[str], dict[str, str]]:
+def fetch_all_tw_tickers() -> tuple[list[str], dict[str, str], set[str]]:
     """從 TWSE / TPEX 官方 API 抓取全市場股票代號與中文名稱。
-    回傳 (tickers, auto_name_map)，僅一般股票（排除 ETF / 債券 / 權證）。
+    回傳 (tickers, auto_name_map, zero_volume_tickers)，僅一般股票（排除 ETF / 債券 / 權證）。
+    zero_volume_tickers: 當日成交量為 0 的標的（停牌/冷門），可用來預過濾。
     """
     tickers = []
     names = {}  # {"2330.TW": "台積電", ...}
+    zero_vol = set()
+
+    def _parse_vol(raw) -> int:
+        """把逗號分隔的成交量字串轉 int，失敗回 0"""
+        try:
+            return int(str(raw).replace(",", "").strip())
+        except (ValueError, TypeError):
+            return 0
 
     # ── TWSE 上市 ──
     try:
@@ -91,6 +100,9 @@ def fetch_all_tw_tickers() -> tuple[list[str], dict[str, str]]:
                 name = item.get("Name", "").strip()
                 if name:
                     names[ticker] = name
+                vol = _parse_vol(item.get("TradeVolume"))
+                if vol == 0:
+                    zero_vol.add(ticker)
     except Exception as e:
         print(f"  ⚠ TWSE API 失敗: {e}")
 
@@ -109,10 +121,13 @@ def fetch_all_tw_tickers() -> tuple[list[str], dict[str, str]]:
                 name = item.get("CompanyName", "").strip()
                 if name:
                     names[ticker] = name
+                vol = _parse_vol(item.get("TradingVolume") or item.get("TradeVolume"))
+                if vol == 0:
+                    zero_vol.add(ticker)
     except Exception as e:
         print(f"  ⚠ TPEX API 失敗: {e}")
 
-    return tickers, names
+    return tickers, names, zero_vol
 
 
 # ─── 技術指標計算 ─────────────────────────────────────────
@@ -180,6 +195,100 @@ def fetch_finmind_history(ticker: str, lookback_days: int) -> pd.DataFrame:
         return pd.DataFrame()
 
 
+def _finmind_get(dataset: str, params: dict | None = None, timeout: int = 30) -> list[dict]:
+    """FinMind 共用 GET，自動帶 token。回傳 data list，失敗回空 list。"""
+    base = {
+        "dataset": dataset,
+        **(params or {}),
+    }
+    token = os.getenv("FINMIND_TOKEN", "").strip()
+    if token:
+        base["token"] = token
+    try:
+        resp = requests.get(FINMIND_API_URL, params=base, timeout=timeout)
+        resp.raise_for_status()
+        return resp.json().get("data") or []
+    except Exception as e:
+        print(f"  ⚠ FinMind {dataset} 失敗: {e}")
+        return []
+
+
+def fetch_bulk_fundamentals() -> dict[str, dict]:
+    """批次從 FinMind 抓 PER 和月營收，回傳 {ticker: {pe, eps, yoy_pct}, ...}。
+
+    ticker 格式為 "2330.TW" / "6547.TWO"（與 config 一致）。
+    """
+    result: dict[str, dict] = {}
+
+    # ── 1. PER（本益比）→ 反推 EPS ──
+    # 取最近 10 個交易日，避免剛好遇到假日空值
+    per_start = (datetime.now(TW_TZ) - timedelta(days=14)).date().isoformat()
+    print("  📥 從 FinMind 批次抓取 PER...")
+    per_rows = _finmind_get("TaiwanStockPER", {"start_date": per_start})
+    if per_rows:
+        df = pd.DataFrame(per_rows)
+        df["date"] = pd.to_datetime(df["date"], errors="coerce")
+        df = df.sort_values("date")
+        # 取每檔最新一筆
+        latest = df.groupby("stock_id").last().reset_index()
+        for _, row in latest.iterrows():
+            sid = str(row["stock_id"]).strip()
+            per = pd.to_numeric(row.get("PER"), errors="coerce")
+            close = pd.to_numeric(row.get("close"), errors="coerce")
+            entry: dict = {}
+            if pd.notna(per) and per > 0:
+                entry["pe"] = round(float(per), 2)
+                if pd.notna(close) and close > 0:
+                    entry["eps"] = round(float(close) / float(per), 2)
+            # 先用純代號當 key，後面再對應 .TW / .TWO
+            result[sid] = entry
+        print(f"  ✓ PER 取得 {len(latest)} 檔")
+    else:
+        print("  ⚠ PER 無資料")
+
+    # ── 2. 月營收 → 算 YoY ──
+    # 取最近 14 個月，確保能拿到去年同月
+    rev_start = (datetime.now(TW_TZ) - timedelta(days=430)).date().isoformat()
+    print("  📥 從 FinMind 批次抓取月營收...")
+    rev_rows = _finmind_get("TaiwanStockMonthRevenue", {"start_date": rev_start}, timeout=60)
+    if rev_rows:
+        df = pd.DataFrame(rev_rows)
+        df["revenue"] = pd.to_numeric(df.get("revenue"), errors="coerce")
+        df["revenue_month"] = pd.to_numeric(df.get("revenue_month"), errors="coerce")
+        df["revenue_year"] = pd.to_numeric(df.get("revenue_year"), errors="coerce")
+        df = df.dropna(subset=["revenue", "revenue_month", "revenue_year"])
+
+        # 每檔取最新月份 + 去年同月
+        for sid, grp in df.groupby("stock_id"):
+            sid = str(sid).strip()
+            grp = grp.sort_values(["revenue_year", "revenue_month"])
+            if grp.empty:
+                continue
+            latest_row = grp.iloc[-1]
+            latest_month = int(latest_row["revenue_month"])
+            latest_year = int(latest_row["revenue_year"])
+            # 找去年同月
+            prev_year_rows = grp[
+                (grp["revenue_year"] == latest_year - 1) &
+                (grp["revenue_month"] == latest_month)
+            ]
+            if prev_year_rows.empty:
+                continue
+            prev_rev = float(prev_year_rows.iloc[-1]["revenue"])
+            curr_rev = float(latest_row["revenue"])
+            if prev_rev > 0:
+                yoy = round((curr_rev - prev_rev) / prev_rev * 100, 1)
+                entry = result.get(sid, {})
+                entry["yoy_pct"] = yoy
+                result[sid] = entry
+        yoy_count = sum(1 for v in result.values() if "yoy_pct" in v)
+        print(f"  ✓ 月營收 YoY 計算完成，{yoy_count} 檔有資料")
+    else:
+        print("  ⚠ 月營收無資料")
+
+    return result
+
+
 def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
     """
     用季報營收判斷 YoY 趨勢是否向下。
@@ -231,6 +340,7 @@ def analyze_with_retry(
     name_map: dict | None = None,
     allow_finmind_fallback: bool = False,
     raise_on_error: bool = False,
+    prefetched: dict | None = None,
 ) -> dict | None:
     """包裝 analyze_stock：遇到限流/暫時性錯誤時自動重試。"""
     last_error = None
@@ -245,6 +355,7 @@ def analyze_with_retry(
                 name_map=name_map,
                 allow_finmind_fallback=allow_finmind_fallback,
                 quiet=True,
+                prefetched=prefetched,
             )
         except AnalysisError as e:
             last_error = e
@@ -262,9 +373,14 @@ def analyze_with_retry(
 def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
                   min_conditions: int = 3, name_map: dict | None = None,
                   allow_finmind_fallback: bool = False,
-                  quiet: bool = False) -> dict | None:
+                  quiet: bool = False,
+                  prefetched: dict | None = None) -> dict | None:
     """
     分析單檔股票，回傳篩選結果。
+
+    prefetched: 從 fetch_bulk_fundamentals() 預抓的基本面資料 {pe, eps, yoy_pct}。
+    有值時跳過 stock.info 呼叫，大幅降低 Yahoo API 負擔。
+
     條件不符回傳 None；資料錯誤時 quiet=True 拋 AnalysisError，quiet=False 印訊息回傳 None。
     """
     try:
@@ -325,13 +441,18 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         rsi_in_range = (config["rsi_low"] <= latest_rsi <= config["rsi_high"]) if latest_rsi is not None else False
 
         # 3. 估值：預估 EPS × 倍數
+        # 優先使用批次預抓的 FinMind 資料，沒有才 fallback 到 stock.info
+        forward_eps = None
         info = {}
-        if hist_source == "yahoo":
-            try:
-                info = stock.info or {}
-            except Exception:
-                info = {}
-        forward_eps = info.get("forwardEps") or info.get("trailingEps")
+        if prefetched and prefetched.get("eps"):
+            forward_eps = prefetched["eps"]
+        else:
+            if hist_source == "yahoo":
+                try:
+                    info = stock.info or {}
+                except Exception:
+                    info = {}
+            forward_eps = info.get("forwardEps") or info.get("trailingEps")
 
         if forward_eps and forward_eps > 0:
             fair_value = round(forward_eps * config["pe_multiple"], 1)
@@ -343,18 +464,22 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
             underval_pct = None
 
         # 4. YoY 營收成長
-        revenue_growth = info.get("revenueGrowth")
-        if revenue_growth is not None:
-            yoy_pct = round(revenue_growth * 100, 1)
+        # 優先使用批次預抓的 FinMind 月營收 YoY
+        yoy_pct = None
+        yoy_pass = False
+        if prefetched and prefetched.get("yoy_pct") is not None:
+            yoy_pct = prefetched["yoy_pct"]
             yoy_pass = yoy_pct >= config["yoy_min"]
         else:
-            earnings_growth = info.get("earningsGrowth")
-            if earnings_growth is not None:
-                yoy_pct = round(earnings_growth * 100, 1)
+            revenue_growth = info.get("revenueGrowth")
+            if revenue_growth is not None:
+                yoy_pct = round(revenue_growth * 100, 1)
                 yoy_pass = yoy_pct >= config["yoy_min"]
             else:
-                yoy_pct = None
-                yoy_pass = False
+                earnings_growth = info.get("earningsGrowth")
+                if earnings_growth is not None:
+                    yoy_pct = round(earnings_growth * 100, 1)
+                    yoy_pass = yoy_pct >= config["yoy_min"]
 
         # 5. 量能
         latest_vol = int(volume.iloc[-1]) if len(volume) > 0 else 0
@@ -500,13 +625,20 @@ def ensure_logos(tickers: list[str], name_map: dict):
 
 
 # ─── 多執行緒掃描 ────────────────────────────────────────
-def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map: dict) -> list[dict]:
+def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map: dict,
+                         bulk_fundamentals: dict | None = None) -> list[dict]:
     """用多執行緒掃描大量股票，回傳通過篩選的結果，並統計錯誤數"""
     results = []
     total = len(tickers)
     progress = {"done": 0, "passed": 0, "errors": 0}
     error_samples = []  # 記錄前幾筆錯誤原因
     lock = threading.Lock()
+
+    def _get_prefetched(ticker: str) -> dict | None:
+        if not bulk_fundamentals:
+            return None
+        stock_id = ticker.replace(".TW", "").replace(".TWO", "").upper()
+        return bulk_fundamentals.get(stock_id)
 
     def worker(ticker):
         pause_now = False
@@ -518,7 +650,9 @@ def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map
                 config,
                 sell_params=sell_params,
                 name_map=name_map,
+                allow_finmind_fallback=True,
                 raise_on_error=True,
+                prefetched=_get_prefetched(ticker),
             )
         except AnalysisError as e:
             result = None
@@ -576,7 +710,7 @@ def main():
 
     # ─── 抓取全市場股票清單 + 中文名稱 ─────────────────
     print("📡 從 TWSE / TPEX 抓取全市場股票清單...")
-    tickers, auto_names = fetch_all_tw_tickers()
+    tickers, auto_names, zero_vol = fetch_all_tw_tickers()
 
     # 合併中文名稱：API 抓到的 + config.json 手動覆寫（手動優先）
     merged_names = {**auto_names, **name_map}
@@ -595,6 +729,18 @@ def main():
         if removed > 0:
             print(f"  ⏭️ 已排除 {removed} 檔 skip_tickers 標的")
 
+    # 預過濾：排除當日零成交量（停牌/冷門）
+    if zero_vol:
+        before = len(tickers)
+        tickers = [t for t in tickers if t not in zero_vol]
+        skipped = before - len(tickers)
+        if skipped > 0:
+            print(f"  ⏭️ 預過濾排除 {skipped} 檔零成交量標的（停牌/冷門）")
+
+    # ─── 批次抓取基本面資料（PER + 月營收 YoY） ────────
+    print("\n📥 批次抓取基本面資料...")
+    bulk_fundamentals = fetch_bulk_fundamentals()
+
     # ─── 手上標的先掃（數量少，避免全市場掃完後被限流） ───
     portfolio_tickers = cfg.get("portfolio_tickers", [])
     if skip_tickers:
@@ -604,6 +750,10 @@ def main():
         if removed_portfolio > 0:
             print(f"  ⏭️ 手上標的排除 {removed_portfolio} 檔 skip_tickers")
     print(f"\n📊 掃描手上標的 {len(portfolio_tickers)} 檔...")
+
+    def _get_prefetched(ticker: str) -> dict | None:
+        stock_id = ticker.replace(".TW", "").replace(".TWO", "").upper()
+        return bulk_fundamentals.get(stock_id)
 
     portfolio_results = []
     for i, ticker in enumerate(portfolio_tickers, 1):
@@ -616,6 +766,7 @@ def main():
             name_map=name_map,
             allow_finmind_fallback=True,
             raise_on_error=False,
+            prefetched=_get_prefetched(ticker),
         )
         if result:
             print(f"✓ {result['passedCount']}/5 條件 → {result['signal']}")
@@ -650,7 +801,7 @@ def main():
         print(f"   賣出條件：跌破 MA / RSI {sell_params['rsi_sell_low']}-{sell_params['rsi_sell_high']} / YoY 趨勢向下")
     print()
 
-    results = scan_stocks_parallel(tickers, config, sell_params, name_map)
+    results = scan_stocks_parallel(tickers, config, sell_params, name_map, bulk_fundamentals)
     results.sort(key=lambda x: (-x["passedCount"], x.get("undervalPct") or 0))
 
     output = {
