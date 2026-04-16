@@ -447,21 +447,23 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         if prefetched_hist is not None and not prefetched_hist.empty:
             hist = prefetched_hist
         else:
-            stock = yf.Ticker(ticker)
-            hist_source = "yahoo"
-            try:
-                hist = stock.history(
-                    period=f"{config['lookback_days']}d",
-                    timeout=HISTORY_TIMEOUT_SECONDS,
-                )
-            except Exception as e:
-                history_error = str(e)
-                hist = pd.DataFrame()
-
-            if hist.empty and allow_finmind_fallback:
+            # 沒有批次資料時：FinMind 逐檔優先，Yahoo 為最後手段
+            if allow_finmind_fallback:
                 hist = fetch_finmind_history(ticker, config["lookback_days"])
                 if not hist.empty:
                     hist_source = "finmind"
+
+            if hist.empty:
+                stock = yf.Ticker(ticker)
+                hist_source = "yahoo"
+                try:
+                    hist = stock.history(
+                        period=f"{config['lookback_days']}d",
+                        timeout=HISTORY_TIMEOUT_SECONDS,
+                    )
+                except Exception as e:
+                    history_error = str(e)
+                    hist = pd.DataFrame()
 
         # 完全沒資料 → 失敗
         if hist.empty:
