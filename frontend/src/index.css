@@ -559,6 +559,25 @@ body {
   border-bottom: none;
 }
 
+.load-more-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 4px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.load-more-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
 /* ─── Cell Components ───────────────────────── */
 .ticker-cell {
   display: flex;

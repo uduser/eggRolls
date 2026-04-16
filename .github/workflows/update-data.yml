@@ -90,7 +90,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add frontend/public/data/stocks.json frontend/public/data/portfolio.json frontend/public/data/config.json frontend/public/logos/
+          git add backend/config.json frontend/public/data/stocks.json frontend/public/data/portfolio.json frontend/public/data/config.json frontend/public/logos/
           git diff --cached --quiet && echo "No data changes" && exit 0
           git commit -m "data: update $(date +%Y-%m-%d) stock data [skip ci]"
           git push

@@ -99,6 +99,8 @@ function SellConditionDots({ conditions }) {
   )
 }
 
+const PAGE_SIZE = 30
+
 export default function StockTable({ stocks, sortConfig, onSort }) {
   if (!stocks.length) {
     return (
@@ -110,6 +112,15 @@ export default function StockTable({ stocks, sortConfig, onSort }) {
 
   const wrapperRef = useRef(null)
   const [canScroll, setCanScroll] = useState(false)
+  const [displayCount, setDisplayCount] = useState(PAGE_SIZE)
+
+  // 篩選/排序改變時重設顯示筆數
+  useEffect(() => {
+    setDisplayCount(PAGE_SIZE)
+  }, [stocks])
+
+  const visibleStocks = stocks.slice(0, displayCount)
+  const hasMore = stocks.length > displayCount
 
   useEffect(() => {
     const el = wrapperRef.current
@@ -149,7 +160,7 @@ export default function StockTable({ stocks, sortConfig, onSort }) {
           </tr>
         </thead>
         <tbody>
-          {stocks.map((stock, idx) => {
+          {visibleStocks.map((stock, idx) => {
             const iconStyle = ICON_COLORS[idx % ICON_COLORS.length]
             const rsiColor = stock.rsi < 40 ? 'var(--green)' : 'var(--amber)'
 
@@ -251,6 +262,14 @@ export default function StockTable({ stocks, sortConfig, onSort }) {
           })}
         </tbody>
       </table>
+      {hasMore && (
+        <button
+          className="load-more-btn"
+          onClick={() => setDisplayCount(c => c + PAGE_SIZE)}
+        >
+          載入更多（還有 {stocks.length - displayCount} 筆）
+        </button>
+      )}
     </div>
   )
 }
