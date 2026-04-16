@@ -89,14 +89,6 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
         throw new Error(saveData.error || '設定儲存失敗')
       }
 
-      await fetch('/api/generate-logos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tickers: tickers.map((t) => ({ ticker: t.ticker, name: t.name })),
-        }),
-      })
-
       const msg = saveData.dispatched
         ? '已儲存！已觸發更新流程，資料將在幾分鐘內自動更新'
         : '已儲存到 KV！排程會在下一次執行時更新資料'
