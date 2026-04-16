@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-15T16:07:58.135187+08:00",
+  "generatedAt": "2026-04-16T08:58:19.963641+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -12,7 +12,7 @@
     "lookback_days": 120
   },
   "totalHoldings": 7,
-  "totalFetched": 5,
+  "totalFetched": 6,
   "stocks": [
     {
       "symbol": "2408",
@@ -27,9 +27,9 @@
       "undervalPct": -76.7,
       "yoyPct": 357.7,
       "yoyTrend": null,
-      "volume": 106728715,
-      "avgVolume": 116056449,
-      "volRatio": 0.92,
+      "volume": 104925775,
+      "avgVolume": 115966302,
+      "volRatio": 0.9,
       "volSpark": [
         46,
         59,
@@ -37,7 +37,7 @@
         58,
         60,
         100,
-        67
+        66
       ],
       "signal": "watch",
       "conditions": {
@@ -64,14 +64,14 @@
       "ma5": 300.8,
       "maDiffPct": 7.05,
       "rsi": 70.2,
-      "forwardEps": 18.95,
-      "fairValue": 378.9,
-      "undervalPct": -15.0,
+      "forwardEps": 20.25,
+      "fairValue": 404.9,
+      "undervalPct": -20.5,
       "yoyPct": 19.9,
       "yoyTrend": null,
-      "volume": 76049991,
-      "avgVolume": 32813996,
-      "volRatio": 2.32,
+      "volume": 74637775,
+      "avgVolume": 32743386,
+      "volRatio": 2.28,
       "volSpark": [
         13,
         24,
@@ -79,7 +79,7 @@
         33,
         100,
         72,
-        79
+        78
       ],
       "signal": "watch",
       "conditions": {
@@ -111,9 +111,9 @@
       "undervalPct": -8.2,
       "yoyPct": 20.5,
       "yoyTrend": null,
-      "volume": 43470265,
-      "avgVolume": 33165453,
-      "volRatio": 1.31,
+      "volume": 40343568,
+      "avgVolume": 33009118,
+      "volRatio": 1.22,
       "volSpark": [
         39,
         100,
@@ -121,7 +121,7 @@
         62,
         62,
         84,
-        93
+        87
       ],
       "signal": "hold",
       "conditions": {
@@ -141,13 +141,55 @@
       "sellSignal": null
     },
     {
+      "symbol": "00992A",
+      "exchange": "TWSE",
+      "name": "CAPITAL INV TRUST CORP CAPITAL ",
+      "close": 15.3,
+      "ma5": 14.9,
+      "maDiffPct": 2.5,
+      "rsi": 71.3,
+      "forwardEps": null,
+      "fairValue": null,
+      "undervalPct": null,
+      "yoyPct": null,
+      "yoyTrend": null,
+      "volume": 102778800,
+      "avgVolume": 101533516,
+      "volRatio": 1.01,
+      "volSpark": [
+        38,
+        55,
+        62,
+        54,
+        100,
+        88,
+        55
+      ],
+      "signal": "hold",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": false,
+        "undervalued": false,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 0,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": true,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 1,
+      "sellSignal": null
+    },
+    {
       "symbol": "0050",
       "exchange": "TWSE",
       "name": "元大台灣50",
-      "close": 84.2,
-      "ma5": 81.5,
-      "maDiffPct": 3.19,
-      "rsi": 69.0,
+      "close": NaN,
+      "ma5": null,
+      "maDiffPct": null,
+      "rsi": 67.2,
       "forwardEps": null,
       "fairValue": null,
       "undervalPct": null,
@@ -195,8 +237,8 @@
       "undervalPct": 7037.5,
       "yoyPct": -3.3,
       "yoyTrend": null,
-      "volume": 4484067,
-      "avgVolume": 6766527,
+      "volume": 4466489,
+      "avgVolume": 6765648,
       "volRatio": 0.66,
       "volSpark": [
         12,

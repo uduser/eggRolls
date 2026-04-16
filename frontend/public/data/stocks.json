@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-15T16:08:17.765319+08:00",
+  "generatedAt": "2026-04-16T08:59:14.069668+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -11,8 +11,8 @@
     "vol_avg_days": 20,
     "lookback_days": 120
   },
-  "totalScanned": 1074,
-  "totalPassed": 82,
+  "totalScanned": 1953,
+  "totalPassed": 86,
   "stocks": [
     {
       "symbol": "2442",
@@ -27,9 +27,9 @@
       "undervalPct": -76.8,
       "yoyPct": 1892.5,
       "yoyTrend": null,
-      "volume": 3404663,
-      "avgVolume": 2192930,
-      "volRatio": 1.55,
+      "volume": 3415189,
+      "avgVolume": 2193457,
+      "volRatio": 1.56,
       "volSpark": [
         36,
         53,
@@ -69,15 +69,15 @@
       "undervalPct": -62.9,
       "yoyPct": 80.9,
       "yoyTrend": null,
-      "volume": 562309,
-      "avgVolume": 240161,
-      "volRatio": 2.34,
+      "volume": 560001,
+      "avgVolume": 240046,
+      "volRatio": 2.33,
       "volSpark": [
         26,
         29,
         21,
-        65,
-        76,
+        66,
+        77,
         68,
         100
       ],
@@ -111,8 +111,8 @@
       "undervalPct": -56.4,
       "yoyPct": 1383.9,
       "yoyTrend": null,
-      "volume": 49051,
-      "avgVolume": 22264,
+      "volume": 49000,
+      "avgVolume": 22261,
       "volRatio": 2.2,
       "volSpark": [
         2,
@@ -153,9 +153,9 @@
       "undervalPct": -49.8,
       "yoyPct": 74.2,
       "yoyTrend": null,
-      "volume": 321375,
-      "avgVolume": 697864,
-      "volRatio": 0.46,
+      "volume": 295688,
+      "avgVolume": 696580,
+      "volRatio": 0.42,
       "volSpark": [
         18,
         25,
@@ -163,7 +163,7 @@
         100,
         43,
         32,
-        15
+        14
       ],
       "signal": "buy",
       "conditions": {
@@ -195,13 +195,13 @@
       "undervalPct": -31.9,
       "yoyPct": 27.9,
       "yoyTrend": null,
-      "volume": 10131294,
-      "avgVolume": 4484055,
-      "volRatio": 2.26,
+      "volume": 10049127,
+      "avgVolume": 4479947,
+      "volRatio": 2.24,
       "volSpark": [
-        65,
+        66,
         71,
-        55,
+        56,
         51,
         50,
         48,
@@ -237,8 +237,8 @@
       "undervalPct": -31.5,
       "yoyPct": 12.5,
       "yoyTrend": null,
-      "volume": 15360511,
-      "avgVolume": 14876421,
+      "volume": 15251259,
+      "avgVolume": 14870958,
       "volRatio": 1.03,
       "volSpark": [
         72,
@@ -247,7 +247,7 @@
         86,
         71,
         60,
-        70
+        69
       ],
       "signal": "buy",
       "conditions": {
@@ -279,15 +279,15 @@
       "undervalPct": -22.5,
       "yoyPct": 23.7,
       "yoyTrend": null,
-      "volume": 369292,
-      "avgVolume": 233708,
+      "volume": 368156,
+      "avgVolume": 233652,
       "volRatio": 1.58,
       "volSpark": [
         41,
         57,
         54,
         65,
-        93,
+        94,
         72,
         100
       ],
@@ -295,48 +295,6 @@
       "conditions": {
         "ma_breakout": false,
         "rsi_in_range": true,
-        "undervalued": true,
-        "yoy_pass": true,
-        "vol_surge": true
-      },
-      "passedCount": 4,
-      "sellConditions": {
-        "ma_below": false,
-        "rsi_overbought": false,
-        "yoy_trend_down": false
-      },
-      "sellPassedCount": 0,
-      "sellSignal": null
-    },
-    {
-      "symbol": "1731",
-      "exchange": "TWSE",
-      "name": "美吾華",
-      "close": 21.9,
-      "ma5": 21.8,
-      "maDiffPct": 0.32,
-      "rsi": 55.2,
-      "forwardEps": 1.36,
-      "fairValue": 27.2,
-      "undervalPct": -19.5,
-      "yoyPct": 10.3,
-      "yoyTrend": null,
-      "volume": 140533,
-      "avgVolume": 86070,
-      "volRatio": 1.63,
-      "volSpark": [
-        33,
-        58,
-        24,
-        43,
-        69,
-        100,
-        88
-      ],
-      "signal": "buy",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": false,
         "undervalued": true,
         "yoy_pass": true,
         "vol_surge": true
@@ -363,12 +321,12 @@
       "undervalPct": -16.7,
       "yoyPct": -10.8,
       "yoyTrend": null,
-      "volume": 11280606,
-      "avgVolume": 3226810,
-      "volRatio": 3.5,
+      "volume": 11231141,
+      "avgVolume": 3224337,
+      "volRatio": 3.48,
       "volSpark": [
         24,
-        20,
+        21,
         26,
         47,
         26,
@@ -405,8 +363,8 @@
       "undervalPct": -14.7,
       "yoyPct": 237.5,
       "yoyTrend": null,
-      "volume": 213146,
-      "avgVolume": 359652,
+      "volume": 213000,
+      "avgVolume": 359645,
       "volRatio": 0.59,
       "volSpark": [
         9,
@@ -435,6 +393,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "1731",
+      "exchange": "TWSE",
+      "name": "美吾華",
+      "close": 21.9,
+      "ma5": 21.8,
+      "maDiffPct": 0.32,
+      "rsi": 55.2,
+      "forwardEps": 1.1,
+      "fairValue": 22.0,
+      "undervalPct": -0.5,
+      "yoyPct": 10.3,
+      "yoyTrend": null,
+      "volume": 140000,
+      "avgVolume": 86043,
+      "volRatio": 1.63,
+      "volSpark": [
+        33,
+        58,
+        24,
+        43,
+        69,
+        100,
+        88
+      ],
+      "signal": "buy",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": true
+      },
+      "passedCount": 4,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "1517",
       "exchange": "TWSE",
       "name": "利奇",
@@ -447,16 +447,16 @@
       "undervalPct": -91.5,
       "yoyPct": -13.3,
       "yoyTrend": null,
-      "volume": 418000,
-      "avgVolume": 210240,
-      "volRatio": 1.99,
+      "volume": 412003,
+      "avgVolume": 209940,
+      "volRatio": 1.96,
       "volSpark": [
         35,
-        37,
+        38,
         26,
+        43,
         42,
-        41,
-        57,
+        58,
         100
       ],
       "signal": "watch",
@@ -489,9 +489,9 @@
       "undervalPct": -82.5,
       "yoyPct": -73.4,
       "yoyTrend": null,
-      "volume": 215096,
-      "avgVolume": 556897,
-      "volRatio": 0.39,
+      "volume": 213139,
+      "avgVolume": 556799,
+      "volRatio": 0.38,
       "volSpark": [
         44,
         42,
@@ -499,7 +499,7 @@
         85,
         79,
         81,
-        36
+        35
       ],
       "signal": "watch",
       "conditions": {
@@ -531,9 +531,9 @@
       "undervalPct": -81.8,
       "yoyPct": -76.1,
       "yoyTrend": null,
-      "volume": 153318,
-      "avgVolume": 196286,
-      "volRatio": 0.78,
+      "volume": 146492,
+      "avgVolume": 195945,
+      "volRatio": 0.75,
       "volSpark": [
         29,
         40,
@@ -541,7 +541,7 @@
         74,
         40,
         69,
-        48
+        46
       ],
       "signal": "watch",
       "conditions": {
@@ -573,9 +573,9 @@
       "undervalPct": -81.5,
       "yoyPct": 36.9,
       "yoyTrend": null,
-      "volume": 5267204,
-      "avgVolume": 3657248,
-      "volRatio": 1.44,
+      "volume": 5189930,
+      "avgVolume": 3653385,
+      "volRatio": 1.42,
       "volSpark": [
         39,
         48,
@@ -583,7 +583,7 @@
         60,
         68,
         100,
-        87
+        86
       ],
       "signal": "watch",
       "conditions": {
@@ -615,9 +615,9 @@
       "undervalPct": -77.7,
       "yoyPct": 42.4,
       "yoyTrend": null,
-      "volume": 128122338,
-      "avgVolume": 188946018,
-      "volRatio": 0.68,
+      "volume": 126143808,
+      "avgVolume": 188847092,
+      "volRatio": 0.67,
       "volSpark": [
         99,
         100,
@@ -625,7 +625,7 @@
         97,
         56,
         98,
-        75
+        74
       ],
       "signal": "watch",
       "conditions": {
@@ -657,9 +657,9 @@
       "undervalPct": -77.3,
       "yoyPct": 17.8,
       "yoyTrend": null,
-      "volume": 28007,
-      "avgVolume": 22074,
-      "volRatio": 1.27,
+      "volume": 26003,
+      "avgVolume": 21974,
+      "volRatio": 1.18,
       "volSpark": [
         19,
         100,
@@ -667,7 +667,7 @@
         84,
         23,
         50,
-        48
+        45
       ],
       "signal": "watch",
       "conditions": {
@@ -699,9 +699,9 @@
       "undervalPct": -76.7,
       "yoyPct": 357.7,
       "yoyTrend": null,
-      "volume": 106728715,
-      "avgVolume": 116056449,
-      "volRatio": 0.92,
+      "volume": 104925775,
+      "avgVolume": 115966302,
+      "volRatio": 0.9,
       "volSpark": [
         46,
         59,
@@ -709,7 +709,7 @@
         58,
         60,
         100,
-        67
+        66
       ],
       "signal": "watch",
       "conditions": {
@@ -741,16 +741,16 @@
       "undervalPct": -74.7,
       "yoyPct": 30.7,
       "yoyTrend": null,
-      "volume": 255665923,
-      "avgVolume": 87064846,
-      "volRatio": 2.94,
+      "volume": 251750601,
+      "avgVolume": 86869080,
+      "volRatio": 2.9,
       "volSpark": [
         6,
         9,
-        66,
-        77,
+        67,
+        78,
         41,
-        99,
+        100,
         100
       ],
       "signal": "watch",
@@ -783,8 +783,8 @@
       "undervalPct": -73.6,
       "yoyPct": 1.2,
       "yoyTrend": null,
-      "volume": 80010,
-      "avgVolume": 45983,
+      "volume": 80002,
+      "avgVolume": 45982,
       "volRatio": 1.74,
       "volSpark": [
         21,
@@ -825,9 +825,9 @@
       "undervalPct": -69.6,
       "yoyPct": 64.6,
       "yoyTrend": null,
-      "volume": 772205,
-      "avgVolume": 806995,
-      "volRatio": 0.96,
+      "volume": 759008,
+      "avgVolume": 806335,
+      "volRatio": 0.94,
       "volSpark": [
         54,
         57,
@@ -835,7 +835,7 @@
         58,
         100,
         64,
-        70
+        69
       ],
       "signal": "watch",
       "conditions": {
@@ -867,8 +867,8 @@
       "undervalPct": -69.2,
       "yoyPct": 2.5,
       "yoyTrend": null,
-      "volume": 1252653,
-      "avgVolume": 1956510,
+      "volume": 1246864,
+      "avgVolume": 1956220,
       "volRatio": 0.64,
       "volSpark": [
         45,
@@ -909,8 +909,8 @@
       "undervalPct": -65.7,
       "yoyPct": -0.5,
       "yoyTrend": null,
-      "volume": 5104024,
-      "avgVolume": 16778326,
+      "volume": 5095964,
+      "avgVolume": 16777923,
       "volRatio": 0.3,
       "volSpark": [
         61,
@@ -951,9 +951,9 @@
       "undervalPct": -64.3,
       "yoyPct": -13.4,
       "yoyTrend": null,
-      "volume": 52153,
-      "avgVolume": 93812,
-      "volRatio": 0.56,
+      "volume": 62000,
+      "avgVolume": 94304,
+      "volRatio": 0.66,
       "volSpark": [
         12,
         12,
@@ -961,7 +961,7 @@
         11,
         100,
         11,
-        10
+        12
       ],
       "signal": "watch",
       "conditions": {
@@ -993,8 +993,8 @@
       "undervalPct": -63.8,
       "yoyPct": 26.5,
       "yoyTrend": null,
-      "volume": 226759,
-      "avgVolume": 626951,
+      "volume": 224889,
+      "avgVolume": 626858,
       "volRatio": 0.36,
       "volSpark": [
         88,
@@ -1003,7 +1003,7 @@
         50,
         37,
         47,
-        43
+        42
       ],
       "signal": "watch",
       "conditions": {
@@ -1035,8 +1035,8 @@
       "undervalPct": -62.8,
       "yoyPct": -12.7,
       "yoyTrend": null,
-      "volume": 245534,
-      "avgVolume": 280771,
+      "volume": 243964,
+      "avgVolume": 280692,
       "volRatio": 0.87,
       "volSpark": [
         45,
@@ -1045,7 +1045,7 @@
         100,
         100,
         79,
-        79
+        78
       ],
       "signal": "watch",
       "conditions": {
@@ -1077,8 +1077,8 @@
       "undervalPct": -62.5,
       "yoyPct": 15.8,
       "yoyTrend": null,
-      "volume": 1003658,
-      "avgVolume": 1424959,
+      "volume": 990127,
+      "avgVolume": 1424282,
       "volRatio": 0.7,
       "volSpark": [
         100,
@@ -1087,7 +1087,7 @@
         93,
         60,
         51,
-        63
+        62
       ],
       "signal": "watch",
       "conditions": {
@@ -1119,16 +1119,16 @@
       "undervalPct": -55.0,
       "yoyPct": -53.5,
       "yoyTrend": null,
-      "volume": 841706,
-      "avgVolume": 512257,
-      "volRatio": 1.64,
+      "volume": 836417,
+      "avgVolume": 511993,
+      "volRatio": 1.63,
       "volSpark": [
-        87,
+        88,
         86,
         80,
-        74,
+        75,
         37,
-        36,
+        37,
         100
       ],
       "signal": "watch",
@@ -1161,11 +1161,11 @@
       "undervalPct": -53.6,
       "yoyPct": 13.9,
       "yoyTrend": null,
-      "volume": 107285,
-      "avgVolume": 52898,
-      "volRatio": 2.03,
+      "volume": 107762,
+      "avgVolume": 52922,
+      "volRatio": 2.04,
       "volSpark": [
-        33,
+        32,
         19,
         17,
         30,
@@ -1203,9 +1203,9 @@
       "undervalPct": -52.2,
       "yoyPct": 11.5,
       "yoyTrend": null,
-      "volume": 445557,
-      "avgVolume": 448651,
-      "volRatio": 0.99,
+      "volume": 436102,
+      "avgVolume": 448178,
+      "volRatio": 0.97,
       "volSpark": [
         52,
         75,
@@ -1213,7 +1213,7 @@
         79,
         100,
         68,
-        60
+        59
       ],
       "signal": "watch",
       "conditions": {
@@ -1245,9 +1245,9 @@
       "undervalPct": -51.3,
       "yoyPct": 11.9,
       "yoyTrend": null,
-      "volume": 6188249,
-      "avgVolume": 6158346,
-      "volRatio": 1.0,
+      "volume": 6117996,
+      "avgVolume": 6154833,
+      "volRatio": 0.99,
       "volSpark": [
         35,
         69,
@@ -1255,7 +1255,7 @@
         100,
         68,
         63,
-        83
+        82
       ],
       "signal": "watch",
       "conditions": {
@@ -1287,16 +1287,16 @@
       "undervalPct": -51.0,
       "yoyPct": 7.4,
       "yoyTrend": null,
-      "volume": 1410442,
-      "avgVolume": 650084,
-      "volRatio": 2.17,
+      "volume": 1401200,
+      "avgVolume": 649621,
+      "volRatio": 2.16,
       "volSpark": [
         16,
         39,
         21,
         22,
         50,
-        58,
+        59,
         100
       ],
       "signal": "watch",
@@ -1306,6 +1306,48 @@
         "undervalued": true,
         "yoy_pass": false,
         "vol_surge": true
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2882",
+      "exchange": "TWSE",
+      "name": "國泰金",
+      "close": 72.9,
+      "ma5": 72.8,
+      "maDiffPct": 0.11,
+      "rsi": 51.2,
+      "forwardEps": 7.44,
+      "fairValue": 148.7,
+      "undervalPct": -51.0,
+      "yoyPct": 112.9,
+      "yoyTrend": null,
+      "volume": 27238084,
+      "avgVolume": 22346241,
+      "volRatio": 1.22,
+      "volSpark": [
+        59,
+        100,
+        94,
+        64,
+        74,
+        90,
+        97
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
       },
       "passedCount": 3,
       "sellConditions": {
@@ -1329,9 +1371,9 @@
       "undervalPct": -49.8,
       "yoyPct": 19.4,
       "yoyTrend": null,
-      "volume": 324623,
-      "avgVolume": 336266,
-      "volRatio": 0.97,
+      "volume": 323407,
+      "avgVolume": 336206,
+      "volRatio": 0.96,
       "volSpark": [
         46,
         46,
@@ -1371,9 +1413,9 @@
       "undervalPct": -49.7,
       "yoyPct": 14.8,
       "yoyTrend": null,
-      "volume": 30796138,
-      "avgVolume": 31522441,
-      "volRatio": 0.98,
+      "volume": 30665686,
+      "avgVolume": 31515918,
+      "volRatio": 0.97,
       "volSpark": [
         100,
         73,
@@ -1413,8 +1455,8 @@
       "undervalPct": -49.4,
       "yoyPct": -94.9,
       "yoyTrend": null,
-      "volume": 132664,
-      "avgVolume": 229812,
+      "volume": 132316,
+      "avgVolume": 229794,
       "volRatio": 0.58,
       "volSpark": [
         74,
@@ -1455,9 +1497,9 @@
       "undervalPct": -48.7,
       "yoyPct": -13.5,
       "yoyTrend": null,
-      "volume": 87564,
-      "avgVolume": 33206,
-      "volRatio": 2.64,
+      "volume": 87000,
+      "avgVolume": 33178,
+      "volRatio": 2.62,
       "volSpark": [
         15,
         33,
@@ -1497,9 +1539,9 @@
       "undervalPct": -48.6,
       "yoyPct": 14.8,
       "yoyTrend": null,
-      "volume": 2863863,
-      "avgVolume": 1405596,
-      "volRatio": 2.04,
+      "volume": 2839654,
+      "avgVolume": 1404386,
+      "volRatio": 2.02,
       "volSpark": [
         62,
         77,
@@ -1539,9 +1581,9 @@
       "undervalPct": -48.2,
       "yoyPct": 2.7,
       "yoyTrend": null,
-      "volume": 813129,
-      "avgVolume": 613310,
-      "volRatio": 1.33,
+      "volume": 812586,
+      "avgVolume": 613282,
+      "volRatio": 1.32,
       "volSpark": [
         17,
         100,
@@ -1581,9 +1623,9 @@
       "undervalPct": -48.2,
       "yoyPct": 12.6,
       "yoyTrend": null,
-      "volume": 1188545,
-      "avgVolume": 826192,
-      "volRatio": 1.44,
+      "volume": 1168121,
+      "avgVolume": 825171,
+      "volRatio": 1.42,
       "volSpark": [
         15,
         16,
@@ -1611,6 +1653,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "2603",
+      "exchange": "TWSE",
+      "name": "長榮",
+      "close": 203.0,
+      "ma5": 201.9,
+      "maDiffPct": 0.54,
+      "rsi": 49.6,
+      "forwardEps": 19.52,
+      "fairValue": 390.3,
+      "undervalPct": -48.0,
+      "yoyPct": -26.0,
+      "yoyTrend": null,
+      "volume": 9997076,
+      "avgVolume": 10251850,
+      "volRatio": 0.98,
+      "volSpark": [
+        33,
+        100,
+        53,
+        62,
+        62,
+        57,
+        75
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2887",
+      "exchange": "TWSE",
+      "name": "台新新光金",
+      "close": 24.6,
+      "ma5": 24.5,
+      "maDiffPct": 0.49,
+      "rsi": 54.7,
+      "forwardEps": 2.34,
+      "fairValue": 46.7,
+      "undervalPct": -47.3,
+      "yoyPct": 165.9,
+      "yoyTrend": null,
+      "volume": 50768779,
+      "avgVolume": 65913339,
+      "volRatio": 0.77,
+      "volSpark": [
+        51,
+        68,
+        59,
+        43,
+        86,
+        100,
+        71
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2612",
       "exchange": "TWSE",
       "name": "中航",
@@ -1623,9 +1749,9 @@
       "undervalPct": -46.3,
       "yoyPct": -1.5,
       "yoyTrend": null,
-      "volume": 1971150,
-      "avgVolume": 613732,
-      "volRatio": 3.21,
+      "volume": 1956952,
+      "avgVolume": 613022,
+      "volRatio": 3.19,
       "volSpark": [
         9,
         35,
@@ -1653,6 +1779,90 @@
       "sellSignal": null
     },
     {
+      "symbol": "2881",
+      "exchange": "TWSE",
+      "name": "富邦金",
+      "close": 87.5,
+      "ma5": 87.6,
+      "maDiffPct": -0.09,
+      "rsi": 45.1,
+      "forwardEps": 8.07,
+      "fairValue": 161.5,
+      "undervalPct": -45.8,
+      "yoyPct": 24.0,
+      "yoyTrend": null,
+      "volume": 21034630,
+      "avgVolume": 18243523,
+      "volRatio": 1.15,
+      "volSpark": [
+        65,
+        82,
+        100,
+        96,
+        81,
+        85,
+        99
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": false,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
+      "symbol": "2855",
+      "exchange": "TWSE",
+      "name": "統一證",
+      "close": 32.8,
+      "ma5": 31.7,
+      "maDiffPct": 3.6,
+      "rsi": 57.0,
+      "forwardEps": 2.99,
+      "fairValue": 59.8,
+      "undervalPct": -45.1,
+      "yoyPct": 115.0,
+      "yoyTrend": null,
+      "volume": 8473518,
+      "avgVolume": 6222915,
+      "volRatio": 1.36,
+      "volSpark": [
+        26,
+        50,
+        100,
+        25,
+        45,
+        46,
+        66
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": false,
+        "undervalued": true,
+        "yoy_pass": true,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2376",
       "exchange": "TWSE",
       "name": "技嘉",
@@ -1665,15 +1875,15 @@
       "undervalPct": -44.7,
       "yoyPct": 36.2,
       "yoyTrend": null,
-      "volume": 25921811,
-      "avgVolume": 8235311,
-      "volRatio": 3.15,
+      "volume": 25512932,
+      "avgVolume": 8214867,
+      "volRatio": 3.11,
       "volSpark": [
         14,
-        40,
-        45,
-        62,
-        34,
+        41,
+        46,
+        63,
+        35,
         39,
         100
       ],
@@ -1707,8 +1917,8 @@
       "undervalPct": -44.0,
       "yoyPct": null,
       "yoyTrend": null,
-      "volume": 1828173,
-      "avgVolume": 1769303,
+      "volume": 1821107,
+      "avgVolume": 1768950,
       "volRatio": 1.03,
       "volSpark": [
         68,
@@ -1749,9 +1959,9 @@
       "undervalPct": -42.5,
       "yoyPct": 53.0,
       "yoyTrend": null,
-      "volume": 34069029,
-      "avgVolume": 19645156,
-      "volRatio": 1.73,
+      "volume": 33056704,
+      "avgVolume": 19594539,
+      "volRatio": 1.69,
       "volSpark": [
         17,
         100,
@@ -1759,7 +1969,7 @@
         72,
         31,
         38,
-        65
+        63
       ],
       "signal": "watch",
       "conditions": {
@@ -1779,48 +1989,6 @@
       "sellSignal": null
     },
     {
-      "symbol": "2603",
-      "exchange": "TWSE",
-      "name": "長榮",
-      "close": 203.0,
-      "ma5": 201.9,
-      "maDiffPct": 0.54,
-      "rsi": 49.6,
-      "forwardEps": 17.66,
-      "fairValue": 353.3,
-      "undervalPct": -42.5,
-      "yoyPct": -26.0,
-      "yoyTrend": null,
-      "volume": 10132153,
-      "avgVolume": 10258604,
-      "volRatio": 0.99,
-      "volSpark": [
-        33,
-        100,
-        53,
-        62,
-        62,
-        57,
-        76
-      ],
-      "signal": "watch",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": true,
-        "undervalued": true,
-        "yoy_pass": false,
-        "vol_surge": false
-      },
-      "passedCount": 3,
-      "sellConditions": {
-        "ma_below": false,
-        "rsi_overbought": false,
-        "yoy_trend_down": false
-      },
-      "sellPassedCount": 0,
-      "sellSignal": null
-    },
-    {
       "symbol": "1730",
       "exchange": "TWSE",
       "name": "花仙子",
@@ -1833,16 +2001,16 @@
       "undervalPct": -41.3,
       "yoyPct": -4.7,
       "yoyTrend": null,
-      "volume": 47939,
-      "avgVolume": 25786,
-      "volRatio": 1.86,
+      "volume": 46001,
+      "avgVolume": 25689,
+      "volRatio": 1.79,
       "volSpark": [
-        52,
-        48,
-        19,
-        65,
-        77,
-        47,
+        54,
+        50,
+        20,
+        67,
+        80,
+        49,
         100
       ],
       "signal": "watch",
@@ -1875,9 +2043,9 @@
       "undervalPct": -38.8,
       "yoyPct": 38.6,
       "yoyTrend": null,
-      "volume": 61471,
-      "avgVolume": 44560,
-      "volRatio": 1.38,
+      "volume": 55000,
+      "avgVolume": 44237,
+      "volRatio": 1.24,
       "volSpark": [
         64,
         100,
@@ -1885,7 +2053,7 @@
         64,
         61,
         47,
-        92
+        82
       ],
       "signal": "watch",
       "conditions": {
@@ -1917,9 +2085,9 @@
       "undervalPct": -38.5,
       "yoyPct": 62.6,
       "yoyTrend": null,
-      "volume": 2823380,
-      "avgVolume": 3705199,
-      "volRatio": 0.76,
+      "volume": 2597549,
+      "avgVolume": 3693907,
+      "volRatio": 0.7,
       "volSpark": [
         36,
         72,
@@ -1927,7 +2095,7 @@
         64,
         100,
         87,
-        53
+        48
       ],
       "signal": "watch",
       "conditions": {
@@ -1959,9 +2127,9 @@
       "undervalPct": -37.1,
       "yoyPct": -25.9,
       "yoyTrend": null,
-      "volume": 104886,
-      "avgVolume": 51618,
-      "volRatio": 2.03,
+      "volume": 104000,
+      "avgVolume": 51574,
+      "volRatio": 2.02,
       "volSpark": [
         33,
         36,
@@ -2001,9 +2169,9 @@
       "undervalPct": -37.1,
       "yoyPct": 10.9,
       "yoyTrend": null,
-      "volume": 196212,
-      "avgVolume": 355367,
-      "volRatio": 0.55,
+      "volume": 181718,
+      "avgVolume": 354642,
+      "volRatio": 0.51,
       "volSpark": [
         39,
         54,
@@ -2011,7 +2179,7 @@
         100,
         78,
         68,
-        47
+        43
       ],
       "signal": "watch",
       "conditions": {
@@ -2043,16 +2211,16 @@
       "undervalPct": -36.9,
       "yoyPct": 9.2,
       "yoyTrend": null,
-      "volume": 7213327,
-      "avgVolume": 3825680,
-      "volRatio": 1.89,
+      "volume": 7158100,
+      "avgVolume": 3822919,
+      "volRatio": 1.87,
       "volSpark": [
         23,
         45,
         43,
         33,
         33,
-        34,
+        35,
         100
       ],
       "signal": "watch",
@@ -2085,9 +2253,9 @@
       "undervalPct": -36.4,
       "yoyPct": 12.4,
       "yoyTrend": null,
-      "volume": 89847,
-      "avgVolume": 66183,
-      "volRatio": 1.36,
+      "volume": 88053,
+      "avgVolume": 66093,
+      "volRatio": 1.33,
       "volSpark": [
         73,
         88,
@@ -2095,7 +2263,7 @@
         67,
         66,
         100,
-        93
+        91
       ],
       "signal": "watch",
       "conditions": {
@@ -2127,16 +2295,16 @@
       "undervalPct": -35.0,
       "yoyPct": 13.4,
       "yoyTrend": null,
-      "volume": 11846646,
-      "avgVolume": 8028025,
-      "volRatio": 1.48,
+      "volume": 11756261,
+      "avgVolume": 8023506,
+      "volRatio": 1.47,
       "volSpark": [
+        78,
         77,
-        76,
-        86,
-        66,
+        87,
+        67,
         62,
-        89,
+        90,
         100
       ],
       "signal": "watch",
@@ -2169,16 +2337,16 @@
       "undervalPct": -34.9,
       "yoyPct": 13.8,
       "yoyTrend": null,
-      "volume": 4789223,
-      "avgVolume": 2041661,
-      "volRatio": 2.35,
+      "volume": 4739879,
+      "avgVolume": 2039194,
+      "volRatio": 2.32,
       "volSpark": [
         11,
         37,
-        41,
+        42,
         23,
         66,
-        35,
+        36,
         100
       ],
       "signal": "watch",
@@ -2211,9 +2379,9 @@
       "undervalPct": -33.4,
       "yoyPct": 2.4,
       "yoyTrend": null,
-      "volume": 144379556,
-      "avgVolume": 86114159,
-      "volRatio": 1.68,
+      "volume": 143871383,
+      "avgVolume": 86088750,
+      "volRatio": 1.67,
       "volSpark": [
         100,
         98,
@@ -2253,9 +2421,9 @@
       "undervalPct": -32.4,
       "yoyPct": 10.3,
       "yoyTrend": null,
-      "volume": 7488817,
-      "avgVolume": 9243186,
-      "volRatio": 0.81,
+      "volume": 7364712,
+      "avgVolume": 9236981,
+      "volRatio": 0.8,
       "volSpark": [
         100,
         71,
@@ -2263,7 +2431,7 @@
         35,
         84,
         94,
-        48
+        47
       ],
       "signal": "watch",
       "conditions": {
@@ -2295,9 +2463,9 @@
       "undervalPct": -30.3,
       "yoyPct": 35.0,
       "yoyTrend": null,
-      "volume": 17366232,
-      "avgVolume": 31678055,
-      "volRatio": 0.55,
+      "volume": 17255478,
+      "avgVolume": 31672517,
+      "volRatio": 0.54,
       "volSpark": [
         29,
         93,
@@ -2305,7 +2473,7 @@
         28,
         35,
         100,
-        88
+        87
       ],
       "signal": "watch",
       "conditions": {
@@ -2337,9 +2505,9 @@
       "undervalPct": -29.8,
       "yoyPct": 3148.3,
       "yoyTrend": null,
-      "volume": 1173923,
-      "avgVolume": 980961,
-      "volRatio": 1.2,
+      "volume": 1142040,
+      "avgVolume": 979367,
+      "volRatio": 1.17,
       "volSpark": [
         27,
         56,
@@ -2347,7 +2515,7 @@
         48,
         91,
         100,
-        67
+        65
       ],
       "signal": "watch",
       "conditions": {
@@ -2379,9 +2547,9 @@
       "undervalPct": -29.5,
       "yoyPct": 30.7,
       "yoyTrend": null,
-      "volume": 538307,
-      "avgVolume": 705273,
-      "volRatio": 0.76,
+      "volume": 518548,
+      "avgVolume": 704285,
+      "volRatio": 0.74,
       "volSpark": [
         51,
         82,
@@ -2389,7 +2557,7 @@
         84,
         100,
         90,
-        99
+        95
       ],
       "signal": "watch",
       "conditions": {
@@ -2421,9 +2589,9 @@
       "undervalPct": -28.9,
       "yoyPct": 9.3,
       "yoyTrend": null,
-      "volume": 191074,
-      "avgVolume": 76044,
-      "volRatio": 2.51,
+      "volume": 190098,
+      "avgVolume": 75995,
+      "volRatio": 2.5,
       "volSpark": [
         26,
         59,
@@ -2463,16 +2631,16 @@
       "undervalPct": -28.6,
       "yoyPct": -19.0,
       "yoyTrend": null,
-      "volume": 729345,
-      "avgVolume": 475083,
-      "volRatio": 1.54,
+      "volume": 721410,
+      "avgVolume": 474686,
+      "volRatio": 1.52,
       "volSpark": [
         24,
-        64,
+        65,
         45,
-        88,
+        89,
         68,
-        76,
+        77,
         100
       ],
       "signal": "watch",
@@ -2505,9 +2673,9 @@
       "undervalPct": -28.1,
       "yoyPct": 17.5,
       "yoyTrend": null,
-      "volume": 224861,
-      "avgVolume": 219790,
-      "volRatio": 1.02,
+      "volume": 221719,
+      "avgVolume": 219633,
+      "volRatio": 1.01,
       "volSpark": [
         51,
         80,
@@ -2515,7 +2683,7 @@
         45,
         100,
         85,
-        75
+        74
       ],
       "signal": "watch",
       "conditions": {
@@ -2547,16 +2715,16 @@
       "undervalPct": -27.0,
       "yoyPct": 46.1,
       "yoyTrend": null,
-      "volume": 241547,
-      "avgVolume": 223637,
-      "volRatio": 1.08,
+      "volume": 235285,
+      "avgVolume": 223323,
+      "volRatio": 1.05,
       "volSpark": [
-        27,
-        53,
-        70,
+        28,
         54,
-        24,
-        49,
+        72,
+        56,
+        25,
+        51,
         100
       ],
       "signal": "watch",
@@ -2589,16 +2757,16 @@
       "undervalPct": -25.3,
       "yoyPct": 20.4,
       "yoyTrend": null,
-      "volume": 2487113,
-      "avgVolume": 1983746,
-      "volRatio": 1.25,
+      "volume": 2412022,
+      "avgVolume": 1979992,
+      "volRatio": 1.22,
       "volSpark": [
-        42,
-        77,
-        52,
-        73,
-        93,
-        90,
+        43,
+        80,
+        54,
+        76,
+        96,
+        92,
         100
       ],
       "signal": "watch",
@@ -2673,9 +2841,9 @@
       "undervalPct": -23.3,
       "yoyPct": 10.5,
       "yoyTrend": null,
-      "volume": 7638693,
-      "avgVolume": 7758649,
-      "volRatio": 0.98,
+      "volume": 7539552,
+      "avgVolume": 7753691,
+      "volRatio": 0.97,
       "volSpark": [
         35,
         100,
@@ -2715,8 +2883,8 @@
       "undervalPct": -22.9,
       "yoyPct": 68.2,
       "yoyTrend": null,
-      "volume": 609124,
-      "avgVolume": 515120,
+      "volume": 605678,
+      "avgVolume": 514948,
       "volRatio": 1.18,
       "volSpark": [
         51,
@@ -2725,7 +2893,7 @@
         90,
         100,
         73,
-        77
+        76
       ],
       "signal": "watch",
       "conditions": {
@@ -2757,9 +2925,9 @@
       "undervalPct": -22.7,
       "yoyPct": 8.8,
       "yoyTrend": null,
-      "volume": 51359,
-      "avgVolume": 31785,
-      "volRatio": 1.62,
+      "volume": 51026,
+      "avgVolume": 31768,
+      "volRatio": 1.61,
       "volSpark": [
         100,
         69,
@@ -2787,48 +2955,6 @@
       "sellSignal": null
     },
     {
-      "symbol": "2609",
-      "exchange": "TWSE",
-      "name": "陽明",
-      "close": 51.5,
-      "ma5": 51.0,
-      "maDiffPct": 0.94,
-      "rsi": 39.9,
-      "forwardEps": 3.22,
-      "fairValue": 64.5,
-      "undervalPct": -20.2,
-      "yoyPct": -30.3,
-      "yoyTrend": null,
-      "volume": 18632897,
-      "avgVolume": 20082347,
-      "volRatio": 0.93,
-      "volSpark": [
-        63,
-        100,
-        70,
-        82,
-        81,
-        88,
-        88
-      ],
-      "signal": "watch",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": true,
-        "undervalued": true,
-        "yoy_pass": false,
-        "vol_surge": false
-      },
-      "passedCount": 3,
-      "sellConditions": {
-        "ma_below": false,
-        "rsi_overbought": false,
-        "yoy_trend_down": false
-      },
-      "sellPassedCount": 0,
-      "sellSignal": null
-    },
-    {
       "symbol": "2327",
       "exchange": "TWSE",
       "name": "國巨",
@@ -2836,14 +2962,14 @@
       "ma5": 300.8,
       "maDiffPct": 7.05,
       "rsi": 70.2,
-      "forwardEps": 18.95,
-      "fairValue": 378.9,
-      "undervalPct": -15.0,
+      "forwardEps": 20.25,
+      "fairValue": 404.9,
+      "undervalPct": -20.5,
       "yoyPct": 19.9,
       "yoyTrend": null,
-      "volume": 76049991,
-      "avgVolume": 32813996,
-      "volRatio": 2.32,
+      "volume": 74637775,
+      "avgVolume": 32743386,
+      "volRatio": 2.28,
       "volSpark": [
         13,
         24,
@@ -2851,7 +2977,7 @@
         33,
         100,
         72,
-        79
+        78
       ],
       "signal": "watch",
       "conditions": {
@@ -2871,6 +2997,48 @@
       "sellSignal": null
     },
     {
+      "symbol": "2609",
+      "exchange": "TWSE",
+      "name": "陽明",
+      "close": 51.5,
+      "ma5": 51.0,
+      "maDiffPct": 0.94,
+      "rsi": 39.9,
+      "forwardEps": 3.22,
+      "fairValue": 64.5,
+      "undervalPct": -20.2,
+      "yoyPct": -30.3,
+      "yoyTrend": null,
+      "volume": 18542837,
+      "avgVolume": 20077844,
+      "volRatio": 0.92,
+      "volSpark": [
+        63,
+        100,
+        70,
+        82,
+        81,
+        88,
+        87
+      ],
+      "signal": "watch",
+      "conditions": {
+        "ma_breakout": true,
+        "rsi_in_range": true,
+        "undervalued": true,
+        "yoy_pass": false,
+        "vol_surge": false
+      },
+      "passedCount": 3,
+      "sellConditions": {
+        "ma_below": false,
+        "rsi_overbought": false,
+        "yoy_trend_down": false
+      },
+      "sellPassedCount": 0,
+      "sellSignal": null
+    },
+    {
       "symbol": "2471",
       "exchange": "TWSE",
       "name": "資通",
@@ -2883,9 +3051,9 @@
       "undervalPct": -13.6,
       "yoyPct": 11.5,
       "yoyTrend": null,
-      "volume": 161462,
-      "avgVolume": 187096,
-      "volRatio": 0.86,
+      "volume": 159008,
+      "avgVolume": 186973,
+      "volRatio": 0.85,
       "volSpark": [
         22,
         64,
@@ -2893,7 +3061,7 @@
         77,
         100,
         58,
-        74
+        73
       ],
       "signal": "watch",
       "conditions": {
@@ -2925,15 +3093,15 @@
       "undervalPct": -6.4,
       "yoyPct": -29.9,
       "yoyTrend": null,
-      "volume": 861925,
-      "avgVolume": 435311,
-      "volRatio": 1.98,
+      "volume": 857469,
+      "avgVolume": 435088,
+      "volRatio": 1.97,
       "volSpark": [
         37,
-        75,
+        76,
         53,
         42,
-        51,
+        52,
         58,
         100
       ],
@@ -2967,8 +3135,8 @@
       "undervalPct": null,
       "yoyPct": 18.1,
       "yoyTrend": null,
-      "volume": 3015035,
-      "avgVolume": 3668870,
+      "volume": 3004641,
+      "avgVolume": 3668350,
       "volRatio": 0.82,
       "volSpark": [
         29,
@@ -3009,9 +3177,9 @@
       "undervalPct": 1.6,
       "yoyPct": 10.6,
       "yoyTrend": null,
-      "volume": 546775,
-      "avgVolume": 653108,
-      "volRatio": 0.84,
+      "volume": 541281,
+      "avgVolume": 652833,
+      "volRatio": 0.83,
       "volSpark": [
         100,
         85,
@@ -3051,14 +3219,14 @@
       "undervalPct": 5.1,
       "yoyPct": -9.7,
       "yoyTrend": null,
-      "volume": 71333,
-      "avgVolume": 22290,
-      "volRatio": 3.2,
+      "volume": 71716,
+      "avgVolume": 22309,
+      "volRatio": 3.21,
       "volSpark": [
         4,
         37,
         18,
-        61,
+        60,
         11,
         53,
         100
@@ -3093,8 +3261,8 @@
       "undervalPct": 7.8,
       "yoyPct": 13.9,
       "yoyTrend": null,
-      "volume": 1076512,
-      "avgVolume": 2904276,
+      "volume": 1064190,
+      "avgVolume": 2903660,
       "volRatio": 0.37,
       "volSpark": [
         67,
@@ -3103,7 +3271,7 @@
         73,
         91,
         100,
-        81
+        80
       ],
       "signal": "watch",
       "conditions": {
@@ -3135,16 +3303,16 @@
       "undervalPct": 16.2,
       "yoyPct": 20.6,
       "yoyTrend": null,
-      "volume": 4781999,
-      "avgVolume": 2161578,
-      "volRatio": 2.21,
+      "volume": 4716421,
+      "avgVolume": 2158299,
+      "volRatio": 2.19,
       "volSpark": [
         21,
-        34,
+        35,
         30,
-        28,
+        29,
         40,
-        34,
+        35,
         100
       ],
       "signal": "watch",
@@ -3177,8 +3345,8 @@
       "undervalPct": 18.3,
       "yoyPct": 28.4,
       "yoyTrend": null,
-      "volume": 634898,
-      "avgVolume": 1516919,
+      "volume": 630667,
+      "avgVolume": 1516707,
       "volRatio": 0.42,
       "volSpark": [
         40,
@@ -3219,9 +3387,9 @@
       "undervalPct": 94.5,
       "yoyPct": 25.3,
       "yoyTrend": null,
-      "volume": 132160,
-      "avgVolume": 117153,
-      "volRatio": 1.13,
+      "volume": 129002,
+      "avgVolume": 116995,
+      "volRatio": 1.1,
       "volSpark": [
         32,
         79,
@@ -3229,7 +3397,7 @@
         51,
         100,
         78,
-        81
+        79
       ],
       "signal": "watch",
       "conditions": {
@@ -3261,8 +3429,8 @@
       "undervalPct": 177.3,
       "yoyPct": 200.8,
       "yoyTrend": null,
-      "volume": 1386992,
-      "avgVolume": 1412945,
+      "volume": 1379478,
+      "avgVolume": 1412569,
       "volRatio": 0.98,
       "volSpark": [
         62,
@@ -3271,7 +3439,7 @@
         86,
         55,
         100,
-        88
+        87
       ],
       "signal": "watch",
       "conditions": {
@@ -3303,16 +3471,16 @@
       "undervalPct": 265.4,
       "yoyPct": 1245.6,
       "yoyTrend": null,
-      "volume": 482523,
-      "avgVolume": 279994,
-      "volRatio": 1.72,
+      "volume": 479342,
+      "avgVolume": 279835,
+      "volRatio": 1.71,
       "volSpark": [
         53,
-        99,
+        100,
         45,
-        29,
+        30,
         31,
-        68,
+        69,
         100
       ],
       "signal": "watch",
@@ -3345,8 +3513,8 @@
       "undervalPct": 346.1,
       "yoyPct": -8.0,
       "yoyTrend": null,
-      "volume": 383631,
-      "avgVolume": 251949,
+      "volume": 382759,
+      "avgVolume": 251905,
       "volRatio": 1.52,
       "volSpark": [
         28,
@@ -3387,8 +3555,8 @@
       "undervalPct": 1066.7,
       "yoyPct": 18.1,
       "yoyTrend": null,
-      "volume": 3860804,
-      "avgVolume": 3547837,
+      "volume": 3872497,
+      "avgVolume": 3548421,
       "volRatio": 1.09,
       "volSpark": [
         52,
@@ -3429,9 +3597,9 @@
       "undervalPct": 1425.0,
       "yoyPct": 15.4,
       "yoyTrend": null,
-      "volume": 111716,
-      "avgVolume": 101534,
-      "volRatio": 1.1,
+      "volume": 109085,
+      "avgVolume": 101402,
+      "volRatio": 1.08,
       "volSpark": [
         7,
         27,
@@ -3439,7 +3607,7 @@
         37,
         40,
         40,
-        64
+        63
       ],
       "signal": "watch",
       "conditions": {
