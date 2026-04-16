@@ -19,6 +19,62 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Sync config from Vercel KV
+        env:
+          KV_REST_API_URL: ${{ secrets.KV_REST_API_URL }}
+          KV_REST_API_TOKEN: ${{ secrets.KV_REST_API_TOKEN }}
+          CONFIG_KV_KEY: ${{ secrets.CONFIG_KV_KEY }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          url = os.getenv("KV_REST_API_URL", "").rstrip("/")
+          token = os.getenv("KV_REST_API_TOKEN", "")
+          key = os.getenv("CONFIG_KV_KEY", "eggrolls:config:current")
+          target = Path("backend/config.json")
+
+          if not url or not token:
+              print("⚠ KV secret missing, keep repository config.json")
+              raise SystemExit(0)
+
+          get_url = f"{url}/get/{urllib.parse.quote(key, safe='')}"
+          req = urllib.request.Request(
+              get_url,
+              headers={"Authorization": f"Bearer {token}"},
+              method="GET",
+          )
+
+          try:
+              with urllib.request.urlopen(req, timeout=20) as resp:
+                  payload = json.loads(resp.read().decode("utf-8"))
+          except Exception as exc:
+              print(f"⚠ Failed to fetch KV config: {exc}")
+              raise SystemExit(0)
+
+          result = payload.get("result")
+          if result is None:
+              print("⚠ KV config key not found, keep repository config.json")
+              raise SystemExit(0)
+
+          if isinstance(result, str):
+              try:
+                  result = json.loads(result)
+              except Exception:
+                  print("⚠ KV config value is not valid JSON string, keep repository config.json")
+                  raise SystemExit(0)
+
+          if not isinstance(result, dict):
+              print("⚠ KV config value is not object, keep repository config.json")
+              raise SystemExit(0)
+
+          target.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(f"✅ Synced config from KV to {target}")
+          PY
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:

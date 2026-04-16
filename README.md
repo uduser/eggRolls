@@ -94,6 +94,21 @@ npm run dev
 
 之後每次 `git push` 都會自動重新部署。
 
+### Vercel 環境變數（Web UI 可編輯設定必填）
+
+在 Vercel 專案的 **Environment Variables** 新增：
+
+- `KV_REST_API_URL`
+- `KV_REST_API_TOKEN`
+- `CONFIG_KV_KEY`（可選，預設 `eggrolls:config:current`）
+
+選填（若要「按儲存就立即觸發更新」）：
+
+- `GITHUB_TOKEN`
+- `GITHUB_REPO`（例如 `owner/repo`）
+- `GITHUB_BRANCH`（預設 `main`）
+- `GITHUB_WORKFLOW_FILE`（預設 `update-data.yml`）
+
 ### 方法二：Vercel CLI
 
 ```bash
@@ -122,6 +137,13 @@ vercel --prod
 - **手動觸發**：GitHub repo → Actions → `Update Stock Data` → `Run workflow`
 - JSON 有變動才會 commit，commit 後 Vercel 自動重新部署
 - commit message 帶 `[skip ci]` 避免其他 CI 重複觸發
+- workflow 會先嘗試從 Vercel KV 同步最新 config（抓不到才 fallback repo 內 `backend/config.json`）
+
+GitHub repo 的 **Actions secrets** 請新增：
+
+- `KV_REST_API_URL`
+- `KV_REST_API_TOKEN`
+- `CONFIG_KV_KEY`（可選，未設定時預設 `eggrolls:config:current`）
 
 流程：
 
@@ -161,7 +183,10 @@ git push
 
 ## 自訂設定
 
-所有標的清單與篩選參數統一放在 `backend/config.json`，修改後重跑 `python screener.py` 即可生效。
+設定來源說明：
+
+- **生產環境**：以 Vercel KV 的 `CONFIG_KV_KEY` 設定為主
+- **本地開發**：仍可直接編輯 `backend/config.json`，修改後重跑 `python screener.py` 即可生效
 
 ### 修改掃描股票清單
 

@@ -6,9 +6,10 @@ async function loadConfig() {
   if (apiRes.ok && apiRes.headers.get('content-type')?.includes('json')) {
     return { config: await apiRes.json(), editable: true }
   }
+  const canWriteViaApi = apiRes.status === 404
   const staticRes = await fetch('/data/config.json')
   if (staticRes.ok) {
-    return { config: await staticRes.json(), editable: false }
+    return { config: await staticRes.json(), editable: canWriteViaApi }
   }
   throw new Error('無法載入設定檔')
 }
@@ -68,15 +69,25 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
       const { config } = await loadConfig()
 
       config[configKey] = tickers.map((t) => t.ticker)
+      config.name_map = config.name_map || {}
       tickers.forEach((t) => {
         if (t.name) config.name_map[t.ticker] = t.name
       })
 
-      await fetch('/api/config', {
+      const saveRes = await fetch('/api/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(config),
       })
+      let saveData = {}
+      try {
+        saveData = await saveRes.json()
+      } catch {
+        saveData = {}
+      }
+      if (!saveRes.ok) {
+        throw new Error(saveData.error || '設定儲存失敗')
+      }
 
       await fetch('/api/generate-logos', {
         method: 'POST',
@@ -86,7 +97,10 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
         }),
       })
 
-      setSuccess('已儲存！資料將在幾分鐘內自動更新')
+      const msg = saveData.dispatched
+        ? '已儲存！已觸發更新流程，資料將在幾分鐘內自動更新'
+        : '已儲存到 KV！排程會在下一次執行時更新資料'
+      setSuccess(msg)
       onSave?.(configKey, tickers.map((t) => t.ticker))
       setTimeout(() => onClose(), 1500)
     } catch (e) {
