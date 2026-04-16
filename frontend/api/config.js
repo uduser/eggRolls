@@ -24,10 +24,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid JSON config payload' })
     }
 
+    const { _dispatch_mode, ...cleanPayload } = payload
     const configToSave = {
-      ...payload,
+      ...cleanPayload,
       _meta: {
-        ...(payload._meta || {}),
+        ...(cleanPayload._meta || {}),
         updatedAt: new Date().toISOString(),
         updatedBy: 'web-ui',
       },
@@ -39,7 +40,8 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: e.message || 'Failed to save KV config' })
     }
 
-    const dispatch = await dispatchWorkflow()
+    const mode = _dispatch_mode || 'full'
+    const dispatch = await dispatchWorkflow(mode)
     return res.status(200).json({
       ok: true,
       dispatched: dispatch.ok,
@@ -58,7 +60,7 @@ function safeJsonParse(raw) {
   }
 }
 
-async function dispatchWorkflow() {
+async function dispatchWorkflow(mode = 'full') {
   const token = process.env.GITHUB_TOKEN
   if (!token || !REPO) return { ok: false, error: 'GitHub dispatch skipped: missing token or repo' }
 
@@ -70,7 +72,7 @@ async function dispatchWorkflow() {
         Accept: 'application/vnd.github.v3+json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ref: BRANCH }),
+      body: JSON.stringify({ ref: BRANCH, inputs: { mode } }),
     })
 
     if (!res.ok) {

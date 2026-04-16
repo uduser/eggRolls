@@ -777,6 +777,8 @@ def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map
 
 # ─── 主程式 ───────────────────────────────────────────────
 def main():
+    portfolio_only = "--portfolio-only" in sys.argv
+
     cfg = load_config()
     config = cfg["screener_params"]
     sell_params = cfg.get("sell_params")
@@ -877,36 +879,40 @@ def main():
     print(f"📄 輸出：{portfolio_path}")
 
     # ─── 全市場掃描（多執行緒） ───────────────────────────
-    print(f"\n🔍 開始掃描 {len(tickers)} 檔股票（{MAX_WORKERS} 執行緒）...")
-    print(f"   篩選條件：MA{config['ma_period']} 突破 / RSI {config['rsi_low']}-{config['rsi_high']} / "
-          f"EPS×{config['pe_multiple']} 低估 / YoY≥{config['yoy_min']}% / 量能≥{config['vol_ratio_min']}x")
-    if sell_params:
-        print(f"   賣出條件：跌破 MA / RSI {sell_params['rsi_sell_low']}-{sell_params['rsi_sell_high']} / YoY 趨勢向下")
-    print()
+    results = []
+    if portfolio_only:
+        print("\n⏭️ --portfolio-only 模式，跳過全市場掃描")
+    else:
+        print(f"\n🔍 開始掃描 {len(tickers)} 檔股票（{MAX_WORKERS} 執行緒）...")
+        print(f"   篩選條件：MA{config['ma_period']} 突破 / RSI {config['rsi_low']}-{config['rsi_high']} / "
+              f"EPS×{config['pe_multiple']} 低估 / YoY≥{config['yoy_min']}% / 量能≥{config['vol_ratio_min']}x")
+        if sell_params:
+            print(f"   賣出條件：跌破 MA / RSI {sell_params['rsi_sell_low']}-{sell_params['rsi_sell_high']} / YoY 趨勢向下")
+        print()
 
-    results = scan_stocks_parallel(tickers, config, sell_params, name_map, bulk_fundamentals, bulk_history)
-    results.sort(key=lambda x: (-x["passedCount"], x.get("undervalPct") or 0))
+        results = scan_stocks_parallel(tickers, config, sell_params, name_map, bulk_fundamentals, bulk_history)
+        results.sort(key=lambda x: (-x["passedCount"], x.get("undervalPct") or 0))
 
-    output = {
-        "generatedAt": datetime.now(TW_TZ).isoformat(),
-        "config": config,
-        "totalScanned": len(tickers),
-        "totalPassed": len(results),
-        "stocks": results,
-    }
+        output = {
+            "generatedAt": datetime.now(TW_TZ).isoformat(),
+            "config": config,
+            "totalScanned": len(tickers),
+            "totalPassed": len(results),
+            "stocks": results,
+        }
 
-    output_path = OUTPUT_DIR / "stocks.json"
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+        output_path = OUTPUT_DIR / "stocks.json"
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(output, f, ensure_ascii=False, indent=2)
 
-    print()
-    print(f"✅ 大盤掃描完成！{len(results)}/{len(tickers)} 檔通過篩選")
-    print(f"📄 輸出：{output_path}")
+        print()
+        print(f"✅ 大盤掃描完成！{len(results)}/{len(tickers)} 檔通過篩選")
+        print(f"📄 輸出：{output_path}")
 
-    # 備份
-    backup_path = Path(__file__).parent / "latest_result.json"
-    with open(backup_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+        # 備份
+        backup_path = Path(__file__).parent / "latest_result.json"
+        with open(backup_path, "w", encoding="utf-8") as f:
+            json.dump(output, f, ensure_ascii=False, indent=2)
 
     # ─── Logo 自動產生（只為通過的標的 + 持有標的） ────────
     passed_tickers = [

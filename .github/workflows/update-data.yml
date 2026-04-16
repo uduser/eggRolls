@@ -5,7 +5,12 @@ name: Update Stock Data
 on:
   schedule:
     - cron: '35 6 * * 1-5'   # 週一到週五
-  workflow_dispatch:           # 也可以手動觸發
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'portfolio-only = 只跑手上標的，full = 完整掃描'
+        required: false
+        default: 'full'
 
 permissions:
   contents: write
@@ -84,7 +89,14 @@ jobs:
         run: pip install -r backend/requirements.txt
 
       - name: Run screener
-        run: python backend/screener.py
+        env:
+          FINMIND_TOKEN: ${{ secrets.FINMIND_TOKEN }}
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.mode }}" = "portfolio-only" ]; then
+            ARGS="--portfolio-only"
+          fi
+          python backend/screener.py $ARGS
 
       - name: Commit & push if data changed
         run: |

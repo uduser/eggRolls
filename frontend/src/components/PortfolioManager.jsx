@@ -74,6 +74,7 @@ export default function PortfolioManager({ isOpen, onClose, onSave, configKey = 
         if (t.name) config.name_map[t.ticker] = t.name
       })
 
+      config._dispatch_mode = configKey === 'portfolio_tickers' ? 'portfolio-only' : 'full'
       const saveRes = await fetch('/api/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
