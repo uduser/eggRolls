@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T13:46:22.642676+08:00",
+  "generatedAt": "2026-04-16T15:09:43.287589+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -27,9 +27,9 @@
       "undervalPct": -76.5,
       "yoyPct": 357.7,
       "yoyTrend": null,
-      "volume": 49717103,
-      "avgVolume": 111906570,
-      "volRatio": 0.44,
+      "volume": 52866822,
+      "avgVolume": 112064056,
+      "volRatio": 0.47,
       "volSpark": [
         59,
         56,
@@ -37,7 +37,7 @@
         60,
         100,
         66,
-        31
+        33
       ],
       "dataSource": "yahoo",
       "signal": "watch",
@@ -61,18 +61,18 @@
       "symbol": "2327",
       "exchange": "TWSE",
       "name": "國巨",
-      "close": 325.5,
-      "ma5": 309.6,
-      "maDiffPct": 5.14,
-      "rsi": 71.1,
+      "close": 325.0,
+      "ma5": 309.5,
+      "maDiffPct": 5.01,
+      "rsi": 70.9,
       "forwardEps": 20.25,
       "fairValue": 404.9,
-      "undervalPct": -19.6,
+      "undervalPct": -19.7,
       "yoyPct": 19.9,
       "yoyTrend": null,
-      "volume": 66094821,
-      "avgVolume": 33411025,
-      "volRatio": 1.98,
+      "volume": 68210144,
+      "avgVolume": 33516791,
+      "volRatio": 2.04,
       "volSpark": [
         24,
         35,
@@ -80,7 +80,7 @@
         100,
         72,
         78,
-        69
+        71
       ],
       "dataSource": "yahoo",
       "signal": "watch",
@@ -113,9 +113,9 @@
       "undervalPct": -8.0,
       "yoyPct": 20.5,
       "yoyTrend": null,
-      "volume": 29050189,
-      "avgVolume": 33271017,
-      "volRatio": 0.87,
+      "volume": 34427324,
+      "avgVolume": 33539874,
+      "volRatio": 1.03,
       "volSpark": [
         100,
         68,
@@ -123,7 +123,7 @@
         62,
         84,
         87,
-        62
+        74
       ],
       "dataSource": "yahoo",
       "signal": "hold",
@@ -149,16 +149,16 @@
       "name": "CAPITAL INV TRUST CORP CAPITAL ",
       "close": 15.7,
       "ma5": 15.2,
-      "maDiffPct": 3.12,
-      "rsi": 73.4,
+      "maDiffPct": 3.23,
+      "rsi": 73.5,
       "forwardEps": null,
       "fairValue": null,
       "undervalPct": null,
       "yoyPct": null,
       "yoyTrend": null,
-      "volume": 73045153,
-      "avgVolume": 102449754,
-      "volRatio": 0.71,
+      "volume": 76335417,
+      "avgVolume": 102614267,
+      "volRatio": 0.74,
       "volSpark": [
         55,
         62,
@@ -166,7 +166,7 @@
         100,
         88,
         55,
-        39
+        41
       ],
       "dataSource": "yahoo",
       "signal": "hold",
@@ -199,9 +199,9 @@
       "undervalPct": null,
       "yoyPct": null,
       "yoyTrend": null,
-      "volume": 77138513,
-      "avgVolume": 119082076,
-      "volRatio": 0.65,
+      "volume": 80380140,
+      "avgVolume": 119244158,
+      "volRatio": 0.67,
       "volSpark": [
         100,
         40,
@@ -209,7 +209,7 @@
         39,
         55,
         54,
-        34
+        35
       ],
       "dataSource": "yahoo",
       "signal": "hold",
@@ -242,9 +242,9 @@
       "undervalPct": 6675.0,
       "yoyPct": -3.3,
       "yoyTrend": null,
-      "volume": 6001366,
-      "avgVolume": 6227390,
-      "volRatio": 0.96,
+      "volume": 6279016,
+      "avgVolume": 6241273,
+      "volRatio": 1.01,
       "volSpark": [
         15,
         13,
@@ -252,7 +252,7 @@
         100,
         37,
         21,
-        28
+        30
       ],
       "dataSource": "yahoo",
       "signal": "hold",
