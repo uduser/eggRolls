@@ -33,7 +33,6 @@ jobs:
           python - <<'PY'
           import json
           import os
-          import urllib.parse
           import urllib.request
           from pathlib import Path
 
@@ -46,21 +45,25 @@ jobs:
               print("⚠ KV secret missing, keep repository config.json")
               raise SystemExit(0)
 
-          get_url = f"{url}/get/{key}"
+          # 使用 pipeline POST（跟 frontend/api/config.js 一致），避免 URL encoding 問題
           req = urllib.request.Request(
-              get_url,
-              headers={"Authorization": f"Bearer {token}"},
-              method="GET",
+              f"{url}/pipeline",
+              data=json.dumps([["GET", key]]).encode("utf-8"),
+              headers={
+                  "Authorization": f"Bearer {token}",
+                  "Content-Type": "application/json",
+              },
+              method="POST",
           )
 
           try:
               with urllib.request.urlopen(req, timeout=20) as resp:
-                  payload = json.loads(resp.read().decode("utf-8"))
+                  pipeline_resp = json.loads(resp.read().decode("utf-8"))
           except Exception as exc:
               print(f"⚠ Failed to fetch KV config: {exc}")
               raise SystemExit(0)
 
-          result = payload.get("result")
+          result = pipeline_resp[0].get("result") if isinstance(pipeline_resp, list) and pipeline_resp else None
           if result is None:
               print("⚠ KV config key not found, keep repository config.json")
               raise SystemExit(0)
