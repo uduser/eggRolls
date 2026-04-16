@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T08:59:14.069668+08:00",
+  "generatedAt": "2026-04-16T09:05:13.285194+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -12,7 +12,7 @@
     "lookback_days": 120
   },
   "totalScanned": 1953,
-  "totalPassed": 86,
+  "totalPassed": 82,
   "stocks": [
     {
       "symbol": "2442",
@@ -1155,7 +1155,7 @@
       "close": 40.2,
       "ma5": 40.1,
       "maDiffPct": 0.1,
-      "rsi": 57.9,
+      "rsi": 57.8,
       "forwardEps": 4.33,
       "fairValue": 86.6,
       "undervalPct": -53.6,
@@ -1306,48 +1306,6 @@
         "undervalued": true,
         "yoy_pass": false,
         "vol_surge": true
-      },
-      "passedCount": 3,
-      "sellConditions": {
-        "ma_below": false,
-        "rsi_overbought": false,
-        "yoy_trend_down": false
-      },
-      "sellPassedCount": 0,
-      "sellSignal": null
-    },
-    {
-      "symbol": "2882",
-      "exchange": "TWSE",
-      "name": "國泰金",
-      "close": 72.9,
-      "ma5": 72.8,
-      "maDiffPct": 0.11,
-      "rsi": 51.2,
-      "forwardEps": 7.44,
-      "fairValue": 148.7,
-      "undervalPct": -51.0,
-      "yoyPct": 112.9,
-      "yoyTrend": null,
-      "volume": 27238084,
-      "avgVolume": 22346241,
-      "volRatio": 1.22,
-      "volSpark": [
-        59,
-        100,
-        94,
-        64,
-        74,
-        90,
-        97
-      ],
-      "signal": "watch",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": false,
-        "undervalued": true,
-        "yoy_pass": true,
-        "vol_surge": false
       },
       "passedCount": 3,
       "sellConditions": {
@@ -1695,48 +1653,6 @@
       "sellSignal": null
     },
     {
-      "symbol": "2887",
-      "exchange": "TWSE",
-      "name": "台新新光金",
-      "close": 24.6,
-      "ma5": 24.5,
-      "maDiffPct": 0.49,
-      "rsi": 54.7,
-      "forwardEps": 2.34,
-      "fairValue": 46.7,
-      "undervalPct": -47.3,
-      "yoyPct": 165.9,
-      "yoyTrend": null,
-      "volume": 50768779,
-      "avgVolume": 65913339,
-      "volRatio": 0.77,
-      "volSpark": [
-        51,
-        68,
-        59,
-        43,
-        86,
-        100,
-        71
-      ],
-      "signal": "watch",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": false,
-        "undervalued": true,
-        "yoy_pass": true,
-        "vol_surge": false
-      },
-      "passedCount": 3,
-      "sellConditions": {
-        "ma_below": false,
-        "rsi_overbought": false,
-        "yoy_trend_down": false
-      },
-      "sellPassedCount": 0,
-      "sellSignal": null
-    },
-    {
       "symbol": "2612",
       "exchange": "TWSE",
       "name": "中航",
@@ -1768,90 +1684,6 @@
         "undervalued": true,
         "yoy_pass": false,
         "vol_surge": true
-      },
-      "passedCount": 3,
-      "sellConditions": {
-        "ma_below": false,
-        "rsi_overbought": false,
-        "yoy_trend_down": false
-      },
-      "sellPassedCount": 0,
-      "sellSignal": null
-    },
-    {
-      "symbol": "2881",
-      "exchange": "TWSE",
-      "name": "富邦金",
-      "close": 87.5,
-      "ma5": 87.6,
-      "maDiffPct": -0.09,
-      "rsi": 45.1,
-      "forwardEps": 8.07,
-      "fairValue": 161.5,
-      "undervalPct": -45.8,
-      "yoyPct": 24.0,
-      "yoyTrend": null,
-      "volume": 21034630,
-      "avgVolume": 18243523,
-      "volRatio": 1.15,
-      "volSpark": [
-        65,
-        82,
-        100,
-        96,
-        81,
-        85,
-        99
-      ],
-      "signal": "watch",
-      "conditions": {
-        "ma_breakout": false,
-        "rsi_in_range": true,
-        "undervalued": true,
-        "yoy_pass": true,
-        "vol_surge": false
-      },
-      "passedCount": 3,
-      "sellConditions": {
-        "ma_below": false,
-        "rsi_overbought": false,
-        "yoy_trend_down": false
-      },
-      "sellPassedCount": 0,
-      "sellSignal": null
-    },
-    {
-      "symbol": "2855",
-      "exchange": "TWSE",
-      "name": "統一證",
-      "close": 32.8,
-      "ma5": 31.7,
-      "maDiffPct": 3.6,
-      "rsi": 57.0,
-      "forwardEps": 2.99,
-      "fairValue": 59.8,
-      "undervalPct": -45.1,
-      "yoyPct": 115.0,
-      "yoyTrend": null,
-      "volume": 8473518,
-      "avgVolume": 6222915,
-      "volRatio": 1.36,
-      "volSpark": [
-        26,
-        50,
-        100,
-        25,
-        45,
-        46,
-        66
-      ],
-      "signal": "watch",
-      "conditions": {
-        "ma_breakout": true,
-        "rsi_in_range": false,
-        "undervalued": true,
-        "yoy_pass": true,
-        "vol_surge": false
       },
       "passedCount": 3,
       "sellConditions": {
@@ -3171,7 +3003,7 @@
       "close": 100.0,
       "ma5": 99.9,
       "maDiffPct": 0.06,
-      "rsi": 47.9,
+      "rsi": 47.8,
       "forwardEps": 4.92,
       "fairValue": 98.4,
       "undervalPct": 1.6,

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T08:58:19.963641+08:00",
+  "generatedAt": "2026-04-16T09:04:40.299368+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -186,26 +186,26 @@
       "symbol": "0050",
       "exchange": "TWSE",
       "name": "元大台灣50",
-      "close": NaN,
-      "ma5": null,
-      "maDiffPct": null,
+      "close": 83.1,
+      "ma5": 80.6,
+      "maDiffPct": 3.15,
       "rsi": 67.2,
       "forwardEps": null,
       "fairValue": null,
       "undervalPct": null,
       "yoyPct": null,
       "yoyTrend": null,
-      "volume": 127334444,
-      "avgVolume": 118546304,
-      "volRatio": 1.07,
+      "volume": 123920345,
+      "avgVolume": 117062073,
+      "volRatio": 1.06,
       "volSpark": [
+        46,
         34,
         100,
         40,
         51,
         39,
-        55,
-        56
+        55
       ],
       "signal": "hold",
       "conditions": {
