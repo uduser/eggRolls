@@ -46,7 +46,7 @@ jobs:
               print("⚠ KV secret missing, keep repository config.json")
               raise SystemExit(0)
 
-          get_url = f"{url}/get/{urllib.parse.quote(key, safe='')}"
+          get_url = f"{url}/get/{key}"
           req = urllib.request.Request(
               get_url,
               headers={"Authorization": f"Bearer {token}"},
