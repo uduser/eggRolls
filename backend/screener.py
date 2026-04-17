@@ -295,48 +295,168 @@ def fetch_bulk_fundamentals() -> dict[str, dict]:
     return result
 
 
-def fetch_bulk_history(lookback_days: int) -> dict[str, pd.DataFrame]:
-    """從 FinMind 一次抓全市場日線價量，回傳 {stock_id: DataFrame, ...}。
+def fetch_bulk_history(lookback_days: int, tickers: list[str] | None = None) -> dict[str, pd.DataFrame]:
+    """抓全市場日線價量，回傳 {stock_id: DataFrame}。
+
+    優先：FinMind batch（需 sponsor token）→ 單次 call 全市場
+    Fallback：yfinance batch（免費）→ 分批打，免費版唯一可行解
 
     DataFrame 欄位對齊 yfinance: Close, Volume, Open, High, Low。
-    需要 FINMIND_TOKEN。
     """
     token = os.getenv("FINMIND_TOKEN", "").strip()
-    if not token:
-        print("  ⚠ FINMIND_TOKEN 未設定，跳過批次價量抓取")
+    if token:
+        start = (datetime.now(TW_TZ) - timedelta(days=lookback_days * 2)).date().isoformat()
+        print(f"  📥 從 FinMind 批次抓取全市場價量（{start} 起）...")
+        rows = _finmind_get("TaiwanStockPrice", {"start_date": start}, timeout=120)
+        if rows:
+            df = pd.DataFrame(rows)
+            df["date"] = pd.to_datetime(df["date"], errors="coerce")
+            df = df.dropna(subset=["date"]).sort_values("date")
+
+            result: dict[str, pd.DataFrame] = {}
+            for sid, grp in df.groupby("stock_id"):
+                sid = str(sid).strip()
+                grp = grp.sort_values("date")
+                hist = pd.DataFrame(index=grp["date"].values)
+                hist["Close"] = pd.to_numeric(grp["close"].values, errors="coerce")
+                hist["Volume"] = pd.to_numeric(grp["Trading_Volume"].values, errors="coerce").fillna(0)
+                if "open" in grp.columns:
+                    hist["Open"] = pd.to_numeric(grp["open"].values, errors="coerce")
+                if "max" in grp.columns:
+                    hist["High"] = pd.to_numeric(grp["max"].values, errors="coerce")
+                if "min" in grp.columns:
+                    hist["Low"] = pd.to_numeric(grp["min"].values, errors="coerce")
+                hist = hist.dropna(subset=["Close"])
+                if not hist.empty:
+                    result[sid] = hist
+
+            if result:
+                print(f"  ✓ FinMind 全市場價量取得 {len(result)} 檔")
+                return result
+        print("  ⚠ FinMind batch 無資料（可能為免費版），fallback 到 Yahoo batch")
+
+    # Fallback: yfinance batch
+    if not tickers:
+        print("  ⚠ 無 tickers 可供 Yahoo batch fallback")
         return {}
+    return fetch_yahoo_batch_history(tickers, lookback_days)
 
-    # 多抓一些天數，確保扣除假日後仍有足夠交易日
-    start = (datetime.now(TW_TZ) - timedelta(days=lookback_days * 2)).date().isoformat()
-    print(f"  📥 從 FinMind 批次抓取全市場價量（{start} 起）...")
-    rows = _finmind_get("TaiwanStockPrice", {"start_date": start}, timeout=120)
-    if not rows:
-        print("  ⚠ 全市場價量無資料")
-        return {}
 
-    df = pd.DataFrame(rows)
-    df["date"] = pd.to_datetime(df["date"], errors="coerce")
-    df = df.dropna(subset=["date"]).sort_values("date")
+def fetch_yahoo_batch_history(
+    tickers: list[str],
+    lookback_days: int,
+    batch_size: int = 80,
+) -> dict[str, pd.DataFrame]:
+    """用 yfinance 批次抓歷史，回傳 {stock_id: DataFrame}。
 
+    yfinance 支援一次傳多個 ticker（空白分隔），回傳 MultiIndex DataFrame。
+    分批以降低單次失敗代價 + 節流 Yahoo 限流風險。
+    """
     result: dict[str, pd.DataFrame] = {}
-    for sid, grp in df.groupby("stock_id"):
-        sid = str(sid).strip()
-        grp = grp.sort_values("date")
-        hist = pd.DataFrame(index=grp["date"].values)
-        hist["Close"] = pd.to_numeric(grp["close"].values, errors="coerce")
-        hist["Volume"] = pd.to_numeric(grp["Trading_Volume"].values, errors="coerce").fillna(0)
-        if "open" in grp.columns:
-            hist["Open"] = pd.to_numeric(grp["open"].values, errors="coerce")
-        if "max" in grp.columns:
-            hist["High"] = pd.to_numeric(grp["max"].values, errors="coerce")
-        if "min" in grp.columns:
-            hist["Low"] = pd.to_numeric(grp["min"].values, errors="coerce")
-        hist = hist.dropna(subset=["Close"])
-        if not hist.empty:
-            result[sid] = hist
+    total = len(tickers)
+    total_chunks = (total + batch_size - 1) // batch_size
+    print(f"  📥 Yahoo batch 抓取全市場價量（{total} 檔，分 {total_chunks} 批每批 {batch_size}）...")
 
-    print(f"  ✓ 全市場價量取得 {len(result)} 檔")
+    for i in range(0, total, batch_size):
+        chunk = tickers[i:i + batch_size]
+        chunk_num = i // batch_size + 1
+        try:
+            data = yf.download(
+                " ".join(chunk),
+                period=f"{lookback_days}d",
+                group_by="ticker",
+                threads=True,
+                progress=False,
+                auto_adjust=True,
+            )
+        except Exception as e:
+            print(f"  ⚠ batch {chunk_num}/{total_chunks} 失敗: {e}")
+            continue
+
+        if data is None or data.empty:
+            continue
+
+        for ticker in chunk:
+            try:
+                if isinstance(data.columns, pd.MultiIndex):
+                    if ticker not in data.columns.get_level_values(0):
+                        continue
+                    sub = data[ticker].copy()
+                else:
+                    sub = data.copy()
+                sub = sub.dropna(subset=["Close"])
+                if sub.empty:
+                    continue
+                sid = ticker.replace(".TWO", "").replace(".TW", "").upper()
+                result[sid] = sub
+            except Exception:
+                continue
+
+        done = min(i + batch_size, total)
+        print(f"  ... {done}/{total} ({len(result)} 檔有資料)")
+        if i + batch_size < total:
+            time.sleep(0.5)
+
+    print(f"  ✓ Yahoo batch 取得 {len(result)} 檔")
     return result
+
+
+def fetch_finmind_per(stock_id: str) -> dict:
+    """單檔抓 FinMind 最新 PER → 推算 EPS（免費版可用）。"""
+    start = (datetime.now(TW_TZ) - timedelta(days=14)).date().isoformat()
+    rows = _finmind_get(
+        "TaiwanStockPER",
+        {"data_id": stock_id, "start_date": start},
+        timeout=8,
+    )
+    if not rows:
+        return {}
+    df = pd.DataFrame(rows)
+    df["date"] = pd.to_datetime(df.get("date"), errors="coerce")
+    df = df.dropna(subset=["date"]).sort_values("date")
+    if df.empty:
+        return {}
+    latest = df.iloc[-1]
+    per = pd.to_numeric(latest.get("PER"), errors="coerce")
+    close = pd.to_numeric(latest.get("close"), errors="coerce")
+    entry: dict = {}
+    if pd.notna(per) and per > 0:
+        entry["pe"] = round(float(per), 2)
+        if pd.notna(close) and close > 0:
+            entry["eps"] = round(float(close) / float(per), 2)
+    return entry
+
+
+def fetch_finmind_month_revenue_yoy(stock_id: str) -> float | None:
+    """單檔抓 FinMind 月營收並算 YoY（免費版可用）。"""
+    start = (datetime.now(TW_TZ) - timedelta(days=430)).date().isoformat()
+    rows = _finmind_get(
+        "TaiwanStockMonthRevenue",
+        {"data_id": stock_id, "start_date": start},
+        timeout=8,
+    )
+    if not rows:
+        return None
+    df = pd.DataFrame(rows)
+    df["revenue"] = pd.to_numeric(df.get("revenue"), errors="coerce")
+    df["revenue_month"] = pd.to_numeric(df.get("revenue_month"), errors="coerce")
+    df["revenue_year"] = pd.to_numeric(df.get("revenue_year"), errors="coerce")
+    df = df.dropna(subset=["revenue", "revenue_month", "revenue_year"])
+    if df.empty:
+        return None
+    df = df.sort_values(["revenue_year", "revenue_month"])
+    latest = df.iloc[-1]
+    prev = df[
+        (df["revenue_year"] == latest["revenue_year"] - 1) &
+        (df["revenue_month"] == latest["revenue_month"])
+    ]
+    if prev.empty:
+        return None
+    prev_rev = float(prev.iloc[-1]["revenue"])
+    curr_rev = float(latest["revenue"])
+    if prev_rev <= 0:
+        return None
+    return round((curr_rev - prev_rev) / prev_rev * 100, 1)
 
 
 def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
@@ -770,6 +890,25 @@ def scan_stocks_vectorized(
     if not survivors:
         return []
 
+    # ── Stage 1.5: 對 survivors 逐檔補基本面（bulk_fundamentals 空時啟用） ──
+    # FinMind 免費版不支援 batch，但 per-ticker 可用（300/hr 對幾十檔足夠）
+    fundamentals = dict(bulk_fundamentals or {})
+    missing = [(t, _tid(t)) for t, _ in survivors if _tid(t) not in fundamentals]
+    if missing:
+        print(f"  📥 Stage1.5: 逐檔補抓 {len(missing)} 檔基本面（FinMind 免費版 PER + 月營收）...")
+        for idx, (ticker, sid) in enumerate(missing, 1):
+            entry = fetch_finmind_per(sid)
+            yoy = fetch_finmind_month_revenue_yoy(sid)
+            if yoy is not None:
+                entry["yoy_pct"] = yoy
+            if entry:
+                fundamentals[sid] = entry
+            if idx % 20 == 0:
+                print(f"    ... {idx}/{len(missing)} 完成")
+            time.sleep(0.1)
+        got = sum(1 for _, sid in missing if sid in fundamentals)
+        print(f"  ✓ Stage1.5: {got}/{len(missing)} 檔取得基本面")
+
     # ── Stage 2: full indicators on survivors ──
     print(f"  📐 Stage2: 計算 {len(survivors)} 檔完整指標...")
     results: list[dict] = []
@@ -794,8 +933,8 @@ def scan_stocks_vectorized(
         latest_rsi = round(float(rsi_raw), 1) if pd.notna(rsi_raw) else None
         rsi_in_range = latest_rsi is not None and rsi_low <= latest_rsi <= rsi_high
 
-        # 估值（只吃 bulk_fundamentals，不 fallback Yahoo）
-        pref = bulk_fundamentals.get(sid) if bulk_fundamentals else None
+        # 估值（吃 Stage1.5 補齊後的 fundamentals，不 fallback Yahoo）
+        pref = fundamentals.get(sid)
         forward_eps = pref["eps"] if pref and pref.get("eps") else None
         if forward_eps and forward_eps > 0:
             fair_value = round(forward_eps * pe_mult, 1)
@@ -1021,7 +1160,7 @@ def main():
     print("\n📥 批次抓取基本面資料...")
     bulk_fundamentals = fetch_bulk_fundamentals()
     print("\n📥 批次抓取全市場價量...")
-    bulk_history = fetch_bulk_history(config["lookback_days"])
+    bulk_history = fetch_bulk_history(config["lookback_days"], tickers)
 
     # ─── 手上標的先掃（數量少，避免全市場掃完後被限流） ───
     portfolio_tickers = cfg.get("portfolio_tickers", [])
