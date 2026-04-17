@@ -95,7 +95,7 @@ python screener.py --portfolio-only
 腳本會：
 - 掃描手上標的（`portfolio_tickers`）
 - 預設再掃全市場（可用 `--portfolio-only` 關閉）
-- 優先使用 FinMind 批次資料，必要時 fallback Yahoo
+- 用 yfinance 批次抓全市場價量，Stage1 向量化粗篩 MA 突破 + 量能門檻，Stage1.5 對生還者並行補 EPS/PER/YoY
 - 輸出 `frontend/public/data/stocks.json` 與 `frontend/public/data/portfolio.json`
 
 ### 3. 啟動前端開發模式
@@ -177,7 +177,6 @@ GitHub repo 的 **Actions secrets** 請新增：
 - `KV_REST_API_URL`
 - `KV_REST_API_TOKEN`
 - `CONFIG_KV_KEY`（可選，未設定時預設 `eggrolls:config:current`）
-- `FINMIND_TOKEN`（建議，可提高 FinMind 批次抓取穩定性）
 
 流程：
 
@@ -274,12 +273,22 @@ git push
 
 ## 資料來源與策略
 
-- **全市場價量**：FinMind 批次抓取（有 `FINMIND_TOKEN` 時啟用）
-- **全市場基本面（PER / 月營收）**：FinMind 批次抓取
-- **後備來源**：Yahoo Finance（yfinance），在批次資料不足時補資料
 - **官方名單與零成交過濾**：TWSE / TPEX OpenAPI
+- **全市場價量**：yfinance `yf.download` 批次下載（~80 檔/批）
+- **基本面（EPS / PER / YoY）**：yfinance `Ticker.info`，只對 Stage1 生還者並行抓
+- **賣出訊號 YoY 趨勢**：yfinance `quarterly_income_stmt`（手上標的才打）
 
-手上標的與全市場掃描都會輸出 `dataSource` 欄位（例如 `finmind-bulk` / `finmind` / `yahoo`）以便追蹤資料來源。
+掃描流程（全市場）：
+
+```
+TWSE/TPEX 全市場清單（排除 ETF/債券/權證 + 當日零成交）
+  → yfinance batch 抓 120 天價量
+  → Stage1 向量化粗篩：資料足夠 + 當日量 ≥ min_daily_turnover + MA 突破事件
+  → Stage1.5 對生還者並行打 Yahoo info，補 EPS/PER/YoY
+  → Stage2 向量化細算 RSI / 估值 / 量比 → 輸出 stocks.json
+```
+
+手上標的與全市場掃描都會輸出 `dataSource` 欄位（`yahoo-bulk` / `yahoo`）以便追蹤資料來源。
 
 ### 替代資料源
 
@@ -287,8 +296,8 @@ git push
 
 | 資料源 | 優點 | 缺點 |
 |--------|------|------|
-| [FinMind](https://finmindtrade.com/) | 台股專用、資料完整 | 免費版有流量限制 |
-| [證交所 OpenData](https://openapi.twse.com.tw/) | 官方資料 | 需要自己處理格式 |
+| [FinMind](https://finmindtrade.com/) | 台股專用、資料完整 | 免費版 batch/per-ticker 都被擋（400/402） |
+| [證交所 OpenData](https://openapi.twse.com.tw/) | 官方資料 | 需要自己處理格式、無單檔歷史 |
 | [twstock](https://github.com/mlouielu/twstock) | Python 套件、簡單 | 只有基本資料 |
 
 ---
