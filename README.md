@@ -2,6 +2,26 @@
 
 台股篩選儀表板。每天自動篩選符合條件的標的，打開網頁就能看。
 
+## 目前架構總覽
+
+- **前端（Vercel）**：`frontend/` 以 Vite 打包，頁面讀 `public/data/*.json`。
+- **設定中心（Vercel KV）**：`frontend/api/config.js` 負責讀寫 KV 的 `CONFIG_KV_KEY`。
+- **工作流觸發**：前端儲存設定後會呼叫 `/api/config`，API 會 dispatch GitHub Actions。
+- **排程/批次（GitHub Actions）**：`.github/workflows/update-data.yml` 先同步 config，再執行 `backend/screener.py`。
+- **資料產出**：Python 產出 `stocks.json` / `portfolio.json` / `config.json` 到 `frontend/public/data/`，並補 logo。
+
+### 設定更新流程（目前）
+
+```
+Web UI 儲存標的
+  → POST /api/config
+  → 寫入 Vercel KV
+  → dispatch update-data.yml（mode: portfolio-only 或 full）
+  → GitHub Actions 執行 screener.py
+  → 更新 frontend/public/data/*.json
+  → push 回 repo，觸發 Vercel 自動部署
+```
+
 ## 篩選條件
 
 | # | 條件 | 邏輯 |
@@ -20,11 +40,16 @@
 
 ```
 stock-screener/
+├── .github/workflows/
+│   └── update-data.yml        # 排程 / 手動觸發資料更新
 ├── backend/
 │   ├── screener.py          # Python 篩選腳本（每天跑一次）
+│   ├── config.json          # 本地預設設定（workflow 會被 KV 覆蓋）
 │   ├── requirements.txt
 │   └── latest_result.json   # 最新結果備份
 ├── frontend/
+│   ├── api/
+│   │   └── config.js        # 讀寫 KV + 觸發 workflow
 │   ├── package.json
 │   ├── vite.config.js
 │   ├── vercel.json          # Vercel 部署設定
@@ -61,10 +86,17 @@ pip install -r requirements.txt
 python screener.py
 ```
 
+只跑手上標的（跳過全市場掃描）：
+
+```bash
+python screener.py --portfolio-only
+```
+
 腳本會：
-- 掃描 40 檔台股（可在 `screener.py` 裡自訂清單）
-- 計算 MA、RSI、EPS 估值、YoY、量能
-- 輸出結果到 `frontend/public/data/stocks.json`
+- 掃描手上標的（`portfolio_tickers`）
+- 預設再掃全市場（可用 `--portfolio-only` 關閉）
+- 優先使用 FinMind 批次資料，必要時 fallback Yahoo
+- 輸出 `frontend/public/data/stocks.json` 與 `frontend/public/data/portfolio.json`
 
 ### 3. 啟動前端開發模式
 
@@ -135,6 +167,7 @@ vercel --prod
 
 - **自動執行**：每週一到五 14:35（台灣時間），收盤後 5 分鐘
 - **手動觸發**：GitHub repo → Actions → `Update Stock Data` → `Run workflow`
+- **手動模式**：`mode=portfolio-only`（只跑持有標的）或 `mode=full`（完整掃描，預設）
 - JSON 有變動才會 commit，commit 後 Vercel 自動重新部署
 - commit message 帶 `[skip ci]` 避免其他 CI 重複觸發
 - workflow 會先嘗試從 Vercel KV 同步最新 config（抓不到才 fallback repo 內 `backend/config.json`）
@@ -144,13 +177,15 @@ GitHub repo 的 **Actions secrets** 請新增：
 - `KV_REST_API_URL`
 - `KV_REST_API_TOKEN`
 - `CONFIG_KV_KEY`（可選，未設定時預設 `eggrolls:config:current`）
+- `FINMIND_TOKEN`（建議，可提高 FinMind 批次抓取穩定性）
 
 流程：
 
 ```
 GitHub Actions 排程觸發
+  → 從 KV 同步 config 到 backend/config.json
   → 安裝 Python + 依賴
-  → 執行 screener.py（產出 stocks.json + portfolio.json）
+  → 執行 screener.py（可依 mode 跑 portfolio-only/full）
   → git commit + push（僅在資料有變動時）
   → Vercel 偵測 push → 自動部署
 ```
@@ -187,6 +222,11 @@ git push
 
 - **生產環境**：以 Vercel KV 的 `CONFIG_KV_KEY` 設定為主
 - **本地開發**：仍可直接編輯 `backend/config.json`，修改後重跑 `python screener.py` 即可生效
+
+補充欄位：
+
+- `skip_tickers`：暫時排除掃描的標的（例如來源無資料/常 timeout）
+- `lookback_days`：抓歷史資料天數（目前預設 60）
 
 ### 修改掃描股票清單
 
@@ -232,14 +272,14 @@ git push
 
 ---
 
-## 資料來源
+## 資料來源與策略
 
-- **股價 / 技術指標**：Yahoo Finance（透過 yfinance）
-- **營收 YoY**：Yahoo Finance info API
-- **EPS 預估**：Yahoo Finance forwardEps
+- **全市場價量**：FinMind 批次抓取（有 `FINMIND_TOKEN` 時啟用）
+- **全市場基本面（PER / 月營收）**：FinMind 批次抓取
+- **後備來源**：Yahoo Finance（yfinance），在批次資料不足時補資料
+- **官方名單與零成交過濾**：TWSE / TPEX OpenAPI
 
-當 Yahoo 單一標的無資料時（常見於部分 ETF/債券代號），手上標的分析會自動 fallback 到 FinMind 的日線價量資料。
-如需提高 FinMind 穩定性，可設定環境變數 `FINMIND_TOKEN`。
+手上標的與全市場掃描都會輸出 `dataSource` 欄位（例如 `finmind-bulk` / `finmind` / `yahoo`）以便追蹤資料來源。
 
 ### 替代資料源
 
