@@ -152,7 +152,7 @@ def fetch_finmind_history(ticker: str, lookback_days: int) -> pd.DataFrame:
     從 FinMind 抓日線價量，回傳欄位對齊 yfinance 的 DataFrame。
     失敗時回傳空 DataFrame。
     """
-    stock_id = ticker.replace(".TW", "").replace(".TWO", "").upper()
+    stock_id = ticker.replace(".TWO", "").replace(".TW", "").upper()
     start_date = (datetime.now(TW_TZ) - timedelta(days=max(lookback_days * 2, FINMIND_MIN_LOOKBACK_DAYS))).date().isoformat()
     params = {
         "dataset": "TaiwanStockPrice",
@@ -688,7 +688,210 @@ def ensure_logos(tickers: list[str], name_map: dict):
         print(f"🖼️  自動產生 {len(generated)} 個 logo")
 
 
-# ─── 多執行緒掃描 ────────────────────────────────────────
+# ─── 向量化掃描（兩階段：粗篩 → 細算） ──────────────────────
+def scan_stocks_vectorized(
+    tickers: list[str],
+    config: dict,
+    sell_params: dict | None,
+    name_map: dict,
+    bulk_fundamentals: dict,
+    bulk_history: dict[str, pd.DataFrame],
+) -> list[dict]:
+    """向量化全市場掃描，全程在本機運算，不打任何外部 API。
+
+    Stage1 粗篩（事件型閘門）：
+      - 歷史資料足夠（≥ lookback_days/2、≥ ma_period+1、≥ vol_avg_days+1）
+      - 當日成交量 ≥ min_daily_turnover（排除冷門/停牌）
+      - MA 突破事件（prev_close < prev_MA and today_close > today_MA）
+
+    Stage2 細算：僅對粗篩通過的標的算 RSI / 估值 / YoY / 量比，組 result。
+
+    語意差異：現行版本只要 5 條件中過 3 條就入列，不強制 MA 突破；
+    向量化版本把 MA 突破當必要條件，濾掉不是「事件日」的雜訊。
+    """
+    ma_period = config["ma_period"]
+    rsi_period = config["rsi_period"]
+    rsi_low = config["rsi_low"]
+    rsi_high = config["rsi_high"]
+    pe_mult = config["pe_multiple"]
+    yoy_min = config["yoy_min"]
+    vol_ratio_min = config["vol_ratio_min"]
+    vol_avg_days = config["vol_avg_days"]
+    lookback_days = config["lookback_days"]
+    min_turnover = int(config.get("min_daily_turnover", 0))
+    min_conditions = 3
+
+    total = len(tickers)
+    min_bars = max(lookback_days // 2, ma_period + 1, vol_avg_days + 1)
+    print(f"  📐 Stage1 粗篩：資料 ≥ {min_bars} 根 / 當日量 ≥ {min_turnover:,} 股 / MA{ma_period} 突破")
+
+    def _tid(t: str) -> str:
+        return t.replace(".TWO", "").replace(".TW", "").upper()
+
+    # ── Stage 1: cheap vectorized gate ──
+    survivors: list[tuple[str, pd.DataFrame]] = []
+    no_data = too_short = below_turnover = no_ma_break = 0
+
+    for ticker in tickers:
+        hist = bulk_history.get(_tid(ticker))
+        if hist is None or hist.empty:
+            no_data += 1
+            continue
+        if len(hist) < min_bars:
+            too_short += 1
+            continue
+
+        close = hist["Close"]
+        volume = hist["Volume"]
+
+        latest_vol = int(volume.iloc[-1])
+        if latest_vol < min_turnover:
+            below_turnover += 1
+            continue
+
+        ma = close.rolling(window=ma_period).mean()
+        latest_ma = ma.iloc[-1]
+        prev_ma = ma.iloc[-2]
+        if pd.isna(latest_ma) or pd.isna(prev_ma):
+            too_short += 1
+            continue
+
+        prev_close = float(close.iloc[-2])
+        latest_close = float(close.iloc[-1])
+        if not (prev_close < float(prev_ma) and latest_close > float(latest_ma)):
+            no_ma_break += 1
+            continue
+
+        survivors.append((ticker, hist))
+
+    print(f"  ✓ Stage1: {len(survivors)}/{total} 通過 "
+          f"(無資料 {no_data} / 資料不足 {too_short} / 量能過低 {below_turnover} / 未突破 {no_ma_break})")
+
+    if not survivors:
+        return []
+
+    # ── Stage 2: full indicators on survivors ──
+    print(f"  📐 Stage2: 計算 {len(survivors)} 檔完整指標...")
+    results: list[dict] = []
+
+    for ticker, hist in survivors:
+        sid = _tid(ticker)
+        close = hist["Close"]
+        volume = hist["Volume"]
+
+        latest_close = float(close.iloc[-1])
+
+        # MA（Stage1 已確認突破，這裡取值）
+        ma = close.rolling(window=ma_period).mean()
+        latest_ma = float(ma.iloc[-1])
+        prev_ma = float(ma.iloc[-2])
+        prev_close = float(close.iloc[-2])
+        ma_diff_pct = round((latest_close - latest_ma) / latest_ma * 100, 2)
+
+        # RSI
+        rsi_series = calc_rsi(close, rsi_period)
+        rsi_raw = rsi_series.iloc[-1]
+        latest_rsi = round(float(rsi_raw), 1) if pd.notna(rsi_raw) else None
+        rsi_in_range = latest_rsi is not None and rsi_low <= latest_rsi <= rsi_high
+
+        # 估值（只吃 bulk_fundamentals，不 fallback Yahoo）
+        pref = bulk_fundamentals.get(sid) if bulk_fundamentals else None
+        forward_eps = pref["eps"] if pref and pref.get("eps") else None
+        if forward_eps and forward_eps > 0:
+            fair_value = round(forward_eps * pe_mult, 1)
+            undervalued = latest_close < fair_value
+            underval_pct = round((latest_close - fair_value) / fair_value * 100, 1)
+        else:
+            fair_value = None
+            undervalued = False
+            underval_pct = None
+
+        # YoY
+        yoy_pct = pref.get("yoy_pct") if pref else None
+        yoy_pass = yoy_pct is not None and yoy_pct >= yoy_min
+
+        # 量能
+        latest_vol = int(volume.iloc[-1])
+        vol_window = volume.iloc[-vol_avg_days:]
+        avg_vol = int(vol_window.mean()) if len(vol_window) > 0 else 0
+        vol_ratio = round(latest_vol / avg_vol, 2) if avg_vol > 0 else 0
+        vol_surge = vol_ratio >= vol_ratio_min
+
+        recent_vols = volume.iloc[-7:].tolist()
+        max_vol = max(recent_vols) if recent_vols else 1
+        vol_spark = [round(v / max_vol * 100) for v in recent_vols] if max_vol > 0 else []
+
+        conditions = {
+            "ma_breakout": True,  # Stage1 gate
+            "rsi_in_range": rsi_in_range,
+            "undervalued": undervalued,
+            "yoy_pass": yoy_pass,
+            "vol_surge": vol_surge,
+        }
+        passed = sum(conditions.values())
+        if passed < min_conditions:
+            continue
+
+        if passed >= 5:
+            signal = "strong"
+        elif passed >= 4:
+            signal = "buy"
+        else:
+            signal = "watch"
+
+        name = (name_map or {}).get(ticker) or ticker.replace(".TW", "").replace(".TWO", "")
+
+        # 賣出訊號（bulk 路徑沒有 Yahoo 季報，yoy_trend_down 維持 False；
+        # 與目前 hist_source != yahoo 時的行為一致）
+        sell_conditions = None
+        sell_passed_count = 0
+        sell_signal = None
+        if sell_params:
+            sell_ma_below = prev_close > prev_ma and latest_close < latest_ma
+            sell_rsi = (latest_rsi is not None
+                        and sell_params["rsi_sell_low"] <= latest_rsi <= sell_params["rsi_sell_high"])
+            sell_conditions = {
+                "ma_below": sell_ma_below,
+                "rsi_overbought": sell_rsi,
+                "yoy_trend_down": False,
+            }
+            sell_passed_count = sum(sell_conditions.values())
+            if sell_passed_count >= 3:
+                sell_signal = "sell"
+            elif sell_passed_count >= 2:
+                sell_signal = "caution"
+
+        results.append({
+            "symbol": ticker.replace(".TW", "").replace(".TWO", ""),
+            "exchange": "TPEX" if ".TWO" in ticker else "TWSE",
+            "name": name,
+            "close": round(latest_close, 1),
+            "ma5": round(latest_ma, 1),
+            "maDiffPct": ma_diff_pct,
+            "rsi": latest_rsi,
+            "forwardEps": round(forward_eps, 2) if forward_eps else None,
+            "fairValue": fair_value,
+            "undervalPct": underval_pct,
+            "yoyPct": yoy_pct,
+            "yoyTrend": None,
+            "volume": latest_vol,
+            "avgVolume": avg_vol,
+            "volRatio": vol_ratio,
+            "volSpark": vol_spark,
+            "dataSource": "finmind-bulk",
+            "signal": signal,
+            "conditions": conditions,
+            "passedCount": passed,
+            "sellConditions": sell_conditions,
+            "sellPassedCount": sell_passed_count,
+            "sellSignal": sell_signal,
+        })
+
+    print(f"  ✓ Stage2: {len(results)} 檔通過 ≥{min_conditions}/5 條件")
+    return results
+
+
+# ─── 多執行緒掃描（fallback：bulk 失敗時才使用） ─────────────
 def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map: dict,
                          bulk_fundamentals: dict | None = None,
                          bulk_history: dict[str, pd.DataFrame] | None = None) -> list[dict]:
@@ -700,7 +903,7 @@ def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map
     lock = threading.Lock()
 
     def _ticker_to_id(ticker: str) -> str:
-        return ticker.replace(".TW", "").replace(".TWO", "").upper()
+        return ticker.replace(".TWO", "").replace(".TW", "").upper()
 
     def _get_prefetched(ticker: str) -> dict | None:
         if not bulk_fundamentals:
@@ -831,7 +1034,7 @@ def main():
     print(f"\n📊 掃描手上標的 {len(portfolio_tickers)} 檔...")
 
     def _ticker_to_id(ticker: str) -> str:
-        return ticker.replace(".TW", "").replace(".TWO", "").upper()
+        return ticker.replace(".TWO", "").replace(".TW", "").upper()
 
     def _get_prefetched(ticker: str) -> dict | None:
         return bulk_fundamentals.get(_ticker_to_id(ticker))
@@ -890,7 +1093,11 @@ def main():
             print(f"   賣出條件：跌破 MA / RSI {sell_params['rsi_sell_low']}-{sell_params['rsi_sell_high']} / YoY 趨勢向下")
         print()
 
-        results = scan_stocks_parallel(tickers, config, sell_params, name_map, bulk_fundamentals, bulk_history)
+        if bulk_history:
+            results = scan_stocks_vectorized(tickers, config, sell_params, name_map, bulk_fundamentals, bulk_history)
+        else:
+            print("  ⚠ 無 bulk_history，fallback 到多執行緒 + per-ticker fetch")
+            results = scan_stocks_parallel(tickers, config, sell_params, name_map, bulk_fundamentals, bulk_history)
         results.sort(key=lambda x: (-x["passedCount"], x.get("undervalPct") or 0))
 
         output = {

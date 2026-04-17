@@ -105,7 +105,8 @@
     "yoy_min": "最低營收 YoY 成長率 (%)",
     "vol_ratio_min": "最低量能倍數（當日量 / N日均量）",
     "vol_avg_days": "均量計算天數",
-    "lookback_days": "抓取歷史資料天數"
+    "lookback_days": "抓取歷史資料天數",
+    "min_daily_turnover": "當日成交量最低門檻（股），低於此值視為冷門股跳過；0 = 不過濾"
   },
   "screener_params": {
     "ma_period": 5,
@@ -116,7 +117,8 @@
     "yoy_min": 10,
     "vol_ratio_min": 1.5,
     "vol_avg_days": 20,
-    "lookback_days": 120
+    "lookback_days": 120,
+    "min_daily_turnover": 500000
   },
   "_sell_params_desc": {
     "_summary": "賣出訊號條件：跌破MA / RSI過熱 / YoY趨勢向下，符合 ≥2 注意、3/3 賣出",
