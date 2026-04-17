@@ -39,9 +39,6 @@ REQUEST_JITTER_RANGE = (0.05, 0.2)
 BATCH_PAUSE_EVERY = 120
 BATCH_PAUSE_SECONDS = 2.0
 HISTORY_TIMEOUT_SECONDS = 12
-FINMIND_TIMEOUT_SECONDS = 12
-FINMIND_API_URL = "https://api.finmindtrade.com/api/v4/data"
-FINMIND_MIN_LOOKBACK_DAYS = 240
 RETRYABLE_ERROR_KEYWORDS = (
     "Too Many Requests",
     "Rate limited",
@@ -147,197 +144,10 @@ def calc_ma(series: pd.Series, period: int) -> pd.Series:
     return series.rolling(window=period).mean()
 
 
-def fetch_finmind_history(ticker: str, lookback_days: int) -> pd.DataFrame:
-    """
-    從 FinMind 抓日線價量，回傳欄位對齊 yfinance 的 DataFrame。
-    失敗時回傳空 DataFrame。
-    """
-    stock_id = ticker.replace(".TWO", "").replace(".TW", "").upper()
-    start_date = (datetime.now(TW_TZ) - timedelta(days=max(lookback_days * 2, FINMIND_MIN_LOOKBACK_DAYS))).date().isoformat()
-    params = {
-        "dataset": "TaiwanStockPrice",
-        "data_id": stock_id,
-        "start_date": start_date,
-    }
-    token = os.getenv("FINMIND_TOKEN", "").strip()
-    if token:
-        params["token"] = token
-
-    try:
-        resp = requests.get(FINMIND_API_URL, params=params, timeout=FINMIND_TIMEOUT_SECONDS)
-        resp.raise_for_status()
-        payload = resp.json()
-        rows = payload.get("data") or []
-        if not rows:
-            return pd.DataFrame()
-
-        df = pd.DataFrame(rows)
-        if "date" not in df.columns or "close" not in df.columns:
-            return pd.DataFrame()
-
-        df["date"] = pd.to_datetime(df["date"], errors="coerce")
-        df = df.dropna(subset=["date"]).sort_values("date")
-        if df.empty:
-            return pd.DataFrame()
-
-        hist = pd.DataFrame(index=df["date"])
-        hist["Close"] = pd.to_numeric(df["close"], errors="coerce")
-        hist["Volume"] = pd.to_numeric(df.get("Trading_Volume"), errors="coerce").fillna(0)
-        if "open" in df.columns:
-            hist["Open"] = pd.to_numeric(df["open"], errors="coerce")
-        if "max" in df.columns:
-            hist["High"] = pd.to_numeric(df["max"], errors="coerce")
-        if "min" in df.columns:
-            hist["Low"] = pd.to_numeric(df["min"], errors="coerce")
-        hist = hist.dropna(subset=["Close"])
-        return hist
-    except Exception:
-        return pd.DataFrame()
-
-
-def _finmind_get(dataset: str, params: dict | None = None, timeout: int = 30) -> list[dict]:
-    """FinMind 共用 GET，自動帶 token。回傳 data list，失敗回空 list。"""
-    base = {
-        "dataset": dataset,
-        **(params or {}),
-    }
-    token = os.getenv("FINMIND_TOKEN", "").strip()
-    if token:
-        base["token"] = token
-    try:
-        resp = requests.get(FINMIND_API_URL, params=base, timeout=timeout)
-        resp.raise_for_status()
-        return resp.json().get("data") or []
-    except Exception as e:
-        print(f"  ⚠ FinMind {dataset} 失敗: {e}")
-        return []
-
-
-def fetch_bulk_fundamentals() -> dict[str, dict]:
-    """批次從 FinMind 抓 PER 和月營收，回傳 {ticker: {pe, eps, yoy_pct}, ...}。
-
-    ticker 格式為 "2330.TW" / "6547.TWO"（與 config 一致）。
-    需要 FINMIND_TOKEN 才能執行批次查詢（不帶 data_id）。
-    """
-    token = os.getenv("FINMIND_TOKEN", "").strip()
-    if not token:
-        print("  ⚠ FINMIND_TOKEN 未設定，跳過批次基本面抓取（將 fallback 到 Yahoo stock.info）")
-        return {}
-
-    result: dict[str, dict] = {}
-
-    # ── 1. PER（本益比）→ 反推 EPS ──
-    # 取最近 10 個交易日，避免剛好遇到假日空值
-    per_start = (datetime.now(TW_TZ) - timedelta(days=14)).date().isoformat()
-    print("  📥 從 FinMind 批次抓取 PER...")
-    per_rows = _finmind_get("TaiwanStockPER", {"start_date": per_start})
-    if per_rows:
-        df = pd.DataFrame(per_rows)
-        df["date"] = pd.to_datetime(df["date"], errors="coerce")
-        df = df.sort_values("date")
-        # 取每檔最新一筆
-        latest = df.groupby("stock_id").last().reset_index()
-        for _, row in latest.iterrows():
-            sid = str(row["stock_id"]).strip()
-            per = pd.to_numeric(row.get("PER"), errors="coerce")
-            close = pd.to_numeric(row.get("close"), errors="coerce")
-            entry: dict = {}
-            if pd.notna(per) and per > 0:
-                entry["pe"] = round(float(per), 2)
-                if pd.notna(close) and close > 0:
-                    entry["eps"] = round(float(close) / float(per), 2)
-            # 先用純代號當 key，後面再對應 .TW / .TWO
-            result[sid] = entry
-        print(f"  ✓ PER 取得 {len(latest)} 檔")
-    else:
-        print("  ⚠ PER 無資料")
-
-    # ── 2. 月營收 → 算 YoY ──
-    # 取最近 14 個月，確保能拿到去年同月
-    rev_start = (datetime.now(TW_TZ) - timedelta(days=430)).date().isoformat()
-    print("  📥 從 FinMind 批次抓取月營收...")
-    rev_rows = _finmind_get("TaiwanStockMonthRevenue", {"start_date": rev_start}, timeout=60)
-    if rev_rows:
-        df = pd.DataFrame(rev_rows)
-        df["revenue"] = pd.to_numeric(df.get("revenue"), errors="coerce")
-        df["revenue_month"] = pd.to_numeric(df.get("revenue_month"), errors="coerce")
-        df["revenue_year"] = pd.to_numeric(df.get("revenue_year"), errors="coerce")
-        df = df.dropna(subset=["revenue", "revenue_month", "revenue_year"])
-
-        # 每檔取最新月份 + 去年同月
-        for sid, grp in df.groupby("stock_id"):
-            sid = str(sid).strip()
-            grp = grp.sort_values(["revenue_year", "revenue_month"])
-            if grp.empty:
-                continue
-            latest_row = grp.iloc[-1]
-            latest_month = int(latest_row["revenue_month"])
-            latest_year = int(latest_row["revenue_year"])
-            # 找去年同月
-            prev_year_rows = grp[
-                (grp["revenue_year"] == latest_year - 1) &
-                (grp["revenue_month"] == latest_month)
-            ]
-            if prev_year_rows.empty:
-                continue
-            prev_rev = float(prev_year_rows.iloc[-1]["revenue"])
-            curr_rev = float(latest_row["revenue"])
-            if prev_rev > 0:
-                yoy = round((curr_rev - prev_rev) / prev_rev * 100, 1)
-                entry = result.get(sid, {})
-                entry["yoy_pct"] = yoy
-                result[sid] = entry
-        yoy_count = sum(1 for v in result.values() if "yoy_pct" in v)
-        print(f"  ✓ 月營收 YoY 計算完成，{yoy_count} 檔有資料")
-    else:
-        print("  ⚠ 月營收無資料")
-
-    return result
-
-
 def fetch_bulk_history(lookback_days: int, tickers: list[str] | None = None) -> dict[str, pd.DataFrame]:
-    """抓全市場日線價量，回傳 {stock_id: DataFrame}。
-
-    優先：FinMind batch（需 sponsor token）→ 單次 call 全市場
-    Fallback：yfinance batch（免費）→ 分批打，免費版唯一可行解
-
-    DataFrame 欄位對齊 yfinance: Close, Volume, Open, High, Low。
-    """
-    token = os.getenv("FINMIND_TOKEN", "").strip()
-    if token:
-        start = (datetime.now(TW_TZ) - timedelta(days=lookback_days * 2)).date().isoformat()
-        print(f"  📥 從 FinMind 批次抓取全市場價量（{start} 起）...")
-        rows = _finmind_get("TaiwanStockPrice", {"start_date": start}, timeout=120)
-        if rows:
-            df = pd.DataFrame(rows)
-            df["date"] = pd.to_datetime(df["date"], errors="coerce")
-            df = df.dropna(subset=["date"]).sort_values("date")
-
-            result: dict[str, pd.DataFrame] = {}
-            for sid, grp in df.groupby("stock_id"):
-                sid = str(sid).strip()
-                grp = grp.sort_values("date")
-                hist = pd.DataFrame(index=grp["date"].values)
-                hist["Close"] = pd.to_numeric(grp["close"].values, errors="coerce")
-                hist["Volume"] = pd.to_numeric(grp["Trading_Volume"].values, errors="coerce").fillna(0)
-                if "open" in grp.columns:
-                    hist["Open"] = pd.to_numeric(grp["open"].values, errors="coerce")
-                if "max" in grp.columns:
-                    hist["High"] = pd.to_numeric(grp["max"].values, errors="coerce")
-                if "min" in grp.columns:
-                    hist["Low"] = pd.to_numeric(grp["min"].values, errors="coerce")
-                hist = hist.dropna(subset=["Close"])
-                if not hist.empty:
-                    result[sid] = hist
-
-            if result:
-                print(f"  ✓ FinMind 全市場價量取得 {len(result)} 檔")
-                return result
-        print("  ⚠ FinMind batch 無資料（可能為免費版），fallback 到 Yahoo batch")
-
-    # Fallback: yfinance batch
+    """抓全市場日線價量，回傳 {stock_id: DataFrame}。透過 yfinance batch 下載。"""
     if not tickers:
-        print("  ⚠ 無 tickers 可供 Yahoo batch fallback")
+        print("  ⚠ 無 tickers")
         return {}
     return fetch_yahoo_batch_history(tickers, lookback_days)
 
@@ -401,62 +211,46 @@ def fetch_yahoo_batch_history(
     return result
 
 
-def fetch_finmind_per(stock_id: str) -> dict:
-    """單檔抓 FinMind 最新 PER → 推算 EPS（免費版可用）。"""
-    start = (datetime.now(TW_TZ) - timedelta(days=14)).date().isoformat()
-    rows = _finmind_get(
-        "TaiwanStockPER",
-        {"data_id": stock_id, "start_date": start},
-        timeout=8,
-    )
-    if not rows:
+def fetch_yahoo_info(ticker: str) -> dict:
+    """單檔抓 Yahoo ticker.info → {eps, pe, yoy_pct}。失敗回空 dict。"""
+    try:
+        info = yf.Ticker(ticker).info or {}
+    except Exception:
         return {}
-    df = pd.DataFrame(rows)
-    df["date"] = pd.to_datetime(df.get("date"), errors="coerce")
-    df = df.dropna(subset=["date"]).sort_values("date")
-    if df.empty:
-        return {}
-    latest = df.iloc[-1]
-    per = pd.to_numeric(latest.get("PER"), errors="coerce")
-    close = pd.to_numeric(latest.get("close"), errors="coerce")
+
     entry: dict = {}
-    if pd.notna(per) and per > 0:
-        entry["pe"] = round(float(per), 2)
-        if pd.notna(close) and close > 0:
-            entry["eps"] = round(float(close) / float(per), 2)
+    eps = info.get("forwardEps") or info.get("trailingEps")
+    if eps and eps > 0:
+        entry["eps"] = round(float(eps), 2)
+    pe = info.get("forwardPE") or info.get("trailingPE")
+    if pe and pe > 0:
+        entry["pe"] = round(float(pe), 2)
+    growth = info.get("revenueGrowth")
+    if growth is None:
+        growth = info.get("earningsGrowth")
+    if growth is not None:
+        entry["yoy_pct"] = round(float(growth) * 100, 1)
     return entry
 
 
-def fetch_finmind_month_revenue_yoy(stock_id: str) -> float | None:
-    """單檔抓 FinMind 月營收並算 YoY（免費版可用）。"""
-    start = (datetime.now(TW_TZ) - timedelta(days=430)).date().isoformat()
-    rows = _finmind_get(
-        "TaiwanStockMonthRevenue",
-        {"data_id": stock_id, "start_date": start},
-        timeout=8,
-    )
-    if not rows:
-        return None
-    df = pd.DataFrame(rows)
-    df["revenue"] = pd.to_numeric(df.get("revenue"), errors="coerce")
-    df["revenue_month"] = pd.to_numeric(df.get("revenue_month"), errors="coerce")
-    df["revenue_year"] = pd.to_numeric(df.get("revenue_year"), errors="coerce")
-    df = df.dropna(subset=["revenue", "revenue_month", "revenue_year"])
-    if df.empty:
-        return None
-    df = df.sort_values(["revenue_year", "revenue_month"])
-    latest = df.iloc[-1]
-    prev = df[
-        (df["revenue_year"] == latest["revenue_year"] - 1) &
-        (df["revenue_month"] == latest["revenue_month"])
-    ]
-    if prev.empty:
-        return None
-    prev_rev = float(prev.iloc[-1]["revenue"])
-    curr_rev = float(latest["revenue"])
-    if prev_rev <= 0:
-        return None
-    return round((curr_rev - prev_rev) / prev_rev * 100, 1)
+def fetch_yahoo_info_many(tickers: list[str], max_workers: int = 4) -> dict[str, dict]:
+    """並行抓多檔 Yahoo info，回傳 {stock_id: {eps, pe, yoy_pct}}。"""
+    result: dict[str, dict] = {}
+
+    def _tid(t: str) -> str:
+        return t.replace(".TWO", "").replace(".TW", "").upper()
+
+    with ThreadPoolExecutor(max_workers=max_workers) as ex:
+        futures = {ex.submit(fetch_yahoo_info, t): t for t in tickers}
+        for fut in as_completed(futures):
+            t = futures[fut]
+            try:
+                entry = fut.result()
+                if entry:
+                    result[_tid(t)] = entry
+            except Exception:
+                pass
+    return result
 
 
 def calc_yoy_trend_down(stock) -> tuple[bool, list | None]:
@@ -508,7 +302,6 @@ def analyze_with_retry(
     sell_params: dict | None = None,
     min_conditions: int = 3,
     name_map: dict | None = None,
-    allow_finmind_fallback: bool = False,
     raise_on_error: bool = False,
     prefetched: dict | None = None,
     prefetched_hist: pd.DataFrame | None = None,
@@ -524,7 +317,6 @@ def analyze_with_retry(
                 sell_params=sell_params,
                 min_conditions=min_conditions,
                 name_map=name_map,
-                allow_finmind_fallback=allow_finmind_fallback,
                 quiet=True,
                 prefetched=prefetched,
                 prefetched_hist=prefetched_hist,
@@ -544,46 +336,37 @@ def analyze_with_retry(
 
 def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
                   min_conditions: int = 3, name_map: dict | None = None,
-                  allow_finmind_fallback: bool = False,
                   quiet: bool = False,
                   prefetched: dict | None = None,
                   prefetched_hist: pd.DataFrame | None = None) -> dict | None:
     """
     分析單檔股票，回傳篩選結果。
 
-    prefetched: 從 fetch_bulk_fundamentals() 預抓的基本面資料 {pe, eps, yoy_pct}。
-    prefetched_hist: 從 fetch_bulk_history() 預抓的價量 DataFrame。
-    有值時跳過 Yahoo API 呼叫，大幅降低限流失敗率。
+    prefetched: 預抓的基本面資料 {pe, eps, yoy_pct}（來自 Yahoo info）。
+    prefetched_hist: 預抓的價量 DataFrame（來自 Yahoo batch）。
 
     條件不符回傳 None；資料錯誤時 quiet=True 拋 AnalysisError，quiet=False 印訊息回傳 None。
     """
     try:
-        # ── 價量資料：優先用批次預抓，沒有才逐檔打 Yahoo / FinMind ──
+        # ── 價量資料：優先用批次預抓，沒有才逐檔打 Yahoo ──
         hist = pd.DataFrame()
-        hist_source = "finmind-bulk"
+        hist_source = "yahoo-bulk"
         history_error = None
         stock = None
 
         if prefetched_hist is not None and not prefetched_hist.empty:
             hist = prefetched_hist
         else:
-            # 沒有批次資料時：FinMind 逐檔優先，Yahoo 為最後手段
-            if allow_finmind_fallback:
-                hist = fetch_finmind_history(ticker, config["lookback_days"])
-                if not hist.empty:
-                    hist_source = "finmind"
-
-            if hist.empty:
-                stock = yf.Ticker(ticker)
-                hist_source = "yahoo"
-                try:
-                    hist = stock.history(
-                        period=f"{config['lookback_days']}d",
-                        timeout=HISTORY_TIMEOUT_SECONDS,
-                    )
-                except Exception as e:
-                    history_error = str(e)
-                    hist = pd.DataFrame()
+            stock = yf.Ticker(ticker)
+            hist_source = "yahoo"
+            try:
+                hist = stock.history(
+                    period=f"{config['lookback_days']}d",
+                    timeout=HISTORY_TIMEOUT_SECONDS,
+                )
+            except Exception as e:
+                history_error = str(e)
+                hist = pd.DataFrame()
 
         # 完全沒資料 → 失敗
         if hist.empty:
@@ -624,19 +407,29 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
         latest_rsi = round(float(rsi.iloc[-1]), 1) if not pd.isna(rsi.iloc[-1]) else None
         rsi_in_range = (config["rsi_low"] <= latest_rsi <= config["rsi_high"]) if latest_rsi is not None else False
 
-        # 3. 估值：預估 EPS × 倍數
-        # 優先使用批次預抓的 FinMind 資料，沒有才 fallback 到 stock.info
-        forward_eps = None
-        info = {}
-        if prefetched and prefetched.get("eps"):
-            forward_eps = prefetched["eps"]
-        else:
-            if hist_source == "yahoo" and stock is not None:
-                try:
-                    info = stock.info or {}
-                except Exception:
-                    info = {}
+        # 3-4. 估值 + YoY：優先 prefetched；缺什麼就去打 Yahoo info
+        forward_eps = prefetched.get("eps") if prefetched else None
+        yoy_pct = prefetched.get("yoy_pct") if prefetched else None
+
+        info: dict = {}
+        need_info = forward_eps is None or yoy_pct is None
+        if need_info:
+            if stock is None:
+                stock = yf.Ticker(ticker)
+            try:
+                info = stock.info or {}
+            except Exception:
+                info = {}
+
+        if forward_eps is None:
             forward_eps = info.get("forwardEps") or info.get("trailingEps")
+
+        if yoy_pct is None:
+            growth = info.get("revenueGrowth")
+            if growth is None:
+                growth = info.get("earningsGrowth")
+            if growth is not None:
+                yoy_pct = round(float(growth) * 100, 1)
 
         if forward_eps and forward_eps > 0:
             fair_value = round(forward_eps * config["pe_multiple"], 1)
@@ -647,23 +440,7 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
             undervalued = False
             underval_pct = None
 
-        # 4. YoY 營收成長
-        # 優先使用批次預抓的 FinMind 月營收 YoY
-        yoy_pct = None
-        yoy_pass = False
-        if prefetched and prefetched.get("yoy_pct") is not None:
-            yoy_pct = prefetched["yoy_pct"]
-            yoy_pass = yoy_pct >= config["yoy_min"]
-        else:
-            revenue_growth = info.get("revenueGrowth")
-            if revenue_growth is not None:
-                yoy_pct = round(revenue_growth * 100, 1)
-                yoy_pass = yoy_pct >= config["yoy_min"]
-            else:
-                earnings_growth = info.get("earningsGrowth")
-                if earnings_growth is not None:
-                    yoy_pct = round(earnings_growth * 100, 1)
-                    yoy_pass = yoy_pct >= config["yoy_min"]
+        yoy_pass = yoy_pct is not None and yoy_pct >= config["yoy_min"]
 
         # 5. 量能
         latest_vol = int(volume.iloc[-1]) if len(volume) > 0 else 0
@@ -714,7 +491,7 @@ def analyze_stock(ticker: str, config: dict, sell_params: dict | None = None,
                             and prev_close > prev_ma and latest_close < latest_ma)
             sell_rsi = (latest_rsi is not None
                         and sell_params["rsi_sell_low"] <= latest_rsi <= sell_params["rsi_sell_high"])
-            if hist_source == "yahoo" and stock is not None:
+            if stock is not None:
                 sell_yoy_down, yoy_trend = calc_yoy_trend_down(stock)
             else:
                 sell_yoy_down, yoy_trend = False, None
@@ -890,24 +667,14 @@ def scan_stocks_vectorized(
     if not survivors:
         return []
 
-    # ── Stage 1.5: 對 survivors 逐檔補基本面（bulk_fundamentals 空時啟用） ──
-    # FinMind 免費版不支援 batch，但 per-ticker 可用（300/hr 對幾十檔足夠）
+    # ── Stage 1.5: 對 survivors 並行抓 Yahoo info（EPS / PER / YoY） ──
     fundamentals = dict(bulk_fundamentals or {})
-    missing = [(t, _tid(t)) for t, _ in survivors if _tid(t) not in fundamentals]
-    if missing:
-        print(f"  📥 Stage1.5: 逐檔補抓 {len(missing)} 檔基本面（FinMind 免費版 PER + 月營收）...")
-        for idx, (ticker, sid) in enumerate(missing, 1):
-            entry = fetch_finmind_per(sid)
-            yoy = fetch_finmind_month_revenue_yoy(sid)
-            if yoy is not None:
-                entry["yoy_pct"] = yoy
-            if entry:
-                fundamentals[sid] = entry
-            if idx % 20 == 0:
-                print(f"    ... {idx}/{len(missing)} 完成")
-            time.sleep(0.1)
-        got = sum(1 for _, sid in missing if sid in fundamentals)
-        print(f"  ✓ Stage1.5: {got}/{len(missing)} 檔取得基本面")
+    missing_tickers = [t for t, _ in survivors if _tid(t) not in fundamentals]
+    if missing_tickers:
+        print(f"  📥 Stage1.5: 並行抓 {len(missing_tickers)} 檔 Yahoo info（EPS / PER / YoY）...")
+        fetched = fetch_yahoo_info_many(missing_tickers, max_workers=MAX_WORKERS)
+        fundamentals.update(fetched)
+        print(f"  ✓ Stage1.5: {len(fetched)}/{len(missing_tickers)} 檔取得基本面")
 
     # ── Stage 2: full indicators on survivors ──
     print(f"  📐 Stage2: 計算 {len(survivors)} 檔完整指標...")
@@ -1017,7 +784,7 @@ def scan_stocks_vectorized(
             "avgVolume": avg_vol,
             "volRatio": vol_ratio,
             "volSpark": vol_spark,
-            "dataSource": "finmind-bulk",
+            "dataSource": "yahoo-bulk",
             "signal": signal,
             "conditions": conditions,
             "passedCount": passed,
@@ -1066,7 +833,6 @@ def scan_stocks_parallel(tickers: list[str], config: dict, sell_params, name_map
                 config,
                 sell_params=sell_params,
                 name_map=name_map,
-                allow_finmind_fallback=True,
                 raise_on_error=True,
                 prefetched=_get_prefetched(ticker),
                 prefetched_hist=hist,
@@ -1156,13 +922,7 @@ def main():
         if skipped > 0:
             print(f"  ⏭️ 預過濾排除 {skipped} 檔零成交量標的（停牌/冷門）")
 
-    # ─── 批次抓取基本面 + 價量資料 ────────────────────
-    print("\n📥 批次抓取基本面資料...")
-    bulk_fundamentals = fetch_bulk_fundamentals()
-    print("\n📥 批次抓取全市場價量...")
-    bulk_history = fetch_bulk_history(config["lookback_days"], tickers)
-
-    # ─── 手上標的先掃（數量少，避免全市場掃完後被限流） ───
+    # ─── 手上標的合併進 batch 抓取範圍（涵蓋 ETF 等非 TWSE/TPEX 主清單標的） ───
     portfolio_tickers = cfg.get("portfolio_tickers", [])
     if skip_tickers:
         original_portfolio = len(portfolio_tickers)
@@ -1170,6 +930,14 @@ def main():
         removed_portfolio = original_portfolio - len(portfolio_tickers)
         if removed_portfolio > 0:
             print(f"  ⏭️ 手上標的排除 {removed_portfolio} 檔 skip_tickers")
+
+    all_tickers = list(dict.fromkeys(list(tickers) + list(portfolio_tickers)))
+
+    # ─── 批次抓取價量資料（Yahoo batch） ────────────────
+    print("\n📥 批次抓取全市場價量...")
+    bulk_fundamentals: dict[str, dict] = {}
+    bulk_history = fetch_bulk_history(config["lookback_days"], all_tickers)
+
     print(f"\n📊 掃描手上標的 {len(portfolio_tickers)} 檔...")
 
     def _ticker_to_id(ticker: str) -> str:
@@ -1190,7 +958,6 @@ def main():
             sell_params=sell_params,
             min_conditions=0,
             name_map=name_map,
-            allow_finmind_fallback=True,
             raise_on_error=False,
             prefetched=_get_prefetched(ticker),
             prefetched_hist=_get_hist(ticker),
