@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-30T15:27:00.604827+08:00",
+  "generatedAt": "2026-05-01T15:25:10.596496+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -11,7 +11,7 @@
     "vol_avg_days": 20,
     "lookback_days": 120
   },
-  "totalScanned": 1074,
+  "totalScanned": 1075,
   "totalPassed": 32,
   "stocks": [
     {
@@ -27,9 +27,9 @@
       "undervalPct": -58.9,
       "yoyPct": 70.6,
       "yoyTrend": null,
-      "volume": 521927,
-      "avgVolume": 565634,
-      "volRatio": 0.92,
+      "volume": 507440,
+      "avgVolume": 564910,
+      "volRatio": 0.9,
       "volSpark": [
         44,
         87,
@@ -37,7 +37,7 @@
         100,
         44,
         38,
-        62
+        60
       ],
       "dataSource": "yahoo-bulk",
       "signal": "buy",
@@ -70,8 +70,8 @@
       "undervalPct": -57.5,
       "yoyPct": 30.6,
       "yoyTrend": null,
-      "volume": 4984976,
-      "avgVolume": 7319078,
+      "volume": 4944146,
+      "avgVolume": 7317036,
       "volRatio": 0.68,
       "volSpark": [
         94,
@@ -80,7 +80,7 @@
         51,
         71,
         54,
-        48
+        47
       ],
       "dataSource": "yahoo-bulk",
       "signal": "buy",
@@ -156,15 +156,15 @@
       "undervalPct": -53.1,
       "yoyPct": -9.5,
       "yoyTrend": null,
-      "volume": 3041415,
-      "avgVolume": 1655527,
-      "volRatio": 1.84,
+      "volume": 3012239,
+      "avgVolume": 1654069,
+      "volRatio": 1.82,
       "volSpark": [
         33,
-        67,
+        68,
         55,
         66,
-        32,
+        33,
         26,
         100
       ],
@@ -199,8 +199,8 @@
       "undervalPct": -48.4,
       "yoyPct": 456.2,
       "yoyTrend": null,
-      "volume": 210802,
-      "avgVolume": 716582,
+      "volume": 206000,
+      "avgVolume": 716342,
       "volRatio": 0.29,
       "volSpark": [
         24,
@@ -242,9 +242,9 @@
       "undervalPct": -32.0,
       "yoyPct": 27.9,
       "yoyTrend": null,
-      "volume": 8663463,
-      "avgVolume": 6319220,
-      "volRatio": 1.37,
+      "volume": 8606289,
+      "avgVolume": 6316362,
+      "volRatio": 1.36,
       "volSpark": [
         100,
         81,
@@ -252,7 +252,7 @@
         39,
         24,
         22,
-        65
+        64
       ],
       "dataSource": "yahoo-bulk",
       "signal": "buy",
@@ -285,9 +285,9 @@
       "undervalPct": -12.9,
       "yoyPct": 13.9,
       "yoyTrend": null,
-      "volume": 4724763,
-      "avgVolume": 2549184,
-      "volRatio": 1.85,
+      "volume": 4676006,
+      "avgVolume": 2546746,
+      "volRatio": 1.84,
       "volSpark": [
         56,
         85,
@@ -295,7 +295,7 @@
         100,
         90,
         46,
-        92
+        91
       ],
       "dataSource": "yahoo-bulk",
       "signal": "buy",
@@ -328,9 +328,9 @@
       "undervalPct": -9.2,
       "yoyPct": 0.8,
       "yoyTrend": null,
-      "volume": 56004,
-      "avgVolume": 33917,
-      "volRatio": 1.65,
+      "volume": 55202,
+      "avgVolume": 33877,
+      "volRatio": 1.63,
       "volSpark": [
         54,
         65,
@@ -338,7 +338,7 @@
         17,
         100,
         3,
-        64
+        63
       ],
       "dataSource": "yahoo-bulk",
       "signal": "buy",
@@ -371,8 +371,8 @@
       "undervalPct": -82.4,
       "yoyPct": 13.8,
       "yoyTrend": null,
-      "volume": 2916678,
-      "avgVolume": 3932177,
+      "volume": 2900160,
+      "avgVolume": 3931351,
       "volRatio": 0.74,
       "volSpark": [
         100,
@@ -414,9 +414,9 @@
       "undervalPct": -67.0,
       "yoyPct": -19.5,
       "yoyTrend": null,
-      "volume": 56326,
-      "avgVolume": 52503,
-      "volRatio": 1.07,
+      "volume": 54161,
+      "avgVolume": 52395,
+      "volRatio": 1.03,
       "volSpark": [
         11,
         58,
@@ -424,7 +424,7 @@
         100,
         37,
         19,
-        33
+        31
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -457,9 +457,9 @@
       "undervalPct": -64.1,
       "yoyPct": 1.0,
       "yoyTrend": null,
-      "volume": 64652,
-      "avgVolume": 182751,
-      "volRatio": 0.35,
+      "volume": 61498,
+      "avgVolume": 182593,
+      "volRatio": 0.34,
       "volSpark": [
         25,
         22,
@@ -467,7 +467,7 @@
         100,
         29,
         13,
-        10
+        9
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -500,8 +500,8 @@
       "undervalPct": -58.8,
       "yoyPct": -0.1,
       "yoyTrend": null,
-      "volume": 1020085,
-      "avgVolume": 796720,
+      "volume": 1017095,
+      "avgVolume": 796570,
       "volRatio": 1.28,
       "volSpark": [
         87,
@@ -543,9 +543,9 @@
       "undervalPct": -54.5,
       "yoyPct": -22.3,
       "yoyTrend": null,
-      "volume": 88130,
-      "avgVolume": 65774,
-      "volRatio": 1.34,
+      "volume": 86089,
+      "avgVolume": 65672,
+      "volRatio": 1.31,
       "volSpark": [
         32,
         100,
@@ -553,7 +553,7 @@
         48,
         36,
         22,
-        48
+        46
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -629,8 +629,8 @@
       "undervalPct": -47.2,
       "yoyPct": -3.9,
       "yoyTrend": null,
-      "volume": 36520,
-      "avgVolume": 57172,
+      "volume": 36562,
+      "avgVolume": 57174,
       "volRatio": 0.64,
       "volSpark": [
         37,
@@ -672,9 +672,9 @@
       "undervalPct": -46.7,
       "yoyPct": -24.6,
       "yoyTrend": null,
-      "volume": 2793655,
-      "avgVolume": 3228266,
-      "volRatio": 0.87,
+      "volume": 2789405,
+      "avgVolume": 3228054,
+      "volRatio": 0.86,
       "volSpark": [
         65,
         100,
@@ -715,9 +715,9 @@
       "undervalPct": -42.5,
       "yoyPct": 16.9,
       "yoyTrend": null,
-      "volume": 372920,
-      "avgVolume": 475873,
-      "volRatio": 0.78,
+      "volume": 367045,
+      "avgVolume": 475579,
+      "volRatio": 0.77,
       "volSpark": [
         66,
         100,
@@ -725,7 +725,7 @@
         47,
         53,
         36,
-        55
+        54
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -758,8 +758,8 @@
       "undervalPct": -40.5,
       "yoyPct": 115.0,
       "yoyTrend": null,
-      "volume": 7570371,
-      "avgVolume": 6564886,
+      "volume": 7563388,
+      "avgVolume": 6564537,
       "volRatio": 1.15,
       "volSpark": [
         26,
@@ -801,8 +801,8 @@
       "undervalPct": -39.3,
       "yoyPct": 9.2,
       "yoyTrend": null,
-      "volume": 2496303,
-      "avgVolume": 3688541,
+      "volume": 2493931,
+      "avgVolume": 3688422,
       "volRatio": 0.68,
       "volSpark": [
         76,
@@ -844,8 +844,8 @@
       "undervalPct": -38.5,
       "yoyPct": -61.1,
       "yoyTrend": null,
-      "volume": 27056055,
-      "avgVolume": 29367870,
+      "volume": 27020832,
+      "avgVolume": 29366108,
       "volRatio": 0.92,
       "volSpark": [
         90,
@@ -887,9 +887,9 @@
       "undervalPct": -32.2,
       "yoyPct": -3.9,
       "yoyTrend": null,
-      "volume": 299902,
-      "avgVolume": 257925,
-      "volRatio": 1.16,
+      "volume": 308077,
+      "avgVolume": 258334,
+      "volRatio": 1.19,
       "volSpark": [
         49,
         88,
@@ -897,7 +897,7 @@
         96,
         65,
         41,
-        63
+        64
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -930,9 +930,9 @@
       "undervalPct": -29.4,
       "yoyPct": -0.7,
       "yoyTrend": null,
-      "volume": 45366,
-      "avgVolume": 66772,
-      "volRatio": 0.68,
+      "volume": 42001,
+      "avgVolume": 66604,
+      "volRatio": 0.63,
       "volSpark": [
         19,
         100,
@@ -940,7 +940,7 @@
         50,
         12,
         95,
-        28
+        26
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -973,8 +973,8 @@
       "undervalPct": -27.0,
       "yoyPct": 12.6,
       "yoyTrend": null,
-      "volume": 21629612,
-      "avgVolume": 21350030,
+      "volume": 21574426,
+      "avgVolume": 21347271,
       "volRatio": 1.01,
       "volSpark": [
         79,
@@ -983,7 +983,7 @@
         41,
         33,
         24,
-        53
+        52
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -1016,16 +1016,16 @@
       "undervalPct": -21.7,
       "yoyPct": 6.7,
       "yoyTrend": null,
-      "volume": 4579136,
-      "avgVolume": 1476163,
-      "volRatio": 3.1,
+      "volume": 4531075,
+      "avgVolume": 1473760,
+      "volRatio": 3.07,
       "volSpark": [
         29,
         56,
         26,
         28,
         24,
-        11,
+        12,
         100
       ],
       "dataSource": "yahoo-bulk",
@@ -1059,7 +1059,7 @@
       "undervalPct": -21.2,
       "yoyPct": 0.6,
       "yoyTrend": null,
-      "volume": 60709,
+      "volume": 60710,
       "avgVolume": 86511,
       "volRatio": 0.7,
       "volSpark": [
@@ -1102,8 +1102,8 @@
       "undervalPct": -19.6,
       "yoyPct": 20.8,
       "yoyTrend": null,
-      "volume": 32695015,
-      "avgVolume": 31122808,
+      "volume": 32570889,
+      "avgVolume": 31116602,
       "volRatio": 1.05,
       "volSpark": [
         100,
@@ -1145,9 +1145,9 @@
       "undervalPct": -12.0,
       "yoyPct": -13.9,
       "yoyTrend": null,
-      "volume": 74561,
-      "avgVolume": 106039,
-      "volRatio": 0.7,
+      "volume": 65177,
+      "avgVolume": 105570,
+      "volRatio": 0.62,
       "volSpark": [
         48,
         100,
@@ -1155,7 +1155,7 @@
         57,
         35,
         43,
-        57
+        50
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -1188,8 +1188,8 @@
       "undervalPct": -7.8,
       "yoyPct": 5.4,
       "yoyTrend": null,
-      "volume": 65338,
-      "avgVolume": 48341,
+      "volume": 65000,
+      "avgVolume": 48324,
       "volRatio": 1.35,
       "volSpark": [
         33,
@@ -1231,8 +1231,8 @@
       "undervalPct": -6.4,
       "yoyPct": -8.1,
       "yoyTrend": null,
-      "volume": 55232,
-      "avgVolume": 90751,
+      "volume": 55150,
+      "avgVolume": 90747,
       "volRatio": 0.61,
       "volSpark": [
         75,
@@ -1274,7 +1274,7 @@
       "undervalPct": null,
       "yoyPct": 36.7,
       "yoyTrend": null,
-      "volume": 6002,
+      "volume": 6003,
       "avgVolume": 25497,
       "volRatio": 0.24,
       "volSpark": [
@@ -1317,9 +1317,9 @@
       "undervalPct": null,
       "yoyPct": 56.0,
       "yoyTrend": null,
-      "volume": 801207,
-      "avgVolume": 517202,
-      "volRatio": 1.55,
+      "volume": 797040,
+      "avgVolume": 516994,
+      "volRatio": 1.54,
       "volSpark": [
         60,
         100,
@@ -1360,16 +1360,16 @@
       "undervalPct": 123.0,
       "yoyPct": 32.8,
       "yoyTrend": null,
-      "volume": 24605041,
-      "avgVolume": 13230248,
-      "volRatio": 1.86,
+      "volume": 24156364,
+      "avgVolume": 13207814,
+      "volRatio": 1.83,
       "volSpark": [
-        14,
+        15,
         19,
         17,
-        71,
-        71,
-        44,
+        73,
+        72,
+        45,
         100
       ],
       "dataSource": "yahoo-bulk",
