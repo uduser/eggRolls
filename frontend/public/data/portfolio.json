@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T15:29:17.074410+08:00",
+  "generatedAt": "2026-08-28T01:53:31.673926+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -27,9 +27,9 @@
       "undervalPct": -15.1,
       "yoyPct": 35.7,
       "yoyTrend": null,
-      "volume": 27507869,
-      "avgVolume": 46185277,
-      "volRatio": 0.6,
+      "volume": 26535435,
+      "avgVolume": 46136656,
+      "volRatio": 0.58,
       "volSpark": [
         64,
         100,
@@ -37,7 +37,7 @@
         36,
         41,
         60,
-        50
+        49
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -70,9 +70,9 @@
       "undervalPct": -73.0,
       "yoyPct": 684.2,
       "yoyTrend": null,
-      "volume": 58731409,
-      "avgVolume": 85116624,
-      "volRatio": 0.69,
+      "volume": 57881824,
+      "avgVolume": 85074145,
+      "volRatio": 0.68,
       "volSpark": [
         97,
         77,
@@ -80,7 +80,7 @@
         75,
         81,
         76,
-        68
+        67
       ],
       "dataSource": "yahoo-bulk",
       "signal": "hold",
@@ -113,9 +113,9 @@
       "undervalPct": -15.0,
       "yoyPct": 36.0,
       "yoyTrend": null,
-      "volume": 19200869,
-      "avgVolume": 23027762,
-      "volRatio": 0.83,
+      "volume": 17662672,
+      "avgVolume": 22950852,
+      "volRatio": 0.77,
       "volSpark": [
         86,
         100,
@@ -123,7 +123,7 @@
         78,
         53,
         64,
-        96
+        88
       ],
       "dataSource": "yahoo-bulk",
       "signal": "hold",
@@ -147,18 +147,18 @@
       "symbol": "00992A",
       "exchange": "TWSE",
       "name": "CAPITAL INV TRUST CORP CAPITAL ",
-      "close": 18.2,
-      "ma5": 17.7,
-      "maDiffPct": 2.65,
-      "rsi": 60.6,
+      "close": 17.7,
+      "ma5": 17.6,
+      "maDiffPct": 0.57,
+      "rsi": 57.0,
       "forwardEps": null,
       "fairValue": null,
       "undervalPct": null,
       "yoyPct": null,
       "yoyTrend": null,
-      "volume": 34981700,
-      "avgVolume": 49723628,
-      "volRatio": 0.7,
+      "volume": 32421813,
+      "avgVolume": 49595634,
+      "volRatio": 0.65,
       "volSpark": [
         100,
         90,
@@ -166,7 +166,7 @@
         44,
         38,
         47,
-        62
+        58
       ],
       "dataSource": "yahoo-bulk",
       "signal": "hold",
@@ -180,28 +180,28 @@
       "passedCount": 1,
       "sellConditions": {
         "ma_below": false,
-        "rsi_overbought": true,
+        "rsi_overbought": false,
         "yoy_trend_down": false
       },
-      "sellPassedCount": 1,
+      "sellPassedCount": 0,
       "sellSignal": null
     },
     {
       "symbol": "0050",
       "exchange": "TWSE",
       "name": "元大台灣50",
-      "close": 105.9,
-      "ma5": 104.3,
-      "maDiffPct": 1.58,
-      "rsi": 55.8,
+      "close": 104.4,
+      "ma5": 104.0,
+      "maDiffPct": 0.43,
+      "rsi": 52.3,
       "forwardEps": null,
       "fairValue": null,
       "undervalPct": null,
       "yoyPct": null,
       "yoyTrend": null,
-      "volume": 88577541,
-      "avgVolume": 122440025,
-      "volRatio": 0.72,
+      "volume": 55019407,
+      "avgVolume": 120762118,
+      "volRatio": 0.46,
       "volSpark": [
         59,
         65,
@@ -209,7 +209,7 @@
         44,
         43,
         45,
-        97
+        61
       ],
       "dataSource": "yahoo-bulk",
       "signal": "hold",
@@ -237,14 +237,14 @@
       "ma5": 91.5,
       "maDiffPct": 3.17,
       "rsi": 65.0,
-      "forwardEps": 0.68,
-      "fairValue": 13.6,
-      "undervalPct": 594.1,
+      "forwardEps": 0.69,
+      "fairValue": 13.8,
+      "undervalPct": 584.1,
       "yoyPct": 23.1,
       "yoyTrend": null,
-      "volume": 6353847,
-      "avgVolume": 4362903,
-      "volRatio": 1.46,
+      "volume": 6278308,
+      "avgVolume": 4359127,
+      "volRatio": 1.44,
       "volSpark": [
         79,
         100,
@@ -252,7 +252,7 @@
         31,
         20,
         24,
-        35
+        34
       ],
       "dataSource": "yahoo-bulk",
       "signal": "hold",
