@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T20:07:42.927456+08:00",
+  "generatedAt": "2026-09-28T22:23:21.017162+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -1570,9 +1570,9 @@
       "ma5": 234.9,
       "maDiffPct": 1.32,
       "rsi": 58.1,
-      "forwardEps": 16.58,
-      "fairValue": 331.6,
-      "undervalPct": -28.2,
+      "forwardEps": 17.15,
+      "fairValue": 343.0,
+      "undervalPct": -30.6,
       "yoyPct": 27.3,
       "yoyTrend": null,
       "volume": 66153140,
