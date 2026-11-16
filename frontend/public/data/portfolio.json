@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T22:52:06.812027+08:00",
+  "generatedAt": "2026-11-17T00:19:50.495263+08:00",
   "config": {
     "ma_period": 5,
     "rsi_period": 14,
@@ -27,9 +27,9 @@
       "undervalPct": -85.0,
       "yoyPct": 611.7,
       "yoyTrend": null,
-      "volume": 49994739,
-      "avgVolume": 45249961,
-      "volRatio": 1.1,
+      "volume": 49329686,
+      "avgVolume": 45216708,
+      "volRatio": 1.09,
       "volSpark": [
         86,
         100,
@@ -37,7 +37,7 @@
         91,
         78,
         93,
-        79
+        78
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -70,9 +70,9 @@
       "undervalPct": -36.2,
       "yoyPct": 35.7,
       "yoyTrend": null,
-      "volume": 37246260,
-      "avgVolume": 37438677,
-      "volRatio": 0.99,
+      "volume": 36522706,
+      "avgVolume": 37402500,
+      "volRatio": 0.98,
       "volSpark": [
         87,
         92,
@@ -80,7 +80,7 @@
         100,
         74,
         62,
-        63
+        62
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -113,9 +113,9 @@
       "undervalPct": -21.4,
       "yoyPct": 50.9,
       "yoyTrend": null,
-      "volume": 30063985,
-      "avgVolume": 31817530,
-      "volRatio": 0.94,
+      "volume": 28844142,
+      "avgVolume": 31756538,
+      "volRatio": 0.91,
       "volSpark": [
         38,
         100,
@@ -123,7 +123,7 @@
         35,
         31,
         30,
-        31
+        30
       ],
       "dataSource": "yahoo-bulk",
       "signal": "watch",
@@ -156,9 +156,9 @@
       "undervalPct": 496.3,
       "yoyPct": 23.1,
       "yoyTrend": null,
-      "volume": 1442278,
-      "avgVolume": 2587704,
-      "volRatio": 0.56,
+      "volume": 1413250,
+      "avgVolume": 2586252,
+      "volRatio": 0.55,
       "volSpark": [
         56,
         100,
@@ -166,7 +166,7 @@
         64,
         55,
         54,
-        27
+        26
       ],
       "dataSource": "yahoo-bulk",
       "signal": "hold",
@@ -199,8 +199,8 @@
       "undervalPct": null,
       "yoyPct": null,
       "yoyTrend": null,
-      "volume": 59945481,
-      "avgVolume": 71809429,
+      "volume": 59851182,
+      "avgVolume": 71804714,
       "volRatio": 0.83,
       "volSpark": [
         81,
@@ -242,9 +242,9 @@
       "undervalPct": null,
       "yoyPct": null,
       "yoyTrend": null,
-      "volume": 128096812,
-      "avgVolume": 196388186,
-      "volRatio": 0.65,
+      "volume": 123617401,
+      "avgVolume": 196164215,
+      "volRatio": 0.63,
       "volSpark": [
         49,
         100,
@@ -252,7 +252,7 @@
         21,
         14,
         15,
-        15
+        14
       ],
       "dataSource": "yahoo-bulk",
       "signal": "hold",
